@@ -1,0 +1,16 @@
+{
+  "device_types": ["desktop", "laptop"],
+  "games": [
+    {"value": "valorant", "label": "Valorant"},
+    {"value": "cs2", "label": "Counter-Strike 2"},
+    {"value": "pubg", "label": "PUBG"},
+    {"value": "fc_online", "label": "FC Online"},
+    {"value": "lol", "label": "League of Legends"}
+  ],
+  "resolutions": [{"value": "1920x1080", "label": "1920 × 1080"}],
+  "graphics_presets": ["low", "medium", "high"],
+  "cpu_models": ["Intel Core i5-12400F", "Intel Core i7-12700H", "AMD Ryzen 5 5600", "AMD Ryzen 7 7840HS"],
+  "gpu_models": ["NVIDIA RTX 3060", "NVIDIA RTX 3050 Laptop GPU", "NVIDIA RTX 4060 Laptop GPU", "AMD Radeon RX 6600"],
+  "ram_types": ["DDR4", "DDR5", "LPDDR4X", "LPDDR5", "LPDDR5X"],
+  "ram_channels": ["single", "dual", "quad"]
+}

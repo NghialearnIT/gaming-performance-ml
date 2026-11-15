@@ -1,0 +1,122 @@
+[
+  {
+    "id": "DEMO-01",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "desktop",
+      "cpu_model": "Intel Core i5-12400F",
+      "gpu_model": "NVIDIA RTX 3060",
+      "gpu_vram_gb": 12,
+      "gpu_tgp_w": null,
+      "ram_gb": 16,
+      "ram_type": "DDR4",
+      "ram_channels": "dual",
+      "game": "valorant",
+      "graphics_preset": "high",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  },
+  {
+    "id": "DEMO-02",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "desktop",
+      "cpu_model": "AMD Ryzen 5 5600",
+      "gpu_model": "AMD Radeon RX 6600",
+      "gpu_vram_gb": 8,
+      "gpu_tgp_w": null,
+      "ram_gb": 16,
+      "ram_type": "DDR4",
+      "ram_channels": "dual",
+      "game": "cs2",
+      "graphics_preset": "medium",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  },
+  {
+    "id": "DEMO-03",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "laptop",
+      "cpu_model": "Intel Core i7-12700H",
+      "gpu_model": "NVIDIA RTX 3050 Laptop GPU",
+      "gpu_vram_gb": 4,
+      "gpu_tgp_w": 80,
+      "ram_gb": 16,
+      "ram_type": "DDR4",
+      "ram_channels": "dual",
+      "game": "pubg",
+      "graphics_preset": "low",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  },
+  {
+    "id": "DEMO-04",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "laptop",
+      "cpu_model": "AMD Ryzen 7 7840HS",
+      "gpu_model": "NVIDIA RTX 4060 Laptop GPU",
+      "gpu_vram_gb": 8,
+      "gpu_tgp_w": null,
+      "ram_gb": 16,
+      "ram_type": "DDR5",
+      "ram_channels": "dual",
+      "game": "fc_online",
+      "graphics_preset": "medium",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  },
+  {
+    "id": "DEMO-05",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "desktop",
+      "cpu_model": "AMD Ryzen 5 5600",
+      "gpu_model": "AMD Radeon RX 6600",
+      "gpu_vram_gb": 8,
+      "gpu_tgp_w": null,
+      "ram_gb": 16,
+      "ram_type": "DDR4",
+      "ram_channels": "dual",
+      "game": "lol",
+      "graphics_preset": "high",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  },
+  {
+    "id": "DEMO-06",
+    "purpose": "ui_rehearsal",
+    "payload": {
+      "device_type": "laptop",
+      "cpu_model": "AMD Ryzen 7 7840HS",
+      "gpu_model": "NVIDIA RTX 4060 Laptop GPU",
+      "gpu_vram_gb": 8,
+      "gpu_tgp_w": 105,
+      "ram_gb": 32,
+      "ram_type": "DDR5",
+      "ram_channels": "dual",
+      "game": "valorant",
+      "graphics_preset": "medium",
+      "resolution": "1920x1080"
+    },
+    "measured_avg_fps": null,
+    "measured_one_percent_low_fps": null,
+    "benchmark_url": null
+  }
+]

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111411">
+  <title>Dự đoán FPS | Gaming Performance ML</title>
+  <link rel="stylesheet" href="./vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./vendor/chart.umd.js"></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="shell top-inner">
+      <a class="brand" href="./" aria-label="Gaming Performance ML, trang chính">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        Gaming Performance <strong>ML</strong>
+      </a>
+      <a class="mode-link" id="mode-link" href="?demo=1">Mở bản demo <span aria-hidden="true">↗︎</span></a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="hero">
+      <div>
+        <h1>Dự đoán <em>FPS.</em></h1>
+        <p>Nhập cấu hình máy và thiết lập đồ họa để ước lượng hiệu năng khi chơi game.</p>
+      </div>
+      <div class="hero-scope"><strong>1080p</strong><span>Low · Medium · High</span></div>
+    </div>
+
+    <div class="connection" id="connection" data-state="loading" role="status">Đang tải danh sách cấu hình…</div>
+    <div class="workspace">
+      <section class="panel" aria-labelledby="config-title">
+        <div class="panel-head">
+          <div><h2 id="config-title">Cấu hình &amp; thiết lập</h2><p>Các trường có dấu * là bắt buộc.</p></div>
+          <button class="small-button" id="sample" type="button" hidden>Dùng cấu hình mẫu</button>
+        </div>
+        <form id="predict-form" novalidate>
+          <fieldset id="fields" disabled>
+            <legend>Phần cứng</legend>
+            <div class="fields-grid">
+              <div class="field full">
+                <span class="field-label" id="device-label">Loại thiết bị *</span>
+                <div class="device-choices" role="group" aria-labelledby="device-label" aria-describedby="device_type-error">
+                  <input class="btn-check" type="radio" name="device_type" id="desktop" value="desktop" checked required>
+                  <label for="desktop">Desktop</label>
+                  <input class="btn-check" type="radio" name="device_type" id="laptop" value="laptop" required>
+                  <label for="laptop">Laptop</label>
+                </div>
+                <p class="field-error" id="device_type-error" hidden></p>
+              </div>
+              <div class="field wide-mobile">
+                <label for="cpu_model">CPU *</label>
+                <input class="form-control" id="cpu_model" name="cpu_model" list="cpu-options" placeholder="Ví dụ Intel Core i5-12400F" autocomplete="off" required>
+                <datalist id="cpu-options"></datalist>
+                <p class="field-error" id="cpu_model-error" hidden></p>
+              </div>
+              <div class="field wide-mobile">
+                <label for="gpu_model">GPU *</label>
+                <input class="form-control" id="gpu_model" name="gpu_model" list="gpu-options" placeholder="Ví dụ NVIDIA RTX 3060" autocomplete="off" required>
+                <datalist id="gpu-options"></datalist>
+                <p class="field-error" id="gpu_model-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ram_gb">RAM (GB) *</label>
+                <input type="number" class="form-control" id="ram_gb" name="ram_gb" min="1" step="1" placeholder="16" required>
+                <p class="field-error" id="ram_gb-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="gpu_vram_gb">VRAM (GB)</label>
+                <input type="number" class="form-control" id="gpu_vram_gb" name="gpu_vram_gb" min="0" step="any" placeholder="Không rõ thì để trống">
+                <p class="field-error" id="gpu_vram_gb-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ram_type">Loại RAM</label>
+                <select class="form-select" name="ram_type" id="ram_type"></select>
+                <p class="field-error" id="ram_type-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ram_channels">Kênh RAM</label>
+                <select class="form-select" name="ram_channels" id="ram_channels"></select>
+                <p class="field-error" id="ram_channels-error" hidden></p>
+              </div>
+              <div class="field full" id="tgp-field" hidden>
+                <label for="gpu_tgp_w">TGP của GPU Laptop (W)</label>
+                <input type="number" class="form-control" id="gpu_tgp_w" name="gpu_tgp_w" min="0" step="any" placeholder="Ví dụ 80" disabled>
+                <p class="hint" id="tgp-hint">Có thể để trống nếu bạn chưa biết công suất GPU.</p>
+                <p class="field-error" id="gpu_tgp_w-error" hidden></p>
+              </div>
+            </div>
+            <div class="game-fields">
+              <h3>Trò chơi</h3>
+              <div class="fields-grid">
+                <div class="field full">
+                  <label for="game">Tên game *</label>
+                  <select class="form-select" name="game" id="game" required></select>
+                  <p class="field-error" id="game-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="resolution">Độ phân giải *</label>
+                  <select class="form-select" name="resolution" id="resolution" required></select>
+                  <p class="field-error" id="resolution-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="graphics_preset">Mức đồ họa *</label>
+                  <select class="form-select" name="graphics_preset" id="graphics_preset" required></select>
+                  <p class="field-error" id="graphics_preset-error" hidden></p>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <button id="predict" class="primary-button" type="submit" disabled><span class="spinner-border spinner-border-sm" id="spinner" aria-hidden="true" hidden></span><span id="submit-label">Dự đoán FPS</span><span id="submit-arrow" aria-hidden="true">→</span></button>
+            <button id="reset-form" class="secondary-button" type="button" disabled>Đặt lại</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-head result-head">
+          <div><h2 id="result-title">Kết quả dự đoán</h2><p id="result-config">Chưa có cấu hình được gửi</p></div>
+          <span class="tier" id="tier" hidden></span>
+        </div>
+        <div class="metrics" id="metrics" aria-live="polite" aria-atomic="true">
+          <div class="metric">
+            <h3>Average FPS</h3>
+            <div class="metric-value"><output id="avg">—</output><span>FPS</span></div>
+            <p>Tốc độ khung hình trung bình</p>
+          </div>
+          <div class="metric low">
+            <h3>1% Low FPS</h3>
+            <div class="metric-value"><output id="low">—</output><span>FPS</span></div>
+            <p>Hiệu năng ở 1% khung hình chậm nhất</p>
+          </div>
+        </div>
+        <p id="model" class="model-info" hidden></p>
+        <p id="stub-warning" class="notice danger" role="status" hidden>Dữ liệu thử nghiệm. FPS hiển thị chỉ dùng để minh họa.</p>
+        <div id="api-error" class="notice danger" hidden>
+          <p id="error-message" role="alert"></p>
+          <button id="retry" class="small-button" type="button" hidden>Thử lại</button>
+        </div>
+        <div id="warnings" class="notice warning" hidden>
+          <strong>Cảnh báo từ mô hình</strong><ul id="warning-list"></ul>
+        </div>
+
+        <div class="comparison">
+          <h3>So sánh mức đồ họa</h3>
+          <p id="comparison-status" role="status">Gửi cấu hình để so sánh Low, Medium và High.</p>
+          <div id="chart-area" class="chart-area" hidden>
+            <canvas id="chart" aria-hidden="true"></canvas>
+          </div>
+          <div id="chart-legend" class="chart-legend" hidden><span>Average FPS</span><span>1% Low FPS</span></div>
+          <table id="comparison-table" class="visually-hidden" hidden>
+            <caption>Kết quả theo mức đồ họa</caption>
+            <thead><tr><th scope="col">Mức đồ họa</th><th scope="col">Average FPS</th><th scope="col">1% Low FPS</th></tr></thead>
+            <tbody id="comparison-rows"></tbody>
+          </table>
+        </div>
+        <p class="footnote">FPS là giá trị tham khảo. Phiên bản game, driver, giới hạn điện năng và tản nhiệt có thể ảnh hưởng đến FPS thực tế.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
