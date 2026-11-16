@@ -32,3 +32,6 @@ FE-30,Kiểu enum từ options,Fixture trả kênh RAM dạng số và Desktop v
 FE-31,Giao diện 1440px,"Mở demo, điền mẫu và xem biểu đồ.",Thao tác được và không tràn ngang ở kích thước kiểm tra.,Thao tác được và không tràn ngang ở kích thước kiểm tra.,Pass,Chờ BE-09 và model
 FE-32,Giao diện 768px,"Mở demo, điền mẫu và xem biểu đồ.",Thao tác được và không tràn ngang ở kích thước kiểm tra.,Thao tác được và không tràn ngang ở kích thước kiểm tra.,Pass,Chờ BE-09 và model
 FE-33,Giao diện 375px,"Mở demo, điền mẫu và xem biểu đồ.",Thao tác được và không tràn ngang ở kích thước kiểm tra.,Thao tác được và không tràn ngang ở kích thước kiểm tra.,Pass,Chờ BE-09 và model
+FE-34,Bảng số liệu theo preset,"Dự đoán, mở bảng rồi đặt lại.",Có ba hàng FPS của ba mức đồ họa. Đặt lại trở về trạng thái chưa có kết quả.,Có ba hàng FPS của ba mức đồ họa. Đặt lại trở về trạng thái chưa có kết quả.,Pass,Chờ BE-09 và model
+FE-35,Kết quả thuộc cấu hình cũ,"Đổi cấu hình, hoàn tác rồi dự đoán cho preset khác.",Cảnh báo xuất hiện khi chỉnh cấu hình và biến mất sau hoàn tác hoặc dự đoán lại.,Cảnh báo xuất hiện khi chỉnh cấu hình và biến mất sau hoàn tác hoặc dự đoán lại.,Pass,Chờ BE-09 và model
+FE-36,Đi đến kết quả trên màn hình hẹp,Chạy dự đoán trong bố cục 768 px.,Focus chuyển đến tiêu đề Kết quả dự đoán.,Focus chuyển đến tiêu đề Kết quả dự đoán.,Pass,Chờ BE-09 và model

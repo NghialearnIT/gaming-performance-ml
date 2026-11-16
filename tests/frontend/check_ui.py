@@ -393,6 +393,50 @@ def run_tests(browser, screenshots):
         test(f"Giao diện {width}px", "Mở demo, điền mẫu và xem biểu đồ.",
              "Thao tác được và không tràn ngang ở kích thước kiểm tra.", layout)
 
+    def comparison_table():
+        open_form(page, "?demo=1", "demo")
+        expect(page.locator("#comparison-empty")).to_be_visible()
+        expect(page.locator("#comparison-details")).to_be_hidden()
+        page.locator("#sample").click()
+        finish_prediction(page)
+        expect(page.locator("#comparison-empty")).to_be_hidden()
+        expect(page.locator("#comparison-table")).to_be_hidden()
+        page.locator("#comparison-details summary").click()
+        expect(page.locator("#comparison-rows tr")).to_have_count(3)
+        expect(page.locator("#comparison-rows tr").last).to_contain_text("124")
+        expect(page.locator("#comparison-rows tr").last).to_contain_text("79")
+        page.locator("#reset-form").click()
+        expect(page.locator("#comparison-empty")).to_be_visible()
+        expect(page.locator("#comparison-details")).to_be_hidden()
+
+    def stale_result():
+        open_form(page, "?demo=1", "demo")
+        page.locator("#sample").click()
+        finish_prediction(page)
+        page.locator("#ram_gb").fill("24")
+        expect(page.locator("#stale-result")).to_be_visible()
+        page.locator("#ram_gb").fill("16")
+        expect(page.locator("#stale-result")).to_be_hidden()
+        page.locator("#graphics_preset").select_option("medium")
+        expect(page.locator("#stale-result")).to_be_visible()
+        finish_prediction(page)
+        expect(page.locator("#avg")).to_have_text("151")
+        expect(page.locator("#stale-result")).to_be_hidden()
+
+    def tablet_result_focus():
+        page.set_viewport_size({"width": 768, "height": 1000})
+        open_form(page, "?demo=1", "demo")
+        page.locator("#sample").click()
+        finish_prediction(page)
+        expect(page.locator("#result-title")).to_be_focused()
+
+    test("Bảng số liệu theo preset", "Dự đoán, mở bảng rồi đặt lại.",
+         "Có ba hàng FPS của ba mức đồ họa. Đặt lại trở về trạng thái chưa có kết quả.", comparison_table)
+    test("Kết quả thuộc cấu hình cũ", "Đổi cấu hình, hoàn tác rồi dự đoán cho preset khác.",
+         "Cảnh báo xuất hiện khi chỉnh cấu hình và biến mất sau hoàn tác hoặc dự đoán lại.", stale_result)
+    test("Đi đến kết quả trên màn hình hẹp", "Chạy dự đoán trong bố cục 768 px.",
+         "Focus chuyển đến tiêu đề Kết quả dự đoán.", tablet_result_focus)
+
     if screenshots:
         page.set_viewport_size({"width": 1440, "height": 1050})
         open_form(page, "?demo=1", "demo")

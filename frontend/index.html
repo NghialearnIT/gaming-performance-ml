@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111411">
+  <meta name="theme-color" content="#131c33">
   <title>Dự đoán FPS | Gaming Performance ML</title>
   <link rel="stylesheet" href="./vendor/bootstrap.min.css">
   <link rel="stylesheet" href="./style.css">
@@ -17,24 +17,27 @@
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         Gaming Performance <strong>ML</strong>
       </a>
-      <a class="mode-link" id="mode-link" href="?demo=1">Mở bản demo <span aria-hidden="true">↗︎</span></a>
+      <a class="mode-link" id="mode-link" href="?demo=1">Mở bản demo <span aria-hidden="true">→</span></a>
     </div>
   </header>
 
   <main class="shell">
-    <div class="hero">
-      <div>
-        <h1>Dự đoán <em>FPS.</em></h1>
-        <p>Nhập cấu hình máy và thiết lập đồ họa để ước lượng hiệu năng khi chơi game.</p>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <h1 id="hero-title">Máy bạn chơi được<br><em>bao nhiêu FPS?</em></h1>
+        <p>Ước lượng hiệu năng từ cấu hình máy và mức đồ họa bạn chọn.</p>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <div class="hero-scope"><strong>1080p</strong><span>Low · Medium · High</span></div>
-    </div>
+    </section>
 
     <div class="connection" id="connection" data-state="loading" role="status">Đang tải danh sách cấu hình…</div>
     <div class="workspace">
       <section class="panel" aria-labelledby="config-title">
         <div class="panel-head">
-          <div><h2 id="config-title">Cấu hình &amp; thiết lập</h2><p>Các trường có dấu * là bắt buộc.</p></div>
+          <div><h2 id="config-title">Cấu hình máy</h2><p>Các trường có dấu * là bắt buộc.</p></div>
           <button class="small-button" id="sample" type="button" hidden>Dùng cấu hình mẫu</button>
         </div>
         <form id="predict-form" novalidate>
@@ -70,7 +73,7 @@
               </div>
               <div class="field">
                 <label for="gpu_vram_gb">VRAM (GB)</label>
-                <input type="number" class="form-control" id="gpu_vram_gb" name="gpu_vram_gb" min="0" step="any" placeholder="Không rõ thì để trống">
+                <input type="number" class="form-control" id="gpu_vram_gb" name="gpu_vram_gb" min="0" step="any" placeholder="Không bắt buộc">
                 <p class="field-error" id="gpu_vram_gb-error" hidden></p>
               </div>
               <div class="field">
@@ -91,7 +94,7 @@
               </div>
             </div>
             <div class="game-fields">
-              <h3>Trò chơi</h3>
+              <h3>Thiết lập trò chơi</h3>
               <div class="fields-grid">
                 <div class="field full">
                   <label for="game">Tên game *</label>
@@ -111,6 +114,7 @@
               </div>
             </div>
           </fieldset>
+          <p id="form-guidance" class="form-guidance" role="status"></p>
           <div class="form-actions">
             <button id="predict" class="primary-button" type="submit" disabled><span class="spinner-border spinner-border-sm" id="spinner" aria-hidden="true" hidden></span><span id="submit-label">Dự đoán FPS</span><span id="submit-arrow" aria-hidden="true">→</span></button>
             <button id="reset-form" class="secondary-button" type="button" disabled>Đặt lại</button>
@@ -118,9 +122,9 @@
         </form>
       </section>
 
-      <section class="panel result-panel" aria-labelledby="result-title">
+      <section id="results" class="panel result-panel" aria-labelledby="result-title">
         <div class="panel-head result-head">
-          <div><h2 id="result-title">Kết quả dự đoán</h2><p id="result-config">Chưa có cấu hình được gửi</p></div>
+          <div><h2 id="result-title" tabindex="-1">Kết quả dự đoán</h2><p id="result-config">Chưa có cấu hình được gửi</p></div>
           <span class="tier" id="tier" hidden></span>
         </div>
         <div class="metrics" id="metrics" aria-live="polite" aria-atomic="true">
@@ -136,6 +140,7 @@
           </div>
         </div>
         <p id="model" class="model-info" hidden></p>
+        <p id="stale-result" class="notice warning" role="status" hidden>Cấu hình đã thay đổi. Bấm Dự đoán FPS để cập nhật kết quả.</p>
         <p id="stub-warning" class="notice danger" role="status" hidden>Dữ liệu thử nghiệm. FPS hiển thị chỉ dùng để minh họa.</p>
         <div id="api-error" class="notice danger" hidden>
           <p id="error-message" role="alert"></p>
@@ -148,19 +153,27 @@
         <div class="comparison">
           <h3>So sánh mức đồ họa</h3>
           <p id="comparison-status" role="status">Gửi cấu hình để so sánh Low, Medium và High.</p>
+          <div id="comparison-empty" class="comparison-empty" aria-hidden="true">
+            <div class="empty-bars"><i></i><i></i><i></i></div>
+            <span>Chưa có dữ liệu so sánh</span>
+          </div>
           <div id="chart-area" class="chart-area" hidden>
             <canvas id="chart" aria-hidden="true"></canvas>
           </div>
           <div id="chart-legend" class="chart-legend" hidden><span>Average FPS</span><span>1% Low FPS</span></div>
-          <table id="comparison-table" class="visually-hidden" hidden>
-            <caption>Kết quả theo mức đồ họa</caption>
-            <thead><tr><th scope="col">Mức đồ họa</th><th scope="col">Average FPS</th><th scope="col">1% Low FPS</th></tr></thead>
-            <tbody id="comparison-rows"></tbody>
-          </table>
+          <details id="comparison-details" hidden>
+            <summary>Xem bảng số liệu</summary>
+            <table id="comparison-table" class="table table-sm">
+              <caption>Kết quả theo mức đồ họa</caption>
+              <thead><tr><th scope="col">Mức đồ họa</th><th scope="col">Average FPS</th><th scope="col">1% Low FPS</th></tr></thead>
+              <tbody id="comparison-rows"></tbody>
+            </table>
+          </details>
         </div>
         <p class="footnote">FPS là giá trị tham khảo. Phiên bản game, driver, giới hạn điện năng và tản nhiệt có thể ảnh hưởng đến FPS thực tế.</p>
       </section>
     </div>
+    <footer class="site-foot">Gaming Performance ML</footer>
   </main>
 </body>
 </html>

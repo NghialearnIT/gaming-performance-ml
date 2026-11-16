@@ -53,6 +53,7 @@ let options;
 let chart;
 let busy = false;
 let pendingPayload;
+let displayedPayload;
 
 class HttpError extends Error {
   constructor(status, body) {
@@ -193,7 +194,10 @@ function updateForm() {
       else input.removeAttribute('aria-describedby');
     }
   }
-  byId('predict').disabled = !options || busy || Object.keys(errors).length > 0;
+  const invalid = Object.keys(errors).length > 0;
+  byId('predict').disabled = !options || busy || invalid;
+  byId('form-guidance').textContent = !options || busy ? '' :
+    invalid ? 'Điền hoặc sửa các trường bắt buộc để dự đoán.' : 'Cấu hình đã sẵn sàng.';
   byId('reset-form').disabled = !options || busy;
 }
 
@@ -229,8 +233,11 @@ function isStub(response) {
 function clearResults() {
   chart?.destroy();
   chart = undefined;
-  for (const id of ['tier', 'model', 'warnings', 'stub-warning', 'api-error', 'retry',
-    'chart-area', 'chart-legend', 'comparison-table']) byId(id).hidden = true;
+  displayedPayload = undefined;
+  for (const id of ['tier', 'model', 'warnings', 'stub-warning', 'stale-result', 'api-error', 'retry',
+    'chart-area', 'chart-legend', 'comparison-details']) byId(id).hidden = true;
+  byId('comparison-details').open = false;
+  byId('comparison-empty').hidden = false;
   byId('avg').textContent = '—';
   byId('low').textContent = '—';
   byId('result-config').textContent = 'Chưa có cấu hình được gửi';
@@ -238,6 +245,7 @@ function clearResults() {
 }
 
 function renderResults(response, payload) {
+  displayedPayload = JSON.stringify(payload);
   byId('avg').textContent = formatFps(response.avg_fps);
   byId('low').textContent = formatFps(response.one_percent_low_fps);
   const tier = fpsTiers.find(item => Math.round(response.avg_fps) >= item.min);
@@ -292,11 +300,15 @@ function renderComparison(presets, results) {
     }
     return entry;
   }));
-  byId('comparison-table').hidden = false;
+  byId('comparison-empty').hidden = true;
+  byId('comparison-details').hidden = false;
   if (!window.Chart) {
-    byId('comparison-table').className = 'table table-dark table-sm';
+    byId('comparison-details').open = true;
     return;
   }
+  const colors = getComputedStyle(document.documentElement);
+  const averageColor = colors.getPropertyValue('--avg').trim();
+  const lowColor = colors.getPropertyValue('--low').trim();
   byId('chart-area').hidden = false;
   byId('chart-legend').hidden = false;
   chart = new window.Chart(byId('chart'), {
@@ -304,8 +316,8 @@ function renderComparison(presets, results) {
     data: {
       labels: rows.map(row => row.label),
       datasets: [
-        { label: 'Average FPS', data: rows.map(row => row.response?.avg_fps ?? null), backgroundColor: '#d1f86c' },
-        { label: '1% Low FPS', data: rows.map(row => row.response?.one_percent_low_fps ?? null), backgroundColor: '#8fc8fa' },
+        { label: 'Average FPS', data: rows.map(row => row.response?.avg_fps ?? null), backgroundColor: averageColor, borderRadius: 4, maxBarThickness: 30 },
+        { label: '1% Low FPS', data: rows.map(row => row.response?.one_percent_low_fps ?? null), backgroundColor: lowColor, borderRadius: 4, maxBarThickness: 30 },
       ],
     },
     options: {
@@ -313,8 +325,8 @@ function renderComparison(presets, results) {
       maintainAspectRatio: false,
       animation: false,
       scales: {
-        x: { grid: { display: false }, ticks: { color: '#d9e4d9' } },
-        y: { beginAtZero: true, grid: { color: '#364137' }, ticks: { color: '#aeb9af', maxTicksLimit: 5 } },
+        x: { grid: { display: false }, ticks: { color: '#525f77' } },
+        y: { beginAtZero: true, grid: { color: '#e2e8f4' }, ticks: { color: '#525f77', maxTicksLimit: 5 } },
       },
       plugins: { legend: { display: false } },
     },
@@ -393,6 +405,7 @@ async function submit(payload) {
   try {
     const result = await predict(payload);
     renderResults(result, payload);
+    if (window.matchMedia('(max-width: 950px)').matches) byId('result-title').focus();
     const presets = presetOrder.map(name => options.graphics_presets.find(item =>
       String(item.value).toLowerCase() === name));
     if (presets.every(Boolean)) {
@@ -425,6 +438,7 @@ form.addEventListener('input', event => {
   }
   pendingPayload = undefined;
   byId('retry').hidden = true;
+  byId('stale-result').hidden = !displayedPayload || displayedPayload === JSON.stringify(getPayload());
   updateForm();
 });
 form.addEventListener('focusout', event => {
@@ -463,7 +477,7 @@ byId('sample').addEventListener('click', () => {
 async function initialize() {
   if (demo) {
     byId('mode-link').href = './';
-    byId('mode-link').textContent = 'Quay lại chế độ API ↗︎';
+    byId('mode-link').textContent = 'Chế độ API →';
   } else {
     try {
       options = normalizeOptions(await fetchJson(apiUrl('/options')));

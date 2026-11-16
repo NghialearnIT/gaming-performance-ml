@@ -1,10 +1,12 @@
 # Frontend dự đoán FPS
 
-Frontend một trang dùng HTML, CSS, Bootstrap 5.3.3 và JavaScript thuần. Chart.js 4.4.9 và Bootstrap nằm trong `vendor/`, kèm giấy phép MIT. Frontend không cần npm hoặc CDN.
+Frontend một trang dùng HTML, CSS, Bootstrap 5.3.3 và JavaScript thuần. Chart.js 4.4.9, Bootstrap và font Inter được phục vụ từ `vendor/`, kèm giấy phép MIT và SIL Open Font License tương ứng. Frontend không cần npm hoặc CDN. Xem [thiết kế và luồng sử dụng](../docs/ui_design.md).
 
 ## Chạy giao diện
 
-Từ thư mục gốc repo, chạy:
+Trên Windows, mở thư mục `frontend` rồi bấm đúp **Chay_Demo.bat**. File này dùng Python đã cài để mở demo trong trình duyệt. Giữ cửa sổ lệnh mở khi sử dụng.
+
+Nếu chạy bằng terminal từ thư mục gốc repo, dùng:
 
 ```bash
 python -m http.server 5500 --bind 127.0.0.1 --directory frontend

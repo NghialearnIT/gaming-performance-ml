@@ -2,7 +2,7 @@
 
 ## Chuẩn bị
 
-- Mở frontend theo [hướng dẫn](../frontend/README.md). Cổng frontend là 5500. Máy trình bày cần mở được API FastAPI trên cổng 8000 để chạy dự đoán thật.
+- Mở frontend theo [hướng dẫn](../frontend/README.md). Cổng frontend là 5500. Trên Windows có thể bấm đúp `frontend/Chay_Demo.bat` để mở ngay bản demo. Máy trình bày cần mở được API FastAPI trên cổng 8000 để chạy dự đoán thật.
 - Sáu cấu hình trong [demo_configs.json](demo_configs.json) dùng để diễn tập nhập liệu. Các FPS đo được để trống. Khi có tập test, chọn 5–6 cấu hình hold-out có nguồn, tối thiểu hai Desktop và hai Laptop. Ghi FPS đo được, nguồn, thiết lập và phiên bản mô hình.
 - Mở [chế độ demo](http://127.0.0.1:5500/?demo=1) để dự phòng khi backend gặp lỗi. Tắt kết nối Internet và kiểm tra frontend, thư viện biểu đồ và tài nguyên local vẫn chạy.
 
