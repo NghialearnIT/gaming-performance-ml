@@ -12,7 +12,7 @@ Nếu chạy bằng terminal từ thư mục gốc repo, dùng:
 python -m http.server 5500 --bind 127.0.0.1 --directory frontend
 ```
 
-- [Bản demo offline](http://127.0.0.1:5500/?demo=1). Nhấn **Dùng cấu hình mẫu** rồi **Dự đoán FPS**. Bản demo dùng số minh họa, luôn có nhãn thử nghiệm.
+- [Bản demo offline](http://127.0.0.1:5500/?demo=1). Chọn một thẻ game, nhấn **Dùng cấu hình mẫu**, chọn **Low / Medium / High** rồi bấm **Dự đoán FPS**. Bản demo dùng số minh họa, luôn có nhãn thử nghiệm.
 - [Bản kết nối API](http://127.0.0.1:5500/). Nếu chưa có API, trang hiện danh sách nhập mẫu và báo lỗi kết nối khi gửi dự đoán.
 
 ## Kết nối FastAPI
@@ -52,7 +52,7 @@ Backend cần cho phép origin `http://127.0.0.1:5500` qua CORS cho GET, POST v�
 
 Enum lấy từ catalog của API và giữ nguyên kiểu dữ liệu khi gửi lại. Catalog mẫu dùng dạng chuỗi chữ thường theo Data Dictionary ở nhánh `nghĩa`. Giá trị `gpu_type` thuộc schema dữ liệu huấn luyện và không nằm trong danh sách request PM-02. Khi có contract BE-02, đối chiếu schema `/options`, các enum, giới hạn số, trường nullable và cách suy ra `gpu_type`.
 
-Biểu đồ dùng kết quả từ preset đã gửi và gọi thêm cho hai preset còn lại khi đủ ba mức. Mức gợi ý dựa vào Average FPS chưa làm tròn. Request có timeout 10 giây. Máy chủ frontend vẫn phục vụ được toàn bộ tài nguyên giao diện khi ngắt mạng.
+Biểu đồ và bảng số liệu đánh dấu preset đã gửi, sau đó hiển thị thêm hai preset còn lại khi catalog có đủ ba mức. Đổi game giữ cấu hình phần cứng và thiết lập hiện tại. Phần TGP tự mở trong Thông số nâng cao khi chọn Laptop. Mức gợi ý dựa vào Average FPS chưa làm tròn. Request có timeout 10 giây. Máy chủ frontend vẫn phục vụ được toàn bộ tài nguyên giao diện khi ngắt mạng.
 
 ## Chạy kiểm thử
 

@@ -11,9 +11,9 @@
 | Thời gian | Thao tác và lời trình bày |
 | --- | --- |
 | 0:00–0:45 | Giới thiệu bài toán dự đoán FPS từ CPU, GPU, RAM và thiết lập game. Nêu phạm vi 1080p. |
-| 0:45–2:00 | Nhập một cấu hình Desktop. Dự đoán rồi giải thích Average FPS và 1% Low FPS. |
-| 2:00–3:15 | Nhập một Laptop có TGP. Đổi sang cấu hình thiếu TGP để trình bày cảnh báo nếu mô hình trả về. |
-| 3:15–4:20 | Mở biểu đồ ba preset. Giải thích gợi ý dựa trên ngưỡng Average FPS 60 và vì sao 1% Low có thể thiếu. |
+| 0:45–2:00 | Chọn game từ dải thẻ, nhập một cấu hình Desktop và chọn mức đồ họa. Dự đoán rồi giải thích Average FPS và 1% Low FPS. |
+| 2:00–3:15 | Chuyển sang Laptop để mở thông số nâng cao. Nhập TGP rồi thử lại với TGP để trống để trình bày cảnh báo nếu có. |
+| 3:15–4:20 | Mở biểu đồ ba preset và chỉ rõ mức đã dự đoán. Đổi game để kiểm tra máy giữ nguyên cấu hình và đánh dấu kết quả cũ. Giải thích ngưỡng Average FPS 60 và vì sao 1% Low có thể thiếu. |
 | 4:20–5:30 | Chiếu 3–4 cấu hình còn lại từ tập test. Với ca có số đo, nói chênh lệch FPS giữa dự đoán và phép đo cùng thiết lập. Giải thích ảnh hưởng của phiên bản game, driver và tản nhiệt. |
 | 5:30–6:00 | Tóm tắt giới hạn của mô hình. Nếu dùng bản offline, chỉ rõ kết quả được gắn nhãn thử nghiệm. |
 

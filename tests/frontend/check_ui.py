@@ -56,6 +56,8 @@ class FixtureApi(BaseHTTPRequestHandler):
         catalog = CATALOG
         if API_STATE["mode"] == "typed_options":
             catalog = {**CATALOG, "device_types": ["Desktop", "Laptop"], "ram_channels": [1, 2, 4]}
+        if API_STATE["mode"] == "limited_options":
+            catalog = {**CATALOG, "games": CATALOG["games"][:1], "graphics_presets": ["medium"]}
         return self.send_json(200, catalog)
 
     def do_POST(self):
@@ -66,6 +68,8 @@ class FixtureApi(BaseHTTPRequestHandler):
         mode = API_STATE["mode"]
         if mode == "validation":
             return self.send_json(422, {"detail": [{"loc": ["body", "ram_gb"], "type": "less_than_equal"}]})
+        if mode == "advanced_validation":
+            return self.send_json(422, {"detail": [{"loc": ["body", "ram_type"], "type": "enum"}]})
         if mode == "client_error":
             return self.send_json(400, {"detail": "Cấu hình này chưa được hỗ trợ."})
         if mode == "server_error" or (mode == "partial" and data["graphics_preset"] == "low"):
@@ -97,16 +101,27 @@ def open_form(page, path="", status=None):
         expect(page.locator("#connection")).to_have_attribute("data-state", status)
 
 
+def choice(page, name, value):
+    return page.locator(f'input[name="{name}"][value="{value}"]')
+
+
+def choose(page, name, value):
+    option_id = choice(page, name, value).get_attribute("id")
+    page.locator(f'label[for="{option_id}"]').click()
+
+
 def fill_form(page, game="valorant", device="desktop", preset="high", tgp="90", cpu=None):
+    choose(page, "game", game)
     page.locator(f'label[for="{device}"]').click()
     page.locator("#cpu_model").fill(cpu or ("Intel Core i7-12700H" if device == "laptop" else "Intel Core i5-12400F"))
     page.locator("#gpu_model").fill("NVIDIA RTX 4060 Laptop GPU" if device == "laptop" else "NVIDIA RTX 3060")
     page.locator("#ram_gb").fill("16")
+    if page.locator("#advanced-options").get_attribute("open") is None:
+        page.locator("#advanced-options > summary").click()
     page.locator("#gpu_vram_gb").fill("8" if device == "laptop" else "12")
     if device == "laptop":
         page.locator("#gpu_tgp_w").fill(tgp)
-    page.locator("#game").select_option(game)
-    page.locator("#graphics_preset").select_option(preset)
+    choose(page, "graphics_preset", preset)
 
 
 def click_predict(page):
@@ -274,6 +289,7 @@ def run_tests(browser, screenshots):
         expect(page.locator("#spinner")).to_be_visible()
         expect(page.locator("#predict")).to_be_disabled()
         expect(page.locator("#fields")).to_have_attribute("disabled", "")
+        expect(page.locator("#game-fieldset")).to_have_attribute("disabled", "")
         expect(page.locator("#chart-area")).to_be_visible()
         expect(page.locator("#predict")).to_be_enabled()
 
@@ -315,7 +331,9 @@ def run_tests(browser, screenshots):
         page.locator("#reset-form").click()
         expect(page.locator("#tgp-field")).to_be_hidden()
         expect(page.locator("#cpu_model")).to_have_value("")
-        expect(page.locator("#game")).to_have_value("")
+        expect(page.locator('input[name="game"]:checked')).to_have_count(0)
+        expect(page.locator('input[name="graphics_preset"]:checked')).to_have_count(0)
+        expect(page.locator("#advanced-options")).not_to_have_attribute("open", "")
         expect(page.locator("#resolution")).to_have_value("1920x1080")
         expect(page.locator("#avg")).to_have_text("—")
         expect(page.locator("#chart-area")).to_be_hidden()
@@ -417,7 +435,7 @@ def run_tests(browser, screenshots):
         expect(page.locator("#stale-result")).to_be_visible()
         page.locator("#ram_gb").fill("16")
         expect(page.locator("#stale-result")).to_be_hidden()
-        page.locator("#graphics_preset").select_option("medium")
+        choose(page, "graphics_preset", "medium")
         expect(page.locator("#stale-result")).to_be_visible()
         finish_prediction(page)
         expect(page.locator("#avg")).to_have_text("151")
@@ -436,6 +454,113 @@ def run_tests(browser, screenshots):
          "Cảnh báo xuất hiện khi chỉnh cấu hình và biến mất sau hoàn tác hoặc dự đoán lại.", stale_result)
     test("Đi đến kết quả trên màn hình hẹp", "Chạy dự đoán trong bố cục 768 px.",
          "Focus chuyển đến tiêu đề Kết quả dự đoán.", tablet_result_focus)
+
+    def change_game():
+        open_form(page, "?demo=1", "demo")
+        choose(page, "game", "cs2")
+        choose(page, "graphics_preset", "medium")
+        page.locator("#sample").click()
+        expect(choice(page, "game", "cs2")).to_be_checked()
+        expect(choice(page, "graphics_preset", "medium")).to_be_checked()
+        finish_prediction(page)
+        expect(page.locator("#result-config")).to_contain_text("Counter-Strike 2")
+        choose(page, "game", "pubg")
+        expect(page.locator("#stale-result")).to_be_visible()
+        expect(page.locator("#cpu_model")).to_have_value("Intel Core i5-12400F")
+        expect(page.locator("#ram_gb")).to_have_value("16")
+        expect(choice(page, "graphics_preset", "medium")).to_be_checked()
+        finish_prediction(page)
+        expect(page.locator("#result-config")).to_contain_text("PUBG")
+        expect(page.locator("#avg")).to_have_text("78")
+
+    def advanced_panel():
+        open_form(page, "?demo=1", "demo")
+        expect(page.locator("#gpu_vram_gb")).to_be_hidden()
+        choose(page, "device_type", "laptop")
+        expect(page.locator("#gpu_tgp_w")).to_be_visible()
+        page.locator("#sample").click()
+        expect(choice(page, "device_type", "laptop")).to_be_checked()
+        expect(page.locator("#gpu_model")).to_have_value("NVIDIA RTX 4060 Laptop GPU")
+        finish_prediction(page)
+        expect(page.locator("#warnings")).to_contain_text("TGP")
+
+    def advanced_server_error():
+        API_STATE["mode"] = "advanced_validation"
+        open_form(page)
+        fill_form(page)
+        page.locator("#advanced-options > summary").click()
+        expect(page.locator("#ram_type")).to_be_hidden()
+        click_predict(page)
+        expect(page.locator("#ram_type-error")).to_be_visible()
+        expect(page.locator("#advanced-note")).to_have_text("Cần kiểm tra")
+        expect(page.locator("#predict")).to_be_disabled()
+        API_STATE["mode"] = "ok"
+        page.locator("#ram_type").select_option("DDR5")
+        finish_prediction(page)
+        assert API_STATE["requests"][-1]["ram_type"] == "DDR5"
+
+    def selected_preset():
+        open_form(page, "?demo=1", "demo")
+        page.locator("#sample").click()
+        finish_prediction(page)
+        expect(page.locator("#comparison-selected")).to_have_text("Mức đã dự đoán · High")
+        choose(page, "graphics_preset", "low")
+        expect(page.locator("#comparison-selected")).to_have_text("Mức đã dự đoán · High")
+        expect(page.locator("#stale-result")).to_be_visible()
+        finish_prediction(page)
+        expect(page.locator("#comparison-selected")).to_have_text("Mức đã dự đoán · Low")
+        assert page.evaluate("Chart.getChart('chart').options.plugins.selectedPresetBand.index === 0")
+        page.locator("#comparison-details summary").click()
+        expect(page.locator("#comparison-rows tr.active-preset")).to_contain_text("Low")
+
+    def keyboard_game_selection():
+        page.set_viewport_size({"width": 375, "height": 840})
+        open_form(page, "?demo=1", "demo")
+        game = choice(page, "game", "valorant")
+        game.focus()
+        page.keyboard.press("Space")
+        expect(game).to_be_checked()
+        for _ in range(4):
+            page.keyboard.press("ArrowRight")
+        last = choice(page, "game", "lol")
+        expect(last).to_be_checked()
+        expect(last).to_be_focused()
+        game_id = last.get_attribute("id")
+        expect(page.locator(f'label[for="{game_id}"]')).to_be_in_viewport()
+
+    def single_available_choice():
+        API_STATE["mode"] = "limited_options"
+        open_form(page, status="online")
+        expect(page.locator('input[name="game"]')).to_have_count(1)
+        expect(page.locator('input[name="graphics_preset"]')).to_have_count(1)
+        page.locator("#cpu_model").fill("Intel Core i5-12400F")
+        page.locator("#gpu_model").fill("NVIDIA RTX 3060")
+        page.locator("#ram_gb").fill("16")
+        expect(page.locator("#predict")).to_be_disabled()
+        choose(page, "game", "valorant")
+        expect(page.locator("#predict")).to_be_disabled()
+        choose(page, "graphics_preset", "medium")
+        click_predict(page)
+        expect(page.locator("#avg")).to_have_text("97")
+        expect(page.locator("#comparison-status")).to_contain_text("chưa có đủ Low, Medium và High")
+        assert len(API_STATE["requests"]) == 1
+
+    scenarios_v3 = [
+        ("Đổi game sau khi dự đoán", "Chọn CS2 và Medium, điền mẫu, dự đoán, rồi đổi sang PUBG.",
+         "Giữ CPU, RAM và preset. Đánh dấu kết quả cũ và cập nhật khi dự đoán lại.", change_game),
+        ("Thông số nâng cao theo thiết bị", "Mở form Desktop, đổi Laptop, dùng mẫu và dự đoán.",
+         "Desktop thu gọn chi tiết. Laptop tự mở mục TGP và vẫn giữ lựa chọn Laptop.", advanced_panel),
+        ("Lỗi API trong thông số nâng cao", "Đóng mục nâng cao và để fixture báo lỗi loại RAM.",
+         "Mục nâng cao tự mở đến lỗi. Sửa loại RAM rồi gửi lại được.", advanced_server_error),
+        ("Đánh dấu preset của kết quả", "Dự đoán High, chọn Low, dự đoán lại và xem bảng.",
+         "Biểu đồ và bảng đánh dấu preset đã gửi. Đổi preset giữ đánh dấu cũ tới lần dự đoán tiếp theo.", selected_preset),
+        ("Chọn game bằng bàn phím trên mobile", "Dùng Space, rồi mũi tên phải ở màn hình 375 px.",
+         "Có thể chọn và nhìn thấy thẻ cuối trong dải cuộn ngang.", keyboard_game_selection),
+        ("Catalog có một game và một preset", "Nhập cấu hình, lần lượt chọn hai tùy chọn duy nhất.",
+         "Nút chỉ mở sau khi chọn cả hai. API nhận đúng cấu hình và không có so sánh ba mức.", single_available_choice),
+    ]
+    for args in scenarios_v3:
+        test(*args)
 
     if screenshots:
         page.set_viewport_size({"width": 1440, "height": 1050})

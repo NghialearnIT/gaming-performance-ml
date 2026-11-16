@@ -3,8 +3,26 @@ import { API_BASE_URL, REQUEST_TIMEOUT_MS } from './config.js';
 const byId = id => document.getElementById(id);
 const form = byId('predict-form');
 const fields = byId('fields');
+const gameFieldset = byId('game-fieldset');
+const advanced = byId('advanced-options');
+const radioGroups = {
+  device_type: byId('device-options'),
+  game: byId('game-options'),
+  graphics_preset: byId('preset-options'),
+};
 const demo = new URLSearchParams(location.search).get('demo') === '1';
 const presetOrder = ['low', 'medium', 'high'];
+const gameArtwork = {
+  valorant: 'valorant',
+  cs2: 'cs2',
+  counterstrike2: 'cs2',
+  pubg: 'pubg',
+  pubgbattlegrounds: 'pubg',
+  playerunknownsbattlegrounds: 'pubg',
+  fconline: 'fc_online',
+  leagueoflegends: 'lol',
+  lol: 'lol',
+};
 const fpsTiers = [
   { min: 144, label: '144+ FPS · Rất mượt' },
   { min: 60, label: '60–143 FPS · Mượt' },
@@ -29,7 +47,8 @@ const displayNames = {
   1: '1 kênh', 2: '2 kênh', 4: '4 kênh',
 };
 const numericFields = ['gpu_vram_gb', 'gpu_tgp_w', 'ram_gb'];
-const requiredSelects = {
+const advancedFields = ['gpu_vram_gb', 'gpu_tgp_w', 'ram_type', 'ram_channels'];
+const requiredChoices = {
   game: 'Chọn một trò chơi.',
   resolution: 'Chọn độ phân giải.',
   graphics_preset: 'Chọn mức đồ họa.',
@@ -44,7 +63,7 @@ const serverMessages = {
   less_than_equal: 'Giá trị vượt mức tối đa.',
 };
 const fieldNames = ['device_type', 'cpu_model', 'gpu_model', ...numericFields,
-  'ram_type', 'ram_channels', ...Object.keys(requiredSelects)];
+  'ram_type', 'ram_channels', ...Object.keys(requiredChoices)];
 const touched = new Set();
 const serverErrors = new Map();
 const fpsFormat = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 });
@@ -54,6 +73,19 @@ let chart;
 let busy = false;
 let pendingPayload;
 let displayedPayload;
+
+const selectedPresetBand = {
+  id: 'selectedPresetBand',
+  beforeDatasetsDraw({ ctx, chartArea, scales }, _args, { index, count, color }) {
+    if (index < 0) return;
+    const bandWidth = chartArea.width / count;
+    const left = scales.x.getPixelForValue(index) - bandWidth / 2 + 2;
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.fillRect(left, chartArea.top, bandWidth - 4, chartArea.height);
+    ctx.restore();
+  },
+};
 
 class HttpError extends Error {
   constructor(status, body) {
@@ -123,6 +155,52 @@ function populateSelect(id, values, placeholder, defaultValue = '') {
   }
 }
 
+function artworkFor({ value, label }) {
+  const key = name => String(name).toLowerCase().replace(/[^a-z0-9]/g, '');
+  return gameArtwork[key(value)] ?? gameArtwork[key(label)] ?? '';
+}
+
+function populateChoices(name, choices) {
+  const entries = choices.map((choice, index) => {
+    const game = name === 'game';
+    const item = document.createElement('div');
+    item.className = game ? 'game-choice' : 'radio-choice';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.className = 'btn-check';
+    input.name = name;
+    input.id = `${name}-choice-${index}`;
+    input.value = choice.value;
+    input.required = true;
+    const label = document.createElement('label');
+    label.htmlFor = input.id;
+    label.textContent = choice.label;
+    if (game) {
+      label.className = 'game-card';
+      label.dataset.art = artworkFor(choice);
+    }
+    item.append(input, label);
+    return item;
+  });
+  radioGroups[name].replaceChildren(...entries);
+}
+
+function inputsFor(name) {
+  return radioGroups[name] ? [...radioGroups[name].querySelectorAll('input')] : [byId(name)];
+}
+
+function formValue(name) {
+  const group = radioGroups[name];
+  return group ? group.querySelector('input:checked')?.value ?? '' : byId(name).value;
+}
+
+function selectChoice(name, preferred) {
+  const candidates = inputsFor(name);
+  const match = candidates.find(input => input.value === preferred && !input.disabled) ??
+    candidates.find(input => !input.disabled);
+  if (match) match.checked = true;
+}
+
 function populateFields() {
   const devices = ['desktop', 'laptop'].map(id => byId(id));
   for (const input of devices) {
@@ -136,10 +214,10 @@ function populateFields() {
   const firstDevice = devices.find(input => !input.disabled);
   firstDevice.defaultChecked = true;
   firstDevice.checked = true;
-  populateSelect('game', options.games, 'Chọn trò chơi');
+  populateChoices('game', options.games);
   const defaultResolution = options.resolutions.length === 1 ? String(options.resolutions[0].value) : '';
   populateSelect('resolution', options.resolutions, 'Chọn độ phân giải', defaultResolution);
-  populateSelect('graphics_preset', options.graphics_presets, 'Chọn mức đồ họa');
+  populateChoices('graphics_preset', options.graphics_presets);
   populateSelect('ram_type', options.ram_types, 'Không rõ');
   populateSelect('ram_channels', options.ram_channels, 'Không rõ');
   for (const [id, key] of [['cpu-options', 'cpu_models'], ['gpu-options', 'gpu_models']]) {
@@ -148,12 +226,14 @@ function populateFields() {
 }
 
 function isLaptop() {
-  return form.elements.device_type.value.toLowerCase() === 'laptop';
+  return formValue('device_type').toLowerCase() === 'laptop';
 }
 
-function updateDevice() {
-  byId('tgp-field').hidden = !isLaptop();
-  byId('gpu_tgp_w').disabled = !isLaptop();
+function updateDevice(expand = false) {
+  const laptop = isLaptop();
+  byId('tgp-field').hidden = !laptop;
+  byId('gpu_tgp_w').disabled = !laptop;
+  if (laptop && expand) advanced.open = true;
 }
 
 function validationErrors() {
@@ -162,8 +242,8 @@ function validationErrors() {
   for (const [name, label] of [['cpu_model', 'CPU'], ['gpu_model', 'GPU']]) {
     if (!byId(name).value.trim()) errors[name] = `Nhập tên ${label}.`;
   }
-  for (const [name, error] of Object.entries(requiredSelects)) {
-    if (!byId(name).value) errors[name] = error;
+  for (const [name, error] of Object.entries(requiredChoices)) {
+    if (!formValue(name)) errors[name] = error;
   }
   const ram = byId('ram_gb');
   if (!Number.isInteger(ram.valueAsNumber) || ram.valueAsNumber < 1) {
@@ -185,8 +265,7 @@ function updateForm() {
     const feedback = byId(`${name}-error`);
     feedback.textContent = message ?? '';
     feedback.hidden = !message;
-    const inputs = name === 'device_type' ? [byId('desktop'), byId('laptop')] : [byId(name)];
-    for (const input of inputs) {
+    for (const input of inputsFor(name)) {
       if (message) input.setAttribute('aria-invalid', 'true');
       else input.removeAttribute('aria-invalid');
       const descriptions = [name === 'gpu_tgp_w' ? 'tgp-hint' : '', message ? feedback.id : ''].filter(Boolean);
@@ -194,21 +273,24 @@ function updateForm() {
       else input.removeAttribute('aria-describedby');
     }
   }
+  const advancedInvalid = advancedFields.some(name => errors[name]);
+  advanced.toggleAttribute('data-error', advancedInvalid);
+  byId('advanced-note').textContent = advancedInvalid ? 'Cần kiểm tra' : 'Tùy chọn';
   const invalid = Object.keys(errors).length > 0;
   byId('predict').disabled = !options || busy || invalid;
-  byId('form-guidance').textContent = !options || busy ? '' :
-    invalid ? 'Điền hoặc sửa các trường bắt buộc để dự đoán.' : 'Cấu hình đã sẵn sàng.';
+  byId('form-guidance').textContent = options && !busy && invalid ?
+    'Hoàn thành các mục có dấu * và kiểm tra lỗi nhập liệu.' : '';
   byId('reset-form').disabled = !options || busy;
 }
 
 function fieldValue(name, optionKey) {
-  const value = byId(name).value;
+  const value = formValue(name);
   return options[optionKey].find(option => String(option.value) === value)?.value ?? null;
 }
 
 function getPayload() {
   return {
-    device_type: form.elements.device_type.value,
+    device_type: formValue('device_type'),
     cpu_model: byId('cpu_model').value.trim(),
     gpu_model: byId('gpu_model').value.trim(),
     gpu_vram_gb: byId('gpu_vram_gb').value === '' ? null : byId('gpu_vram_gb').valueAsNumber,
@@ -220,6 +302,10 @@ function getPayload() {
     resolution: fieldValue('resolution', 'resolutions'),
     graphics_preset: fieldValue('graphics_preset', 'graphics_presets'),
   };
+}
+
+function optionLabel(key, value) {
+  return options[key].find(option => option.value === value)?.label ?? String(value);
 }
 
 function formatFps(value) {
@@ -235,7 +321,7 @@ function clearResults() {
   chart = undefined;
   displayedPayload = undefined;
   for (const id of ['tier', 'model', 'warnings', 'stub-warning', 'stale-result', 'api-error', 'retry',
-    'chart-area', 'chart-legend', 'comparison-details']) byId(id).hidden = true;
+    'chart-area', 'chart-legend', 'comparison-details', 'comparison-selected']) byId(id).hidden = true;
   byId('comparison-details').open = false;
   byId('comparison-empty').hidden = false;
   byId('avg').textContent = '—';
@@ -252,8 +338,12 @@ function renderResults(response, payload) {
   byId('tier').textContent = tier.label;
   byId('tier').dataset.tier = tier.min;
   byId('tier').hidden = false;
-  const config = [options.games.find(item => item.value === payload.game)?.label,
-    displayNames[payload.device_type.toLowerCase()], byId('graphics_preset').selectedOptions[0].textContent];
+  const config = [
+    optionLabel('games', payload.game),
+    optionLabel('resolutions', payload.resolution),
+    optionLabel('graphics_presets', payload.graphics_preset),
+    displayNames[payload.device_type.toLowerCase()],
+  ];
   byId('result-config').textContent = config.join(' · ');
   const source = isStub(response) ? 'Kết quả thử nghiệm' : 'Ước lượng từ mô hình ML';
   const lowInfo = response.one_percent_low_fps === null ? ' · Chưa có ước lượng 1% Low FPS' : '';
@@ -269,11 +359,17 @@ function renderResults(response, payload) {
   byId('warnings').hidden = !warnings.length;
 }
 
-function renderComparison(presets, results) {
+function renderComparison(presets, results, submittedPreset) {
   const rows = results.map((result, index) => ({
     ...presets[index],
     response: result.status === 'fulfilled' ? result.value : null,
   }));
+  const selectedIndex = rows.findIndex(row => row.value === submittedPreset);
+  const selectedLabel = byId('comparison-selected');
+  if (selectedIndex >= 0) {
+    selectedLabel.textContent = `Mức đã dự đoán · ${rows[selectedIndex].label}`;
+    selectedLabel.hidden = false;
+  }
   const failures = rows.filter(row => !row.response).map(row => row.label);
   const highest = [...rows].reverse().find(row => row.response?.avg_fps >= 60);
   const containsStub = rows.some(row => row.response && isStub(row.response));
@@ -289,13 +385,21 @@ function renderComparison(presets, results) {
   }
   if (failures.length) status.append(` Chưa tải được: ${failures.join(', ')}.`);
 
-  byId('comparison-rows').replaceChildren(...rows.map(row => {
+  byId('comparison-rows').replaceChildren(...rows.map((row, rowIndex) => {
     const entry = document.createElement('tr');
+    const selected = rowIndex === selectedIndex;
+    if (selected) entry.className = 'active-preset';
     for (const [index, value] of [row.label, formatFps(row.response?.avg_fps ?? null),
       formatFps(row.response?.one_percent_low_fps ?? null)].entries()) {
       const cell = document.createElement(index === 0 ? 'th' : 'td');
       if (index === 0) cell.scope = 'row';
       cell.textContent = value;
+      if (index === 0 && selected) {
+        const note = document.createElement('span');
+        note.className = 'visually-hidden';
+        note.textContent = ' (mức đã dự đoán)';
+        cell.append(note);
+      }
       entry.append(cell);
     }
     return entry;
@@ -307,8 +411,7 @@ function renderComparison(presets, results) {
     return;
   }
   const colors = getComputedStyle(document.documentElement);
-  const averageColor = colors.getPropertyValue('--avg').trim();
-  const lowColor = colors.getPropertyValue('--low').trim();
+  const color = name => colors.getPropertyValue(name).trim();
   byId('chart-area').hidden = false;
   byId('chart-legend').hidden = false;
   chart = new window.Chart(byId('chart'), {
@@ -316,19 +419,23 @@ function renderComparison(presets, results) {
     data: {
       labels: rows.map(row => row.label),
       datasets: [
-        { label: 'Average FPS', data: rows.map(row => row.response?.avg_fps ?? null), backgroundColor: averageColor, borderRadius: 4, maxBarThickness: 30 },
-        { label: '1% Low FPS', data: rows.map(row => row.response?.one_percent_low_fps ?? null), backgroundColor: lowColor, borderRadius: 4, maxBarThickness: 30 },
+        { label: 'Average FPS', data: rows.map(row => row.response?.avg_fps ?? null), backgroundColor: color('--avg'), borderRadius: 4, maxBarThickness: 30 },
+        { label: '1% Low FPS', data: rows.map(row => row.response?.one_percent_low_fps ?? null), backgroundColor: color('--low'), borderRadius: 4, maxBarThickness: 30 },
       ],
     },
+    plugins: [selectedPresetBand],
     options: {
       responsive: true,
       maintainAspectRatio: false,
       animation: false,
       scales: {
-        x: { grid: { display: false }, ticks: { color: '#525f77' } },
-        y: { beginAtZero: true, grid: { color: '#e2e8f4' }, ticks: { color: '#525f77', maxTicksLimit: 5 } },
+        x: { grid: { display: false }, ticks: { color: tick => color(tick.index === selectedIndex ? '--accent' : '--muted') } },
+        y: { beginAtZero: true, grid: { color: color('--chart-grid') }, ticks: { color: color('--muted'), maxTicksLimit: 5 } },
       },
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        selectedPresetBand: { index: selectedIndex, count: rows.length, color: color('--chart-selected') },
+      },
     },
   });
 }
@@ -348,6 +455,7 @@ function showError(error) {
           serverErrors.set(field, serverMessages[issue.type] ?? issue.msg ?? 'Giá trị không hợp lệ.');
         }
       }
+      if (advancedFields.some(name => serverErrors.has(name))) advanced.open = true;
       message = typeof detail === 'string' ? detail :
         serverErrors.size ? 'API yêu cầu sửa các trường được đánh dấu.' : 'API từ chối cấu hình. Hãy kiểm tra dữ liệu đã nhập.';
       retryable = false;
@@ -370,6 +478,7 @@ function showError(error) {
 function setBusy(value) {
   busy = value;
   fields.disabled = value;
+  gameFieldset.disabled = value;
   byId('spinner').hidden = !value;
   byId('submit-arrow').hidden = value;
   byId('submit-label').textContent = value ? 'Đang dự đoán…' : 'Dự đoán FPS';
@@ -405,14 +514,14 @@ async function submit(payload) {
   try {
     const result = await predict(payload);
     renderResults(result, payload);
-    if (window.matchMedia('(max-width: 950px)').matches) byId('result-title').focus();
+    if (window.matchMedia('(max-width: 960px)').matches) byId('result-title').focus();
     const presets = presetOrder.map(name => options.graphics_presets.find(item =>
       String(item.value).toLowerCase() === name));
     if (presets.every(Boolean)) {
       byId('comparison-status').textContent = 'Đang so sánh ba preset…';
       const results = await Promise.allSettled(presets.map(preset => preset.value === payload.graphics_preset ?
         Promise.resolve(result) : predict({ ...payload, graphics_preset: preset.value })));
-      renderComparison(presets, results);
+      renderComparison(presets, results, payload.graphics_preset);
     } else {
       byId('comparison-status').textContent = 'Danh sách từ API chưa có đủ Low, Medium và High.';
     }
@@ -434,7 +543,7 @@ form.addEventListener('input', event => {
   serverErrors.delete(name);
   if (name === 'device_type') {
     serverErrors.delete('gpu_tgp_w');
-    updateDevice();
+    updateDevice(true);
   }
   pendingPayload = undefined;
   byId('retry').hidden = true;
@@ -453,24 +562,28 @@ byId('reset-form').addEventListener('click', () => {
   serverErrors.clear();
   pendingPayload = undefined;
   clearResults();
-  updateDevice();
+  advanced.open = false;
+  updateDevice(true);
   updateForm();
 });
 byId('retry').addEventListener('click', () => {
   if (pendingPayload && !busy) void submit(pendingPayload);
 });
 byId('sample').addEventListener('click', () => {
-  byId('desktop').checked = true;
+  const laptop = isLaptop();
+  if (!formValue('game')) selectChoice('game', 'valorant');
+  if (!formValue('graphics_preset')) selectChoice('graphics_preset', 'high');
   for (const [id, value] of Object.entries({
-    cpu_model: 'Intel Core i5-12400F', gpu_model: 'NVIDIA RTX 3060',
-    ram_gb: '16', gpu_vram_gb: '12', gpu_tgp_w: '', ram_type: 'DDR4',
-    ram_channels: 'dual', game: 'valorant', resolution: '1920x1080', graphics_preset: 'high',
+    cpu_model: laptop ? 'Intel Core i7-12700H' : 'Intel Core i5-12400F',
+    gpu_model: laptop ? 'NVIDIA RTX 4060 Laptop GPU' : 'NVIDIA RTX 3060',
+    ram_gb: '16', gpu_vram_gb: laptop ? '8' : '12', gpu_tgp_w: '',
+    ram_type: laptop ? 'DDR5' : 'DDR4', ram_channels: 'dual',
   })) byId(id).value = value;
   touched.clear();
   serverErrors.clear();
   pendingPayload = undefined;
   clearResults();
-  updateDevice();
+  updateDevice(true);
   updateForm();
 });
 
@@ -497,8 +610,9 @@ async function initialize() {
   }
   populateFields();
   fields.disabled = false;
+  gameFieldset.disabled = false;
   byId('sample').hidden = !demo;
-  updateDevice();
+  updateDevice(true);
   updateForm();
 }
 
