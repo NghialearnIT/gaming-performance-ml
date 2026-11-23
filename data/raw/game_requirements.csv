@@ -1,0 +1,586 @@
+name,release_year,min_cpu_score,rec_cpu_score,min_gpu_g3d,rec_gpu_g3d,min_ram_gb,rec_ram_gb,page_url
+Red Dead Redemption 2,2018.0,1690,2700,5527,8540,8.0,12.0,https://pcgamebenchmarks.com/game/red-dead-redemption-2-23157
+Elden Ring,2022.0,3700,4110,8791,13003,12.0,16.0,https://pcgamebenchmarks.com/game/elden-ring-109897
+Dark Souls III,2016.0,1450,1910,3900,9638,4.0,8.0,https://pcgamebenchmarks.com/game/dark-souls-iii-10712
+Cyberpunk 2077,2020.0,2920,6250,6284,13352,12.0,16.0,https://pcgamebenchmarks.com/game/cyberpunk-2077-1828
+Heavy Rain,2010.0,1690,2450,4047,8808,4.0,8.0,https://pcgamebenchmarks.com/game/heavy-rain-488
+Dying Light,2015.0,1740,1910,2202,7946,4.0,8.0,https://pcgamebenchmarks.com/game/dying-light-2920
+Clair Obscur: Expedition 33,2025.0,3000,5500,6284,20283,8.0,16.0,https://pcgamebenchmarks.com/game/clair-obscur-expedition-33-280622
+Beyond: Two Souls,2013.0,1690,2450,4047,8808,4.0,8.0,https://pcgamebenchmarks.com/game/beyond-two-souls-1317
+PUBG: Battlegrounds,2017.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/pubg-battlegrounds-25619
+Days Gone,2019.0,1690,2700,7946,8791,8.0,16.0,https://pcgamebenchmarks.com/game/days-gone-18023
+Bayonetta,2009.0,1600,2400,2594,4565,4.0,8.0,https://pcgamebenchmarks.com/game/bayonetta-2036
+Metal Gear Rising: Revengeance,2013.0,2100,2650,1344,1759,2.0,4.0,https://pcgamebenchmarks.com/game/metal-gear-rising-revengeance-375
+Battlefield V,2018.0,1910,2450,3681,8791,8.0,12.0,https://pcgamebenchmarks.com/game/battlefield-v-76707
+Marvel's Guardians of the Galaxy,2021.0,2400,2850,7908,9301,8.0,16.0,https://pcgamebenchmarks.com/game/marvels-guardians-of-the-galaxy-140224
+Marvel's Spider-Man 2,2023.0,2950,3700,7873,14256,16.0,16.0,https://pcgamebenchmarks.com/game/marvels-spider-man-2-117281
+Mass Effect Legendary Edition,2021.0,1910,3340,4823,13003,8.0,16.0,https://pcgamebenchmarks.com/game/mass-effect-legendary-edition-129833
+Marvel Rivals,2024.0,2900,4420,6284,12620,16.0,16.0,https://pcgamebenchmarks.com/game/marvel-rivals-270861
+Ratchet & Clank: Rift Apart,2021.0,2950,3700,6138,14103,8.0,16.0,https://pcgamebenchmarks.com/game/ratchet-clank-rift-apart-124109
+Helldivers 2,2024.0,2700,4300,6359,14103,8.0,16.0,https://pcgamebenchmarks.com/game/helldivers-2-231424
+World of Tanks,2011.0,1690,3150,4047,7873,8.0,16.0,https://pcgamebenchmarks.com/game/world-of-tanks-1159
+Palworld,2026.0,3720,5350,11622,19739,16.0,32.0,https://pcgamebenchmarks.com/game/palworld-139681
+The Dark Pictures Anthology: Man of Medan,2019.0,1910,2920,3900,8791,8.0,8.0,https://pcgamebenchmarks.com/game/the-dark-pictures-anthology-man-of-medan-50646
+Ghost of Tsushima: Director's Cut,2021.0,2250,3820,6138,13415,8.0,16.0,https://pcgamebenchmarks.com/game/ghost-of-tsushima-directors-cut-141600
+Rust,2018.0,2500,3340,7924,15865,12.0,16.0,https://pcgamebenchmarks.com/game/rust-3148
+Risk of Rain 2,2020.0,1910,2650,4565,5248,4.0,4.0,https://pcgamebenchmarks.com/game/risk-of-rain-2-26285
+Deathloop,2021.0,2920,3550,8791,14103,12.0,16.0,https://pcgamebenchmarks.com/game/deathloop-104713
+Cyberpunk 2077: Phantom Liberty,2023.0,2920,6250,6284,13352,12.0,16.0,https://pcgamebenchmarks.com/game/cyberpunk-2077-phantom-liberty-199572
+Black Myth: Wukong,2024.0,2920,4150,8791,12620,16.0,16.0,https://pcgamebenchmarks.com/game/black-myth-wukong-126196
+Split Fiction,2025.0,2900,5180,7924,19739,16.0,16.0,https://pcgamebenchmarks.com/game/split-fiction-298570
+Phasmophobia,2020.0,2550,4200,8808,14103,8.0,8.0,https://pcgamebenchmarks.com/game/phasmophobia-122222
+Atomic Heart,2023.0,2200,3450,5977,16061,8.0,16.0,https://pcgamebenchmarks.com/game/atomic-heart-70787
+Final Fantasy XVI,2023.0,2920,4700,12076,18617,16.0,16.0,https://pcgamebenchmarks.com/game/final-fantasy-xvi-29193
+Rage 2,2019.0,2450,2780,5527,13003,8.0,8.0,https://pcgamebenchmarks.com/game/rage-2-93013
+Danganronpa V3: Killing Harmony,2017.0,2000,2700,2272,6138,4.0,8.0,https://pcgamebenchmarks.com/game/danganronpa-v3-killing-harmony-12106
+The Dark Pictures Anthology: Little Hope,2020.0,1910,2920,3900,8791,8.0,8.0,https://pcgamebenchmarks.com/game/the-dark-pictures-anthology-little-hope-112674
+Ghostwire: Tokyo,2022.0,2900,3150,6284,12620,12.0,16.0,https://pcgamebenchmarks.com/game/ghostwire-tokyo-110056
+Call of Duty: Black Ops 6,2024.0,2500,3000,7924,15865,8.0,12.0,https://pcgamebenchmarks.com/game/call-of-duty-black-ops-6-277881
+Call of Duty: Modern Warfare III,2023.0,2500,3000,6138,13352,8.0,16.0,https://pcgamebenchmarks.com/game/call-of-duty-modern-warfare-iii-240536
+Teenage Mutant Ninja Turtles: Shredder's Revenge,2022.0,1450,1690,470,1052,4.0,4.0,https://pcgamebenchmarks.com/game/teenage-mutant-ninja-turtles-shredders-revenge-133020
+"Warhammer 40,000: Space Marine II",2024.0,3450,5500,8791,22135,8.0,16.0,https://pcgamebenchmarks.com/game/warhammer-40000-space-marine-ii-171448
+Call of Duty: Modern Warfare II,2022.0,2500,3000,7924,15865,8.0,12.0,https://pcgamebenchmarks.com/game/call-of-duty-modern-warfare-ii-185213
+The Dark Pictures Anthology: House of Ashes,2021.0,1910,2920,5977,13003,8.0,12.0,https://pcgamebenchmarks.com/game/the-dark-pictures-anthology-house-of-ashes-129645
+Stellar Blade,2024.0,3000,3700,8791,16114,16.0,16.0,https://pcgamebenchmarks.com/game/stellar-blade-108067
+Final Fantasy VII Rebirth,2024.0,2500,3950,12076,16061,16.0,16.0,https://pcgamebenchmarks.com/game/final-fantasy-vii-rebirth-122907
+R.E.P.O.,2025.0,2850,3950,9638,13507,8.0,8.0,https://pcgamebenchmarks.com/game/repo-304834
+The Callisto Protocol,2022.0,3350,3950,8791,13507,8.0,16.0,https://pcgamebenchmarks.com/game/the-callisto-protocol-130449
+Cocoon,2023.0,1910,2500,5352,6138,6.0,8.0,https://pcgamebenchmarks.com/game/cocoon-189345
+Immortals Fenyx Rising,2020.0,1690,1910,4047,8150,8.0,8.0,https://pcgamebenchmarks.com/game/immortals-fenyx-rising-110101
+LEGO Star Wars: The Skywalker Saga,2022.0,2100,2850,3900,7946,8.0,8.0,https://pcgamebenchmarks.com/game/lego-star-wars-the-skywalker-saga-110053
+Death Stranding: Director's Cut,2021.0,2350,2650,3681,9301,8.0,8.0,https://pcgamebenchmarks.com/game/death-stranding-directors-cut-140057
+S.T.A.L.K.E.R. 2: Heart of Chornobyl,2024.0,3000,4980,8791,23262,16.0,32.0,https://pcgamebenchmarks.com/game/stalker-2-heart-of-chornobyl-93231
+RoboCop: Rogue City,2023.0,2850,4350,6284,13352,16.0,16.0,https://pcgamebenchmarks.com/game/robocop-rogue-city-142607
+Ni no Kuni II: Revenant Kingdom,2018.0,1690,1910,3204,9638,4.0,8.0,https://pcgamebenchmarks.com/game/ni-no-kuni-ii-revenant-kingdom-14226
+Arena Breakout: Infinite,2025.0,2500,4150,6138,15072,12.0,16.0,https://pcgamebenchmarks.com/game/arena-breakout-infinite-275354
+EA Sports FC 24,2023.0,2900,3150,6359,11622,8.0,12.0,https://pcgamebenchmarks.com/game/ea-sports-fc-24-236201
+Dragon Ball: Xenoverse 2,2016.0,2480,2550,2171,3900,4.0,4.0,https://pcgamebenchmarks.com/game/dragon-ball-xenoverse-2-17919
+No More Heroes,2007.0,2400,2600,3900,9638,8.0,8.0,https://pcgamebenchmarks.com/game/no-more-heroes-2167
+Final Fantasy VII Remake Intergrade,2021.0,1910,2650,7946,14256,8.0,12.0,https://pcgamebenchmarks.com/game/final-fantasy-vii-remake-intergrade-132652
+Tekken 8,2024.0,2900,3350,6130,16061,8.0,16.0,https://pcgamebenchmarks.com/game/tekken-8-201302
+Elden Ring: Shadow of the Erdtree,2024.0,3700,4110,8791,13003,12.0,16.0,https://pcgamebenchmarks.com/game/elden-ring-shadow-of-the-erdtree-221759
+Mafia: The Old Country,2025.0,3550,5500,16061,26785,16.0,32.0,https://pcgamebenchmarks.com/game/mafia-the-old-country-288755
+Silent Hill f,2025.0,3350,4150,14256,18617,16.0,16.0,https://pcgamebenchmarks.com/game/silent-hill-f-205672
+Sons of the Forest,2024.0,3700,4110,7908,16114,12.0,16.0,https://pcgamebenchmarks.com/game/sons-of-the-forest-117539
+Street Fighter 6,2023.0,2350,3950,8791,16061,8.0,16.0,https://pcgamebenchmarks.com/game/street-fighter-6-177349
+Where Winds Meet,2024.0,2920,4300,8540,12620,16.0,32.0,https://pcgamebenchmarks.com/game/where-winds-meet-198361
+Ace Combat 7: Skies Unknown,2019.0,2250,2850,3900,10055,4.0,8.0,https://pcgamebenchmarks.com/game/ace-combat-7-skies-unknown-14235
+Stalzone,2022.0,2100,2700,3681,8791,4.0,8.0,https://pcgamebenchmarks.com/game/stalcraft-x-123379
+Metaphor: ReFantazio,2024.0,1690,2970,3127,6284,6.0,8.0,https://pcgamebenchmarks.com/game/metaphor-refantazio-24567
+New World: Aeternum,2021.0,3900,4220,9301,15072,8.0,16.0,https://pcgamebenchmarks.com/game/new-world-aeternum-22753
+Chants of Sennaar,2023.0,1690,1690,800,1948,8.0,8.0,https://pcgamebenchmarks.com/game/chants-of-sennaar-183665
+SuperHot: Mind Control Delete,2020.0,1900,2650,1759,4047,8.0,8.0,https://pcgamebenchmarks.com/game/superhot-mind-control-delete-25328
+MultiVersus,2024.0,2380,2480,2533,4823,8.0,8.0,https://pcgamebenchmarks.com/game/multiversus-168629
+Elden Ring Nightreign,2025.0,4350,4760,10055,13507,12.0,16.0,https://pcgamebenchmarks.com/game/elden-ring-nightreign-298567
+Phoenix Wright: Ace Attorney Trilogy,2014.0,1950,2480,530,4047,4.0,4.0,https://pcgamebenchmarks.com/game/phoenix-wright-ace-attorney-trilogy-19952
+FIFA 23,2022.0,2900,3150,6359,11622,8.0,12.0,https://pcgamebenchmarks.com/game/fifa-23-190409
+Dark Souls III: Ashes of Ariandel,2016.0,1450,1910,3900,9638,4.0,8.0,https://pcgamebenchmarks.com/game/dark-souls-iii-ashes-of-ariandel-21386
+The Ultimate Doom,1995.0,2480,2900,1700,6284,8.0,8.0,https://pcgamebenchmarks.com/game/the-ultimate-doom-9806
+The Dark Pictures Anthology: The Devil in Me,2022.0,1910,2920,5977,13003,8.0,12.0,https://pcgamebenchmarks.com/game/the-dark-pictures-anthology-the-devil-in-me-165007
+BeamNG.drive,2015.0,2920,4150,7908,17008,16.0,32.0,https://pcgamebenchmarks.com/game/beamngdrive-15867
+Ready or Not,2023.0,1690,2920,4482,10055,8.0,8.0,https://pcgamebenchmarks.com/game/ready-or-not-26264
+EA Sports FC 25,2024.0,2900,3150,6359,11622,8.0,12.0,https://pcgamebenchmarks.com/game/ea-sports-fc-25-283618
+Sonic Frontiers,2022.0,2380,2850,4047,13003,8.0,12.0,https://pcgamebenchmarks.com/game/sonic-frontiers-138096
+Dragon Ball: Sparking! Zero,2024.0,3350,4200,9301,13904,8.0,16.0,https://pcgamebenchmarks.com/game/dragon-ball-sparking-zero-257752
+No More Heroes 2: Desperate Struggle,2010.0,2400,2600,3900,9638,8.0,8.0,https://pcgamebenchmarks.com/game/no-more-heroes-2-desperate-struggle-2168
+Pacific Drive,2024.0,3820,4580,10055,18617,16.0,16.0,https://pcgamebenchmarks.com/game/pacific-drive-201304
+Nobody Wants to Die,2024.0,2950,4200,12620,13352,8.0,16.0,https://pcgamebenchmarks.com/game/nobody-wants-to-die-267904
+Marvel's Midnight Suns,2022.0,2330,3150,6138,13507,8.0,16.0,https://pcgamebenchmarks.com/game/marvels-midnight-suns-152785
+Dying Light: The Following,2016.0,1740,1910,2202,7946,8.0,16.0,https://pcgamebenchmarks.com/game/dying-light-the-following-14750
+Monster Hunter Wilds,2025.0,4200,4200,9072,16480,16.0,16.0,https://pcgamebenchmarks.com/game/monster-hunter-wilds-257775
+Call of Duty: Black Ops 7,2025.0,2500,3000,7924,15865,8.0,12.0,https://pcgamebenchmarks.com/game/call-of-duty-black-ops-7-318713
+Saints Row,2022.0,1650,5500,8540,25035,8.0,16.0,https://pcgamebenchmarks.com/game/saints-row-152784
+Throne and Liberty,2023.0,2720,5040,6138,11622,8.0,16.0,https://pcgamebenchmarks.com/game/throne-and-liberty-108182
+Lake,2021.0,1910,2920,4765,8808,8.0,16.0,https://pcgamebenchmarks.com/game/lake-117902
+Little Nightmares III,2025.0,2350,2920,8791,18617,8.0,12.0,https://pcgamebenchmarks.com/game/little-nightmares-iii-242109
+Dune: Awakening,2025.0,2350,3450,10055,22135,16.0,16.0,https://pcgamebenchmarks.com/game/dune-awakening-198347
+Yu-Gi-Oh! Master Duel,2022.0,3720,4860,7873,17008,8.0,16.0,https://pcgamebenchmarks.com/game/yu-gi-oh-master-duel-146959
+Arknights: Endfield,2026.0,3720,4840,10055,14103,16.0,16.0,https://pcgamebenchmarks.com/game/arknights-endfield-180032
+Resident Evil 4: Separate Ways,2023.0,2350,3950,3681,13507,8.0,16.0,https://pcgamebenchmarks.com/game/resident-evil-4-separate-ways-245995
+Yakuza 4 Remastered,2019.0,1690,1910,731,4765,4.0,8.0,https://pcgamebenchmarks.com/game/yakuza-4-remastered-94731
+Mixtape,2026.0,2700,4350,7873,17307,8.0,16.0,https://pcgamebenchmarks.com/game/mixtape-280627
+Kingdom Hearts HD 2.8 Final Chapter Prologue,2017.0,2250,2850,3204,13003,8.0,8.0,https://pcgamebenchmarks.com/game/kingdom-hearts-hd-28-final-chapter-prologue-13652
+Borderlands 4,2025.0,3550,5500,12076,15865,16.0,32.0,https://pcgamebenchmarks.com/game/borderlands-4-288729
+Octopath Traveler II,2023.0,2100,2350,3302,7924,8.0,8.0,https://pcgamebenchmarks.com/game/octopath-traveler-ii-201269
+The Outlast Trials,2024.0,2500,3340,2533,11622,8.0,16.0,https://pcgamebenchmarks.com/game/the-outlast-trials-117396
+Life is Strange: Double Exposure,2024.0,1690,3590,6138,19459,12.0,12.0,https://pcgamebenchmarks.com/game/life-is-strange-double-exposure-280628
+Wuchang: Fallen Feathers,2025.0,2920,4150,8791,12620,16.0,16.0,https://pcgamebenchmarks.com/game/wuchang-fallen-feathers-158276
+Lonely Mountains: Downhill,2019.0,1690,1740,3078,5248,4.0,4.0,https://pcgamebenchmarks.com/game/lonely-mountains-downhill-26844
+Hell Let Loose,2019.0,2450,3450,5977,9301,12.0,16.0,https://pcgamebenchmarks.com/game/hell-let-loose-29989
+Chernobylite,2021.0,2250,3040,4047,7908,8.0,16.0,https://pcgamebenchmarks.com/game/chernobylite-106098
+Stranger of Paradise: Final Fantasy Origin,2022.0,2500,2920,7924,12683,8.0,16.0,https://pcgamebenchmarks.com/game/stranger-of-paradise-final-fantasy-origin-140225
+Strange Brigade,2018.0,1450,2650,3900,7908,4.0,8.0,https://pcgamebenchmarks.com/game/strange-brigade-34276
+Granblue Fantasy: Relink,2024.0,2700,3950,8791,18617,16.0,16.0,https://pcgamebenchmarks.com/game/granblue-fantasy-relink-21048
+Resonance: A Plague Tale Legacy,2026.0,3500,5350,9072,19739,16.0,16.0,https://pcgamebenchmarks.com/game/resonance-a-plague-tale-legacy-318662
+Payday 3,2023.0,3720,4380,7478,13003,16.0,16.0,https://pcgamebenchmarks.com/game/payday-3-25169
+Dead Island: Definitive Edition,2016.0,1740,1910,2202,7946,4.0,8.0,https://pcgamebenchmarks.com/game/dead-island-definitive-edition-32494
+Frostpunk 2,2024.0,2920,4300,2691,13352,8.0,16.0,https://pcgamebenchmarks.com/game/frostpunk-2-151827
+Horizon Zero Dawn Remastered,2024.0,2450,3820,7873,14256,16.0,16.0,https://pcgamebenchmarks.com/game/horizon-zero-dawn-remastered-291200
+Sherlock Holmes: Chapter One,2021.0,2850,3700,5977,13415,12.0,12.0,https://pcgamebenchmarks.com/game/sherlock-holmes-chapter-one-123727
+Dagon,2021.0,2100,2550,4047,9638,4.0,8.0,https://pcgamebenchmarks.com/game/dagon-144930
+Strinova,2023.0,2000,2700,824,4482,4.0,8.0,https://pcgamebenchmarks.com/game/strinova-239929
+EA Sports FC 26,2025.0,2900,3150,6359,11622,8.0,12.0,https://pcgamebenchmarks.com/game/ea-sports-fc-26-323762
+Gunfire Reborn,2021.0,1740,2500,6138,8808,4.0,8.0,https://pcgamebenchmarks.com/game/gunfire-reborn-124025
+No Rest for the Wicked,2024.0,3350,5180,13415,14103,16.0,32.0,https://pcgamebenchmarks.com/game/no-rest-for-the-wicked-257745
+LEGO Batman: Legacy of the Dark Knight,2026.0,2920,5500,6138,15865,16.0,16.0,https://pcgamebenchmarks.com/game/lego-batman-legacy-of-the-dark-knight-330854
+Scum,2025.0,1690,2900,8540,14103,16.0,16.0,https://pcgamebenchmarks.com/game/scum-29351
+F.I.S.T.: Forged In Shadow Torch,2021.0,1740,2550,5527,10055,8.0,16.0,https://pcgamebenchmarks.com/game/fist-forged-in-shadow-torch-106845
+The Casting of Frank Stone,2024.0,2920,5250,15610,22036,12.0,16.0,https://pcgamebenchmarks.com/game/the-casting-of-frank-stone-257753
+Redfall,2023.0,2920,3550,8791,11457,16.0,16.0,https://pcgamebenchmarks.com/game/redfall-140222
+The Blood of Dawnwalker,2026.0,3550,5180,8791,15865,16.0,16.0,https://pcgamebenchmarks.com/game/the-blood-of-dawnwalker-260512
+Skate.,2025.0,2900,4300,4100,17008,8.0,16.0,https://pcgamebenchmarks.com/game/skate-48658
+Indivisible,2019.0,1450,2380,2780,5364,6.0,8.0,https://pcgamebenchmarks.com/game/indivisible-13057
+Aion 2,2025.0,3350,4300,6359,16061,8.0,16.0,https://pcgamebenchmarks.com/game/aion-2-108185
+Observer: System Redux,2020.0,2350,2650,3681,9301,8.0,16.0,https://pcgamebenchmarks.com/game/observer-system-redux-121893
+Hell is Us,2025.0,3590,5180,12620,15865,16.0,16.0,https://pcgamebenchmarks.com/game/hell-is-us-182233
+FragPunk,2025.0,2850,4840,2691,12620,8.0,16.0,https://pcgamebenchmarks.com/game/fragpunk-280625
+Subnautica 2,2026.0,3350,7060,9072,19739,12.0,16.0,https://pcgamebenchmarks.com/game/subnautica-2-293850
+Sonic Racing: CrossWorlds,2025.0,2350,3350,4985,12677,12.0,12.0,https://pcgamebenchmarks.com/game/sonic-racing-crossworlds-298583
+One Piece: Burning Blood,2016.0,2000,2700,2272,6138,4.0,8.0,https://pcgamebenchmarks.com/game/one-piece-burning-blood-16986
+Super Lucky's Tale,2017.0,1690,1910,4047,7946,8.0,16.0,https://pcgamebenchmarks.com/game/super-luckys-tale-34425
+One Piece: Pirate Warriors 4,2020.0,2350,2500,4047,8791,8.0,8.0,https://pcgamebenchmarks.com/game/one-piece-pirate-warriors-4-111113
+Disney Speedstorm,2023.0,2400,3340,4482,15610,8.0,16.0,https://pcgamebenchmarks.com/game/disney-speedstorm-177097
+Fishing Planet,2015.0,3500,6250,5046,19530,8.0,16.0,https://pcgamebenchmarks.com/game/fishing-planet-12257
+The Bunker,2016.0,3500,3500,824,824,8.0,8.0,https://pcgamebenchmarks.com/game/the-bunker-22183
+Gothic 1 Remake,2026.0,3000,3590,16061,23262,16.0,32.0,https://pcgamebenchmarks.com/game/gothic-1-remake-136374
+Keeper,2025.0,2920,6920,13507,28994,16.0,32.0,https://pcgamebenchmarks.com/game/keeper-318711
+Librarian: Tidy Up the Arcane Library!,2026.0,2700,3950,9633,15610,8.0,16.0,https://pcgamebenchmarks.com/game/librarian-tidy-up-the-arcane-library-355393
+LEGO Harry Potter Collection,2016.0,2350,2350,1759,4765,4.0,8.0,https://pcgamebenchmarks.com/game/lego-harry-potter-collection-23163
+Solar Ash,2021.0,1690,2780,1559,9638,8.0,12.0,https://pcgamebenchmarks.com/game/solar-ash-107131
+Steelrising,2022.0,2500,3950,13415,16114,8.0,16.0,https://pcgamebenchmarks.com/game/steelrising-125081
+Nickelodeon All-Star Brawl,2021.0,1690,2900,4482,8791,4.0,8.0,https://pcgamebenchmarks.com/game/nickelodeon-all-star-brawl-143927
+LEGO Horizon Adventures,2024.0,3350,4200,7873,22036,16.0,16.0,https://pcgamebenchmarks.com/game/lego-horizon-adventures-280494
+Disc Jam,2017.0,1950,2700,343,6138,4.0,4.0,https://pcgamebenchmarks.com/game/disc-jam-23287
+New Super Lucky's Tale,2019.0,1690,1910,4047,7946,1.0,1.0,https://pcgamebenchmarks.com/game/new-super-luckys-tale-110140
+Routine,2025.0,3820,6730,7908,14103,8.0,16.0,https://pcgamebenchmarks.com/game/routine-8604
+Grip,2018.0,1600,1740,1936,9638,4.0,8.0,https://pcgamebenchmarks.com/game/grip-16995
+NBA 2K25,2024.0,2350,4220,6138,13352,8.0,16.0,https://pcgamebenchmarks.com/game/nba-2k25-283053
+Ninja Gaiden 4,2025.0,2930,4200,9301,16114,16.0,16.0,https://pcgamebenchmarks.com/game/ninja-gaiden-4-301604
+Flintlock: The Siege of Dawn,2024.0,3700,4110,6284,12620,8.0,16.0,https://pcgamebenchmarks.com/game/flintlock-the-siege-of-dawn-179945
+Ghost Trick: Phantom Detective,2023.0,2700,2700,615,2402,8.0,8.0,https://pcgamebenchmarks.com/game/ghost-trick-phantom-detective-218699
+Sniper Ghost Warrior Contracts 2,2021.0,2920,3050,8791,13415,8.0,16.0,https://pcgamebenchmarks.com/game/sniper-ghost-warrior-contracts-2-128139
+Stray Gods: The Roleplaying Musical,2023.0,2700,2970,2533,8540,8.0,8.0,https://pcgamebenchmarks.com/game/stray-gods-the-roleplaying-musical-179996
+Poppy Playtime: Chapter 3 - Deep Sleep,2024.0,2350,3350,2402,14103,8.0,16.0,https://pcgamebenchmarks.com/game/poppy-playtime-chapter-3-deep-sleep-238779
+TCG Card Shop Simulator,2026.0,2420,2550,5046,13507,8.0,8.0,https://pcgamebenchmarks.com/game/tcg-card-shop-simulator-284700
+Aliens: Dark Descent,2023.0,1690,3230,5977,13415,8.0,16.0,https://pcgamebenchmarks.com/game/aliens-dark-descent-189102
+Toribash,2006.0,1600,3700,343,4100,8.0,8.0,https://pcgamebenchmarks.com/game/toribash-1826
+Solasta: Crown of the Magister,2020.0,1590,2450,5352,9301,8.0,8.0,https://pcgamebenchmarks.com/game/solasta-crown-of-the-magister-110877
+UFL,2024.0,3340,3340,7873,7873,12.0,12.0,https://pcgamebenchmarks.com/game/ufl-152787
+New Tales from the Borderlands,2022.0,2450,2780,6138,9301,8.0,8.0,https://pcgamebenchmarks.com/game/new-tales-from-the-borderlands-198100
+Kunitsu-Gami: Path of the Goddess,2024.0,2350,3340,3681,13507,8.0,16.0,https://pcgamebenchmarks.com/game/kunitsu-gami-path-of-the-goddess-233371
+Revenge of the Savage Planet,2025.0,2920,4150,8791,12620,8.0,16.0,https://pcgamebenchmarks.com/game/revenge-of-the-savage-planet-288726
+Tchia,2023.0,2920,3880,6284,12076,8.0,16.0,https://pcgamebenchmarks.com/game/tchia-123877
+Wild Hearts,2023.0,3350,4110,9072,16061,12.0,16.0,https://pcgamebenchmarks.com/game/wild-hearts-202352
+Everspace 2,2023.0,1690,2700,7746,16061,8.0,16.0,https://pcgamebenchmarks.com/game/everspace-2-112327
+Caravan SandWitch,2024.0,2950,3130,6359,13415,8.0,16.0,https://pcgamebenchmarks.com/game/caravan-sandwitch-133493
+Dragon Quest III HD-2D Remake,2024.0,2100,2100,3302,7924,8.0,8.0,https://pcgamebenchmarks.com/game/dragon-quest-iii-hd-2d-remake-138071
+Big Walk,2026.0,3000,4300,3900,12620,12.0,16.0,https://pcgamebenchmarks.com/game/big-walk-257743
+Beast of Reincarnation,2026.0,3700,5500,8791,17008,16.0,16.0,https://pcgamebenchmarks.com/game/beast-of-reincarnation-318674
+Until Then,2024.0,1740,2500,2892,7873,4.0,8.0,https://pcgamebenchmarks.com/game/until-then-123731
+Soul Hackers 2,2022.0,2350,3820,1344,4565,8.0,8.0,https://pcgamebenchmarks.com/game/soul-hackers-2-177391
+Dead Island: Riptide - Definitive Edition,2016.0,1740,1910,2202,7946,4.0,8.0,https://pcgamebenchmarks.com/game/dead-island-riptide-definitive-edition-22440
+Lumines Remastered,2018.0,1600,2350,686,3302,4.0,8.0,https://pcgamebenchmarks.com/game/lumines-remastered-87116
+Old World,2021.0,2500,3130,3302,9257,8.0,16.0,https://pcgamebenchmarks.com/game/old-world-123309
+Car Mechanic Simulator 2021,2018.0,2650,2900,4823,13507,8.0,16.0,https://pcgamebenchmarks.com/game/car-mechanic-simulator-2021-140557
+One Piece Odyssey,2023.0,2690,3500,7946,9301,8.0,8.0,https://pcgamebenchmarks.com/game/one-piece-odyssey-180253
+Shadow Gambit: The Cursed Crew,2023.0,2350,2920,3900,9633,8.0,16.0,https://pcgamebenchmarks.com/game/shadow-gambit-the-cursed-crew-215605
+The Outer Worlds: Spacer's Choice Edition,2023.0,2920,3950,9301,16061,12.0,16.0,https://pcgamebenchmarks.com/game/the-outer-worlds-spacers-choice-edition-221749
+Onimusha: Way of the Sword,2026.0,3500,4200,9072,15072,16.0,16.0,https://pcgamebenchmarks.com/game/onimusha-way-of-the-sword-298577
+Sakuna: Of Rice and Ruin,2020.0,2850,2850,3900,10055,6.0,6.0,https://pcgamebenchmarks.com/game/sakuna-of-rice-and-ruin-34059
+AI Limit,2025.0,2920,4150,8791,16114,12.0,16.0,https://pcgamebenchmarks.com/game/ai-limit-106840
+Dinkum,2025.0,3300,5350,7873,16448,8.0,16.0,https://pcgamebenchmarks.com/game/dinkum-111003
+Train Sim World 2,2020.0,2650,2850,3900,8540,8.0,8.0,https://pcgamebenchmarks.com/game/train-sim-world-2-126185
+Backrooms: Escape Together,2026.0,2330,2900,4482,16061,4.0,16.0,https://pcgamebenchmarks.com/game/backrooms-escape-together-203820
+SteamWorld Build,2023.0,3700,4150,5046,11622,8.0,8.0,https://pcgamebenchmarks.com/game/steamworld-build-215221
+Concord,2024.0,3550,4110,8791,13415,8.0,16.0,https://pcgamebenchmarks.com/game/concord-231437
+Space Hulk: Deathwing,2016.0,1740,1910,4047,8150,8.0,8.0,https://pcgamebenchmarks.com/game/space-hulk-deathwing-6604
+ReCore: Definitive Edition,2017.0,1690,1910,4047,7946,1.0,1.0,https://pcgamebenchmarks.com/game/recore-definitive-edition-50401
+Rustler,2021.0,2500,2850,7946,10055,8.0,12.0,https://pcgamebenchmarks.com/game/rustler-91221
+Eriksholm: The Stolen Dream,2025.0,4110,4350,8791,16061,16.0,16.0,https://pcgamebenchmarks.com/game/eriksholm-the-stolen-dream-280584
+Mistfall Hunter,2026.0,2500,4150,8791,16061,12.0,16.0,https://pcgamebenchmarks.com/game/mistfall-hunter-293851
+Metal Eden,2025.0,4300,5400,15610,22036,16.0,16.0,https://pcgamebenchmarks.com/game/metal-eden-303434
+High on Life 2,2026.0,3000,7580,6284,34446,8.0,32.0,https://pcgamebenchmarks.com/game/high-on-life-2-318660
+MechWarrior 5: Mercenaries,2019.0,2250,3050,5248,13003,8.0,16.0,https://pcgamebenchmarks.com/game/mechwarrior-5-mercenaries-24239
+Mothergunship,2018.0,1690,2900,3900,8791,4.0,8.0,https://pcgamebenchmarks.com/game/mothergunship-25118
+Karma: The Dark World,2025.0,3340,4840,11622,12620,16.0,16.0,https://pcgamebenchmarks.com/game/karma-the-dark-world-159326
+Two Point Museum,2025.0,2500,4900,2402,12620,6.0,8.0,https://pcgamebenchmarks.com/game/two-point-museum-288142
+Game of Thrones: Kingsroad,2025.0,1910,4150,10055,13352,8.0,16.0,https://pcgamebenchmarks.com/game/game-of-thrones-kingsroad-298580
+RoboCop: Rogue City - Unfinished Business,2025.0,2920,4400,10055,25035,16.0,16.0,https://pcgamebenchmarks.com/game/robocop-rogue-city-unfinished-business-306551
+Inazuma Eleven: Victory Road,2025.0,3500,4200,3302,7908,8.0,16.0,https://pcgamebenchmarks.com/game/inazuma-eleven-victory-road-67078
+The Lord of the Rings: Gollum,2023.0,2450,4110,8380,20717,8.0,16.0,https://pcgamebenchmarks.com/game/the-lord-of-the-rings-gollum-107544
+Disintegration,2020.0,2100,3950,3902,10055,8.0,16.0,https://pcgamebenchmarks.com/game/disintegration-111290
+Balan Wonderworld,2021.0,2330,2500,4823,8540,8.0,8.0,https://pcgamebenchmarks.com/game/balan-wonderworld-125392
+9 Years of Shadows,2023.0,3150,3150,824,824,8.0,8.0,https://pcgamebenchmarks.com/game/9-years-of-shadows-132296
+Wheel World,2025.0,2500,4350,6284,11753,12.0,12.0,https://pcgamebenchmarks.com/game/wheel-world-235364
+South Park: Snow Day!,2024.0,2450,3900,6359,13507,8.0,8.0,https://pcgamebenchmarks.com/game/south-park-snow-day-240863
+Star Wars Zero Company,2026.0,3450,4300,13415,24322,16.0,32.0,https://pcgamebenchmarks.com/game/star-wars-zero-company-311374
+NBA 2K26,2025.0,2350,4220,9072,13352,8.0,16.0,https://pcgamebenchmarks.com/game/nba-2k26-323799
+Airborne Kingdom,2020.0,1910,3230,4047,8791,8.0,8.0,https://pcgamebenchmarks.com/game/airborne-kingdom-106496
+Exoprimal,2023.0,2350,4110,3681,9301,8.0,16.0,https://pcgamebenchmarks.com/game/exoprimal-179749
+Age of Wonders 4,2023.0,2250,4380,4565,14658,8.0,16.0,https://pcgamebenchmarks.com/game/age-of-wonders-4-214919
+Naruto x Boruto: Ultimate Ninja Storm Connections,2023.0,3550,4200,4410,5968,8.0,8.0,https://pcgamebenchmarks.com/game/naruto-x-boruto-ultimate-ninja-storm-connections-221184
+The Precinct,2025.0,2350,4420,4410,14103,8.0,16.0,https://pcgamebenchmarks.com/game/the-precinct-230002
+Splitgate: Arena Reloaded,2025.0,2100,2500,5046,8791,8.0,12.0,https://pcgamebenchmarks.com/game/splitgate-arena-reloaded-283881
+MindsEye,2025.0,5350,7580,13415,25035,16.0,16.0,https://pcgamebenchmarks.com/game/mindseye-294494
+Foundation,2025.0,2400,3340,6138,14103,8.0,16.0,https://pcgamebenchmarks.com/game/foundation-80950
+Caliber,2023.0,2380,3400,6138,9257,8.0,16.0,https://pcgamebenchmarks.com/game/caliber-116088
+Echoes of the End,2025.0,2350,3590,8791,15865,8.0,16.0,https://pcgamebenchmarks.com/game/echoes-of-the-end-140065
+Achilles: Legends Untold,2023.0,2350,3450,3681,8791,8.0,16.0,https://pcgamebenchmarks.com/game/achilles-legends-untold-147915
+Trail Out,2022.0,2850,2850,10055,13507,16.0,32.0,https://pcgamebenchmarks.com/game/trail-out-174681
+Lollipop Chainsaw RePop,2024.0,3700,4420,10055,17008,8.0,16.0,https://pcgamebenchmarks.com/game/lollipop-chainsaw-repop-193147
+Baby Steps,2025.0,2700,3550,6284,12076,8.0,16.0,https://pcgamebenchmarks.com/game/baby-steps-233086
+Castlevania Dominus Collection,2024.0,2550,3700,824,5046,8.0,8.0,https://pcgamebenchmarks.com/game/castlevania-dominus-collection-289329
+FBC: Firebreak,2025.0,3000,3350,13415,16448,16.0,16.0,https://pcgamebenchmarks.com/game/fbc-firebreak-293853
+Aphelion,2026.0,3000,5500,6284,20283,8.0,16.0,https://pcgamebenchmarks.com/game/aphelion-318686
+Shiness: The Lightning Kingdom,2017.0,1740,1740,2594,4047,4.0,8.0,https://pcgamebenchmarks.com/game/shiness-the-lightning-kingdom-14794
+SNK Heroines: Tag Team Frenzy,2018.0,1950,2600,4078,5352,4.0,8.0,https://pcgamebenchmarks.com/game/snk-heroines-tag-team-frenzy-74581
+Electrician Simulator,2022.0,2920,2920,8791,10055,8.0,16.0,https://pcgamebenchmarks.com/game/electrician-simulator-109289
+Myth of Empires,2024.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/myth-of-empires-132289
+Crime Boss: Rockay City,2023.0,2850,4300,7873,13003,16.0,16.0,https://pcgamebenchmarks.com/game/crime-boss-rockay-city-211309
+Tormented Souls II,2025.0,2380,3450,5977,25038,12.0,12.0,https://pcgamebenchmarks.com/game/tormented-souls-ii-242246
+Invincible Vs.,2026.0,3450,6580,16061,22036,16.0,16.0,https://pcgamebenchmarks.com/game/invincible-vs-318710
+Gal*Gun 2,2018.0,1910,1910,7908,8540,4.0,8.0,https://pcgamebenchmarks.com/game/galgun-2-62852
+Rune Factory 5,2021.0,2720,3720,4410,12677,8.0,16.0,https://pcgamebenchmarks.com/game/rune-factory-5-106310
+Test Drive Unlimited Solar Crown,2024.0,3040,4300,6284,17116,12.0,12.0,https://pcgamebenchmarks.com/game/test-drive-unlimited-solar-crown-125082
+Blacktail,2022.0,1590,2700,6138,9301,8.0,16.0,https://pcgamebenchmarks.com/game/blacktail-140111
+Nightingale,2024.0,2330,3820,8791,16114,16.0,16.0,https://pcgamebenchmarks.com/game/nightingale-171445
+Sand Land,2024.0,2690,2690,9301,12620,4.0,8.0,https://pcgamebenchmarks.com/game/sand-land-233069
+Expeditions: A MudRunner Game,2024.0,2450,4700,4047,14103,8.0,16.0,https://pcgamebenchmarks.com/game/expeditions-a-mudrunner-game-242113
+RoadCraft,2025.0,2700,5500,9301,15865,8.0,16.0,https://pcgamebenchmarks.com/game/roadcraft-288722
+Legrand Legacy,2018.0,1920,2400,1759,3302,4.0,8.0,https://pcgamebenchmarks.com/game/legrand-legacy-20669
+Partisans 1941,2020.0,2500,4110,3090,9301,8.0,16.0,https://pcgamebenchmarks.com/game/partisans-1941-108374
+Marauders,2022.0,2450,3450,5977,9301,12.0,16.0,https://pcgamebenchmarks.com/game/marauders-122675
+Sonic Colors: Ultimate,2021.0,2850,2850,3302,3302,8.0,8.0,https://pcgamebenchmarks.com/game/sonic-colors-ultimate-138091
+A.I.L.A,2025.0,3350,6580,12677,22135,16.0,16.0,https://pcgamebenchmarks.com/game/aila-233404
+Le Mans Ultimate,2025.0,3350,4480,8791,15072,8.0,16.0,https://pcgamebenchmarks.com/game/le-mans-ultimate-233876
+Fatal Fury: City of the Wolves,2025.0,2350,3950,8791,16061,8.0,16.0,https://pcgamebenchmarks.com/game/fatal-fury-city-of-the-wolves-240107
+One-Armed Robber,2023.0,2550,2700,4823,5046,4.0,8.0,https://pcgamebenchmarks.com/game/one-armed-robber-242739
+Herdling,2025.0,2350,3500,3302,11073,8.0,12.0,https://pcgamebenchmarks.com/game/herdling-288751
+Marvel Tokon: Fighting Souls,2026.0,3000,3950,14103,17307,16.0,16.0,https://pcgamebenchmarks.com/game/marvel-tokon-fighting-souls-317694
+Dragon Quest VII Reimagined,2026.0,2100,2100,3302,8791,8.0,16.0,https://pcgamebenchmarks.com/game/dragon-quest-vii-reimagined-334908
+Dig Island,2026.0,2920,3590,13904,16114,8.0,16.0,https://pcgamebenchmarks.com/game/dig-island-339902
+Life is Strange: Reunion,2026.0,2500,4200,8540,17116,12.0,16.0,https://pcgamebenchmarks.com/game/life-is-strange-reunion-350348
+Shotgun Farmers,2019.0,2850,3950,9638,13507,8.0,8.0,https://pcgamebenchmarks.com/game/shotgun-farmers-26941
+The Eternal Cylinder,2021.0,2400,2970,5968,13507,8.0,16.0,https://pcgamebenchmarks.com/game/the-eternal-cylinder-112284
+Knights of Honor II: Sovereign,2022.0,1910,2900,3302,8791,8.0,16.0,https://pcgamebenchmarks.com/game/knights-of-honor-ii-sovereign-112482
+Phantasy Star Online 2 New Genesis,2021.0,1920,4950,598,18146,8.0,16.0,https://pcgamebenchmarks.com/game/phantasy-star-online-2-new-genesis-125441
+Star Wars: Hunters,2024.0,1740,2350,824,9257,4.0,8.0,https://pcgamebenchmarks.com/game/star-wars-hunters-132273
+Age of Darkness: Final Stand,2025.0,4300,6080,5968,13003,16.0,16.0,https://pcgamebenchmarks.com/game/age-of-darkness-final-stand-147066
+Lightyear Frontier,2024.0,2000,3040,4100,12677,12.0,16.0,https://pcgamebenchmarks.com/game/lightyear-frontier-151019
+Luna Abyss,2026.0,3350,4200,8791,9301,8.0,8.0,https://pcgamebenchmarks.com/game/luna-abyss-197628
+Persona5: The Phantom X,2024.0,2950,3760,3900,10055,8.0,16.0,https://pcgamebenchmarks.com/game/persona5-the-phantom-x-223812
+John Carpenter's Toxic Commando,2026.0,2700,5040,8791,20283,16.0,16.0,https://pcgamebenchmarks.com/game/john-carpenters-toxic-commando-233071
+Penny's Big Breakaway,2024.0,2350,2500,3900,4875,4.0,8.0,https://pcgamebenchmarks.com/game/pennys-big-breakaway-234718
+Spirit City: Lofi Sessions,2024.0,3820,4150,4565,8791,8.0,8.0,https://pcgamebenchmarks.com/game/spirit-city-lofi-sessions-242557
+Soulmask,2026.0,3700,4150,8791,17008,16.0,24.0,https://pcgamebenchmarks.com/game/soulmask-251408
+Once Upon a Katamari,2025.0,2950,2950,1559,3900,6.0,8.0,https://pcgamebenchmarks.com/game/once-upon-a-katamari-328003
+SpongeBob SquarePants: Titans of the Tide,2025.0,2450,5350,6359,15865,8.0,16.0,https://pcgamebenchmarks.com/game/spongebob-squarepants-titans-of-the-tide-328204
+World of Tanks: Heat,2026.0,2500,4110,3681,12620,8.0,16.0,https://pcgamebenchmarks.com/game/world-of-tanks-heat-330886
+TBH: Task Bar Hero,2026.0,2100,3350,3900,8791,8.0,16.0,https://pcgamebenchmarks.com/game/tbh-task-bar-hero-339553
+Windrose,2026.0,3550,4700,18588,25035,16.0,32.0,https://pcgamebenchmarks.com/game/windrose-345891
+Call of Duty: Modern Warfare 4,2026.0,2500,4110,7924,15865,8.0,16.0,https://pcgamebenchmarks.com/game/call-of-duty-modern-warfare-4-432196
+Stormworks: Build and Rescue,2020.0,2350,3340,877,2691,4.0,8.0,https://pcgamebenchmarks.com/game/stormworks-build-and-rescue-34086
+Super People,2022.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/super-people-146545
+Dragon Ball: The Breakers,2022.0,2970,3950,5968,7908,8.0,8.0,https://pcgamebenchmarks.com/game/dragon-ball-the-breakers-168553
+Slitterhead,2024.0,2930,3450,8791,16061,8.0,16.0,https://pcgamebenchmarks.com/game/slitterhead-171444
+One-Armed Cook,2022.0,2550,2700,4823,5046,4.0,8.0,https://pcgamebenchmarks.com/game/one-armed-cook-184728
+Killing Floor III,2025.0,2850,6580,8540,13352,16.0,16.0,https://pcgamebenchmarks.com/game/killing-floor-iii-242110
+Jötunnslayer: Hordes of Hel,2025.0,3150,3950,6138,10055,8.0,8.0,https://pcgamebenchmarks.com/game/jotunnslayer-hordes-of-hel-272941
+Nuclear Nightmare,2024.0,2850,3950,9212,22135,8.0,16.0,https://pcgamebenchmarks.com/game/nuclear-nightmare-273737
+Mio: Memories in Orbit,2026.0,2100,2450,4100,7873,8.0,8.0,https://pcgamebenchmarks.com/game/mio-memories-in-orbit-281484
+Romancing SaGa 2: Revenge of the Seven,2024.0,2100,2500,4100,6284,8.0,8.0,https://pcgamebenchmarks.com/game/romancing-saga-2-revenge-of-the-seven-281497
+Will: Follow the Light,2026.0,2950,4200,12620,13352,8.0,16.0,https://pcgamebenchmarks.com/game/will-follow-the-light-288876
+Wildgate,2025.0,2380,4300,6284,12076,8.0,16.0,https://pcgamebenchmarks.com/game/wildgate-308264
+CarX Drift Racing Online,2017.0,2550,3350,6138,8791,8.0,16.0,https://pcgamebenchmarks.com/game/carx-drift-racing-online-47389
+Mobile Suit Gundam Battle Operation 2,2018.0,2350,2350,6083,7908,8.0,8.0,https://pcgamebenchmarks.com/game/mobile-suit-gundam-battle-operation-2-62858
+World of Warships: Legends,2019.0,3340,3950,7873,13415,8.0,16.0,https://pcgamebenchmarks.com/game/world-of-warships-legends-98735
+After Us,2023.0,3500,3950,6138,13003,12.0,16.0,https://pcgamebenchmarks.com/game/after-us-211293
+To a T,2025.0,2450,5040,6284,11622,8.0,8.0,https://pcgamebenchmarks.com/game/to-a-t-235363
+Alien: Rogue Incursion,2024.0,4840,6580,18908,26698,16.0,24.0,https://pcgamebenchmarks.com/game/alien-rogue-incursion-275923
+Fantasian Neo Dimension,2024.0,2100,2100,2402,3681,8.0,8.0,https://pcgamebenchmarks.com/game/fantasian-neo-dimension-281482
+Bleach: Rebirth of Souls,2025.0,4200,5500,16061,19739,16.0,16.0,https://pcgamebenchmarks.com/game/bleach-rebirth-of-souls-282851
+RuneScape: Dragonwilds,2026.0,2920,4200,10055,16061,8.0,16.0,https://pcgamebenchmarks.com/game/runescape-dragonwilds-309170
+Castlevania: Belmont's Curse,2026.0,3700,4420,7873,17008,16.0,16.0,https://pcgamebenchmarks.com/game/castlevania-belmonts-curse-352251
+Torque Drift,2020.0,3720,4380,9072,15610,4.0,8.0,https://pcgamebenchmarks.com/game/torque-drift-87916
+The Legend of Heroes: Trails Through Daybreak,2021.0,2920,4420,5046,7873,8.0,16.0,https://pcgamebenchmarks.com/game/the-legend-of-heroes-trails-through-daybreak-130702
+Dragon Quest Treasures,2022.0,2250,2350,3302,8540,8.0,8.0,https://pcgamebenchmarks.com/game/dragon-quest-treasures-138104
+Abyssus,2025.0,3000,4300,3127,10188,8.0,8.0,https://pcgamebenchmarks.com/game/abyssus-152825
+HumanitZ,2026.0,3900,4380,10055,14103,16.0,16.0,https://pcgamebenchmarks.com/game/humanitz-159655
+Star Ocean: The Divine Force,2022.0,2700,4110,8791,16061,16.0,16.0,https://pcgamebenchmarks.com/game/star-ocean-the-divine-force-164958
+Gundam Evolution,2022.0,2480,2850,5046,12677,8.0,16.0,https://pcgamebenchmarks.com/game/gundam-evolution-179750
+The Legend of Heroes: Trails Beyond the Horizon,2024.0,2920,4420,5046,7873,8.0,16.0,https://pcgamebenchmarks.com/game/the-legend-of-heroes-trails-beyond-the-horizon-258584
+Hospital 666,2024.0,2720,4380,5046,17008,8.0,16.0,https://pcgamebenchmarks.com/game/hospital-666-263096
+Castlevania: Dawn of Sorrow,2024.0,2550,3700,824,5046,8.0,8.0,https://pcgamebenchmarks.com/game/castlevania-dawn-of-sorrow-289636
+The Adventures of Elliot: The Millennium Tales,2026.0,2950,3500,7873,12076,16.0,16.0,https://pcgamebenchmarks.com/game/the-adventures-of-elliot-the-millennium-tales-328011
+Gamble With Your Friends,2026.0,2850,3950,9638,13507,8.0,8.0,https://pcgamebenchmarks.com/game/gamble-with-your-friends-330166
+Creature Kitchen,2026.0,2850,3340,6138,10055,3.0,4.0,https://pcgamebenchmarks.com/game/creature-kitchen-332671
+Star Wars: Galactic Racer,2026.0,3350,4300,12076,15865,12.0,16.0,https://pcgamebenchmarks.com/game/star-wars-galactic-racer-346518
+Senran Kagura Reflexions,2017.0,1450,2100,1559,3302,4.0,6.0,https://pcgamebenchmarks.com/game/senran-kagura-reflexions-25922
+Space Hulk: Deathwing - Enhanced Edition,2018.0,1740,1910,4047,8150,8.0,8.0,https://pcgamebenchmarks.com/game/space-hulk-deathwing-enhanced-edition-87194
+Bless Unleashed,2020.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/bless-unleashed-99988
+Per Aspera,2020.0,2350,3950,6359,13003,8.0,16.0,https://pcgamebenchmarks.com/game/per-aspera-110091
+Sir Whoopass: Immortal Death,2022.0,2350,4020,8791,14103,8.0,16.0,https://pcgamebenchmarks.com/game/sir-whoopass-immortal-death-131484
+Train Sim World 3,2022.0,2650,5040,3900,22036,8.0,16.0,https://pcgamebenchmarks.com/game/train-sim-world-3-197183
+Ys X: Nordics,2023.0,2350,6250,8791,17008,8.0,16.0,https://pcgamebenchmarks.com/game/ys-x-nordics-211848
+Bellwright,2024.0,3820,5250,8791,13352,16.0,16.0,https://pcgamebenchmarks.com/game/bellwright-225374
+S.p.l.i.t,2025.0,2400,3450,7946,10055,4.0,8.0,https://pcgamebenchmarks.com/game/split-313592
+S.T.A.L.K.E.R.: Shadow of Chornobyl - Enhanced Edition,2025.0,2250,2900,3681,8791,8.0,8.0,https://pcgamebenchmarks.com/game/stalker-shadow-of-chornobyl-enhanced-edition-314323
+"Warhammer 40,000: Space Marine - Master Crafted Edition",2025.0,2550,5350,8380,14103,8.0,16.0,https://pcgamebenchmarks.com/game/warhammer-40000-space-marine-master-crafted-edition-315457
+Code Vein II,2026.0,4020,6580,12683,22036,16.0,16.0,https://pcgamebenchmarks.com/game/code-vein-ii-318166
+Scott Pilgrim EX,2026.0,1450,1690,470,1052,4.0,4.0,https://pcgamebenchmarks.com/game/scott-pilgrim-ex-318188
+Call of the Elder Gods,2026.0,4220,5040,6359,7873,8.0,8.0,https://pcgamebenchmarks.com/game/call-of-the-elder-gods-318395
+Waterpark Simulator,2026.0,2420,2550,5046,13003,8.0,8.0,https://pcgamebenchmarks.com/game/waterpark-simulator-319118
+1348: Ex Voto,2026.0,4220,5350,9072,28771,16.0,16.0,https://pcgamebenchmarks.com/game/1348-ex-voto-331040
+Sword Art Online: Integral Factor,2018.0,2550,3040,5248,12620,8.0,8.0,https://pcgamebenchmarks.com/game/sword-art-online-integral-factor-63001
+Shaiya,2007.0,1690,2900,4482,4482,8.0,16.0,https://pcgamebenchmarks.com/game/shaiya-78629
+Spacebase Startopia,2021.0,2450,3150,5550,13415,8.0,16.0,https://pcgamebenchmarks.com/game/spacebase-startopia-112326
+Hell is Others,2022.0,2700,3720,3000,8540,8.0,16.0,https://pcgamebenchmarks.com/game/hell-is-others-131547
+Bang-On Balls: Chronicles,2023.0,2350,3450,3902,8791,6.0,8.0,https://pcgamebenchmarks.com/game/bang-on-balls-chronicles-132520
+Closer the Distance,2024.0,2900,3400,3000,16061,8.0,16.0,https://pcgamebenchmarks.com/game/closer-the-distance-223624
+God of Weapons,2023.0,1910,2650,4565,5046,4.0,8.0,https://pcgamebenchmarks.com/game/god-of-weapons-228074
+Daemon x Machina: Titanic Scion,2025.0,4420,6250,5046,22135,16.0,32.0,https://pcgamebenchmarks.com/game/daemon-x-machina-titanic-scion-231724
+Death Note: Killer Within,2024.0,2350,3350,5046,6130,8.0,16.0,https://pcgamebenchmarks.com/game/death-note-killer-within-294039
+The Headliners,2025.0,2380,2500,8791,19739,8.0,16.0,https://pcgamebenchmarks.com/game/the-headliners-297860
+Valor Mortis,2026.0,4200,5500,12677,22036,16.0,16.0,https://pcgamebenchmarks.com/game/valor-mortis-330834
+Corsair Cove,2026.0,2920,4020,12683,16061,8.0,16.0,https://pcgamebenchmarks.com/game/corsair-cove-424720
+Underworld Ascendant,2018.0,2450,2700,5527,8540,8.0,12.0,https://pcgamebenchmarks.com/game/underworld-ascendant-17936
+Pirate Pop Plus,2016.0,2100,3350,366,1410,8.0,16.0,https://pcgamebenchmarks.com/game/pirate-pop-plus-23166
+Du Lac & Fey: Dance of Death,2019.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/du-lac-fey-dance-of-death-70291
+Dusk Diver,2019.0,2550,2970,3302,6359,4.0,8.0,https://pcgamebenchmarks.com/game/dusk-diver-100813
+Prey: Typhon Hunter,2018.0,1910,3000,7924,13904,8.0,8.0,https://pcgamebenchmarks.com/game/prey-typhon-hunter-108609
+Dry Drowning,2019.0,1950,2480,530,4047,4.0,4.0,https://pcgamebenchmarks.com/game/dry-drowning-110528
+Pharaoh: A New Era,2023.0,4020,4350,1174,2402,8.0,8.0,https://pcgamebenchmarks.com/game/pharaoh-a-new-era-127412
+S&box,2026.0,4020,4500,8791,14103,16.0,32.0,https://pcgamebenchmarks.com/game/sbox-131167
+Tandem: A Tale of Shadows,2021.0,3080,3500,5364,12677,6.0,6.0,https://pcgamebenchmarks.com/game/tandem-a-tale-of-shadows-139172
+Samurai Maiden,2022.0,2350,4110,8791,13003,8.0,16.0,https://pcgamebenchmarks.com/game/samurai-maiden-196389
+Sword of Convallaria: For This World of Peace,2023.0,2200,2350,4410,8540,8.0,8.0,https://pcgamebenchmarks.com/game/sword-of-convallaria-for-this-world-of-peace-196553
+Islands of Insight,2024.0,2500,5040,6138,13003,8.0,16.0,https://pcgamebenchmarks.com/game/islands-of-insight-196761
+War Robots: Frontiers,2025.0,2380,4020,4047,16061,8.0,16.0,https://pcgamebenchmarks.com/game/war-robots-frontiers-209341
+Lake: Season's Greetings,2023.0,1910,2920,3000,8808,1.0,16.0,https://pcgamebenchmarks.com/game/lake-seasons-greetings-232958
+Apollo Justice: Ace Attorney,2024.0,2700,2700,2402,2402,8.0,16.0,https://pcgamebenchmarks.com/game/apollo-justice-ace-attorney-233526
+Titan Quest II,2025.0,3450,5350,16061,23262,16.0,32.0,https://pcgamebenchmarks.com/game/titan-quest-ii-240864
+Train Sim World 4,2023.0,2650,4020,3900,14103,8.0,16.0,https://pcgamebenchmarks.com/game/train-sim-world-4-242156
+8AM,2024.0,1740,4200,950,14103,8.0,16.0,https://pcgamebenchmarks.com/game/8am-265868
+Streamer Life Simulator 2,2026.0,1690,4200,6359,14103,8.0,8.0,https://pcgamebenchmarks.com/game/streamer-life-simulator-2-269989
+Shape of Dreams,2025.0,1740,2700,5527,9638,8.0,8.0,https://pcgamebenchmarks.com/game/shape-of-dreams-270403
+Inkonbini: One Store. Many Stories,2026.0,1910,2920,4765,8808,8.0,16.0,https://pcgamebenchmarks.com/game/inkonbini-271373
+Playing Kafka,2024.0,2380,2650,2000,3302,4.0,8.0,https://pcgamebenchmarks.com/game/playing-kafka-274488
+Lonely Mountains: Snow Riders,2025.0,3700,4480,5046,15610,8.0,16.0,https://pcgamebenchmarks.com/game/lonely-mountains-snow-riders-288353
+Town to City,2026.0,4220,4500,6138,14103,8.0,16.0,https://pcgamebenchmarks.com/game/town-to-city-302154
+Monsters Are Coming!,2025.0,2850,4760,7873,16448,16.0,16.0,https://pcgamebenchmarks.com/game/monsters-are-coming-rock-road-317537
+That One Otter Game,2025.0,3350,5040,14103,25038,16.0,16.0,https://pcgamebenchmarks.com/game/that-one-otter-game-325276
+L.A. Noire: The VR Case Files,2017.0,3040,3340,13507,15610,8.0,16.0,https://pcgamebenchmarks.com/game/la-noire-the-vr-case-files-54900
+Ground Branch,2026.0,3350,5350,8791,24322,16.0,32.0,https://pcgamebenchmarks.com/game/ground-branch-77229
+Volcanoids,2019.0,1690,2920,1948,8791,8.0,16.0,https://pcgamebenchmarks.com/game/volcanoids-100525
+Last Oasis,2021.0,2100,2650,4565,13003,8.0,16.0,https://pcgamebenchmarks.com/game/last-oasis-105491
+I Am Jesus Christ,2026.0,2700,4200,10055,12683,8.0,16.0,https://pcgamebenchmarks.com/game/i-am-jesus-christ-117383
+MicroWorks,2022.0,2330,2780,3118,9072,8.0,12.0,https://pcgamebenchmarks.com/game/microworks-122576
+The DioField Chronicle,2022.0,2100,2350,4100,8540,8.0,8.0,https://pcgamebenchmarks.com/game/the-diofield-chronicle-179754
+Cat-aclysm,2023.0,3340,3950,6359,7873,8.0,16.0,https://pcgamebenchmarks.com/game/cat-aclysm-232581
+Mega Man X Dive Offline,2023.0,1690,1760,3204,5968,4.0,8.0,https://pcgamebenchmarks.com/game/mega-man-x-dive-offline-233515
+Tales of the Shire,2025.0,2350,4480,4875,20283,16.0,16.0,https://pcgamebenchmarks.com/game/tales-of-the-shire-246811
+Shiren the Wanderer: The Mystery Dungeon of Serpentcoil Island,2024.0,1600,2780,3681,7908,8.0,8.0,https://pcgamebenchmarks.com/game/shiren-the-wanderer-the-mystery-dungeon-of-serpentcoil-island-247217
+StarRupture,2026.0,3350,4200,8791,16548,16.0,16.0,https://pcgamebenchmarks.com/game/starrupture-260091
+Castlevania: Portrait of Ruin,2024.0,1950,3700,824,5046,8.0,8.0,https://pcgamebenchmarks.com/game/castlevania-portrait-of-ruin-289637
+Monster Hunter Stories 3: Twisted Reflection,2026.0,2700,4200,9072,16114,16.0,16.0,https://pcgamebenchmarks.com/game/monster-hunter-stories-3-twisted-reflection-328002
+Ace Combat 8: Wings of Theve,2026.0,4220,5350,14103,22036,16.0,32.0,https://pcgamebenchmarks.com/game/ace-combat-8-wings-of-theve-346517
+Afterbeat,2026.0,4200,4420,3681,7873,8.0,16.0,https://pcgamebenchmarks.com/game/project-arrhythmia-31155
+Monster Energy Supercross: The Official Videogame 4,2021.0,2550,3150,4047,8791,8.0,16.0,https://pcgamebenchmarks.com/game/monster-energy-supercross-the-official-videogame-4-130192
+Synduality: Echo of Ada,2025.0,4320,5180,16061,19739,16.0,16.0,https://pcgamebenchmarks.com/game/synduality-echo-of-ada-201311
+Funko Fusion,2024.0,2700,4380,6359,16448,8.0,16.0,https://pcgamebenchmarks.com/game/funko-fusion-228654
+G.I. Joe: Wrath of Cobra,2024.0,1450,1690,470,1052,4.0,4.0,https://pcgamebenchmarks.com/game/gi-joe-wrath-of-cobra-243751
+Gundam Breaker 4,2024.0,1690,2350,4823,8791,8.0,8.0,https://pcgamebenchmarks.com/game/gundam-breaker-4-265056
+Tales of Xillia Remastered,2025.0,2950,2950,1559,1759,8.0,8.0,https://pcgamebenchmarks.com/game/tales-of-xillia-remastered-330799
+Tales of Berseria Remastered,2026.0,2950,3500,2171,2533,4.0,8.0,https://pcgamebenchmarks.com/game/tales-of-berseria-remastered-343989
+Touhou Double Focus,2016.0,2420,2700,1500,2780,1.0,4.0,https://pcgamebenchmarks.com/game/touhou-double-focus-24535
+Ylands,2017.0,1950,2700,3000,4823,6.0,8.0,https://pcgamebenchmarks.com/game/ylands-33792
+The King of Fighters XIV Steam Edition,2017.0,1950,2600,4078,5352,4.0,8.0,https://pcgamebenchmarks.com/game/the-king-of-fighters-xiv-steam-edition-34099
+Try to Fall Asleep,2019.0,1690,2900,4482,6359,8.0,16.0,https://pcgamebenchmarks.com/game/try-to-fall-asleep-77023
+Blacksmith Simulator,2025.0,1910,2920,8150,10055,4.0,8.0,https://pcgamebenchmarks.com/game/blacksmith-simulator-94321
+Kandagawa Jet Girls,2020.0,2400,2500,3900,9638,8.0,8.0,https://pcgamebenchmarks.com/game/kandagawa-jet-girls-111837
+MXGP 2020: The Official Motocross Videogame,2020.0,2550,3150,4047,8791,8.0,16.0,https://pcgamebenchmarks.com/game/mxgp-2020-the-official-motocross-videogame-129022
+EA Sports PGA Tour,2023.0,2900,3150,6359,16114,8.0,12.0,https://pcgamebenchmarks.com/game/ea-sports-pga-tour-133668
+Park Beyond,2023.0,2500,3590,4047,8380,12.0,12.0,https://pcgamebenchmarks.com/game/park-beyond-152789
+Bounty Star,2025.0,2350,2350,7873,11622,12.0,12.0,https://pcgamebenchmarks.com/game/bounty-star-194824
+Empire of the Ants,2024.0,3350,3880,8791,22036,8.0,16.0,https://pcgamebenchmarks.com/game/empire-of-the-ants-219296
+Bulletstorm VR,2024.0,4200,4860,13904,17008,16.0,32.0,https://pcgamebenchmarks.com/game/bulletstorm-vr-232223
+Classified: France '44,2024.0,2850,4300,3902,8380,8.0,8.0,https://pcgamebenchmarks.com/game/classified-france-44-233873
+Nikoderiko: The Magical World,2024.0,1690,2900,5046,16448,8.0,16.0,https://pcgamebenchmarks.com/game/nikoderiko-the-magical-world-280585
+Phantom Brave: The Lost Hero,2025.0,3710,5350,2402,7873,4.0,8.0,https://pcgamebenchmarks.com/game/phantom-brave-the-lost-hero-281489
+Freedom Wars Remastered,2025.0,2970,3950,5968,7908,4.0,8.0,https://pcgamebenchmarks.com/game/freedom-wars-remastered-291184
+Cthulhu: The Cosmic Abyss,2026.0,3000,6080,9301,15865,12.0,16.0,https://pcgamebenchmarks.com/game/cthulhu-the-cosmic-abyss-306549
+Everybody’s Golf: Hot Shots,2025.0,2900,3050,11073,12076,8.0,8.0,https://pcgamebenchmarks.com/game/everybodys-golf-hot-shots-308537
+Lumines Arise,2025.0,3450,5500,6359,20283,8.0,16.0,https://pcgamebenchmarks.com/game/lumines-arise-317680
+Towa and the Guardians of the Sacred Tree,2025.0,2950,2950,1052,2533,4.0,8.0,https://pcgamebenchmarks.com/game/towa-and-the-guardians-of-the-sacred-tree-318187
+Mega Man Star Force: Legacy Collection,2026.0,2700,2700,9072,9072,8.0,8.0,https://pcgamebenchmarks.com/game/mega-man-star-force-legacy-collection-334922
+People of Note,2026.0,2350,3350,4985,13904,6.0,8.0,https://pcgamebenchmarks.com/game/people-of-note-337472
+Crucible,2020.0,2950,3700,4823,6138,2.0,4.0,https://pcgamebenchmarks.com/game/crucible-22752
+Project Remedium,2017.0,2650,2900,4823,8791,4.0,8.0,https://pcgamebenchmarks.com/game/project-remedium-30232
+Escape This,2016.0,1690,2900,3900,5352,1.0,1.0,https://pcgamebenchmarks.com/game/escape-this-30376
+Psebay,2014.0,2250,2930,4047,9072,4.0,8.0,https://pcgamebenchmarks.com/game/psebay-39932
+Fallen Legion: Rise to Glory,2018.0,2000,2700,2272,3302,4.0,8.0,https://pcgamebenchmarks.com/game/fallen-legion-rise-to-glory-71971
+War Mongrels,2021.0,2700,2850,4260,7873,8.0,16.0,https://pcgamebenchmarks.com/game/war-mongrels-127282
+Clid the Snail,2021.0,1590,1910,4047,5046,4.0,8.0,https://pcgamebenchmarks.com/game/clid-the-snail-129820
+Samurai Warriors 5,2021.0,2400,2780,4047,9301,6.0,8.0,https://pcgamebenchmarks.com/game/samurai-warriors-5-132270
+War Hospital,2024.0,2650,3450,3127,8380,8.0,8.0,https://pcgamebenchmarks.com/game/war-hospital-133530
+Gord,2023.0,2850,4380,6138,15610,8.0,16.0,https://pcgamebenchmarks.com/game/gord-134511
+Born of Bread,2023.0,2400,3150,5968,13507,8.0,16.0,https://pcgamebenchmarks.com/game/born-of-bread-134788
+The Legend of Heroes: Trails Through Daybreak II,2022.0,2920,4420,5046,7873,8.0,16.0,https://pcgamebenchmarks.com/game/the-legend-of-heroes-trails-through-daybreak-ii-172005
+The Centennial Case: A Shijima Story,2022.0,2350,2500,824,3302,8.0,8.0,https://pcgamebenchmarks.com/game/the-centennial-case-a-shijima-story-177115
+Gangs of Sherwood,2023.0,2700,6080,7908,13352,16.0,16.0,https://pcgamebenchmarks.com/game/gangs-of-sherwood-192816
+ArcRunner,2023.0,2350,4020,1759,8791,8.0,8.0,https://pcgamebenchmarks.com/game/arcrunner-195586
+Wreckreation,2025.0,2950,3000,8791,13507,8.0,16.0,https://pcgamebenchmarks.com/game/wreckreation-197287
+Disgaea 7: Vows of the Virtueless,2023.0,3710,5350,2402,7873,4.0,8.0,https://pcgamebenchmarks.com/game/disgaea-7-vows-of-the-virtueless-198472
+Towers of Aghasba,2024.0,1910,4110,8791,18617,16.0,32.0,https://pcgamebenchmarks.com/game/towers-of-aghasba-231441
+Shantae Advance: Risky Revolution,2025.0,2850,3950,10055,14103,4.0,8.0,https://pcgamebenchmarks.com/game/shantae-advance-risky-revolution-254960
+Zet Zillions,2024.0,2350,3950,6359,13507,8.0,16.0,https://pcgamebenchmarks.com/game/zet-zillions-258239
+RKGK,2024.0,2380,2780,3302,12620,8.0,8.0,https://pcgamebenchmarks.com/game/rkgk-273447
+Sunderfolk,2025.0,2550,5180,3900,13415,8.0,16.0,https://pcgamebenchmarks.com/game/sunderfolk-293156
+PGA Tour 2K25,2025.0,2900,3150,6359,16114,8.0,12.0,https://pcgamebenchmarks.com/game/pga-tour-2k25-300665
+Gorn 2,2025.0,2920,3400,8791,16114,12.0,16.0,https://pcgamebenchmarks.com/game/gorn-2-305645
+Demon Slayer: Kimetsu no Yaiba - The Hinokami Chronicles 2,2025.0,2350,2500,4765,4823,6.0,8.0,https://pcgamebenchmarks.com/game/demon-slayer-kimetsu-no-yaiba-the-hinokami-chronicles-2-309355
+Mexican Ninja,2026.0,2350,4200,4482,13415,8.0,16.0,https://pcgamebenchmarks.com/game/mexican-ninja-317785
+Agefield High: Rock the School,2026.0,3450,6580,8791,25038,16.0,32.0,https://pcgamebenchmarks.com/game/agefield-high-rock-the-school-325884
+Heretic + Hexen,2025.0,2480,2900,1700,13003,8.0,8.0,https://pcgamebenchmarks.com/game/heretic-hexen-329440
+Star Trek: Voyager - Across the Unknown,2026.0,3350,7280,8791,16114,16.0,16.0,https://pcgamebenchmarks.com/game/star-trek-voyager-across-the-unknown-331057
+Super Bomberman Collection,2026.0,2550,3700,1427,6359,16.0,16.0,https://pcgamebenchmarks.com/game/super-bomberman-collection-351634
+Aliens: Fireteam Elite 2,2026.0,3350,4320,14103,18908,10.0,16.0,https://pcgamebenchmarks.com/game/aliens-fireteam-elite-2-426623
+Tales of Eternia: Remastered,2026.0,2950,2950,2171,2171,4.0,4.0,https://pcgamebenchmarks.com/game/tales-of-eternia-remastered-433844
+Garfield: Escape from Monday,2026.0,3590,4110,10055,13507,8.0,16.0,https://pcgamebenchmarks.com/game/garfield-escape-from-monday-436044
+Punch Line,2016.0,1910,1910,7908,8540,4.0,8.0,https://pcgamebenchmarks.com/game/punch-line-11324
+Dark Shadows - Army of Evil,2014.0,1740,3700,3900,8791,4.0,8.0,https://pcgamebenchmarks.com/game/dark-shadows-army-of-evil-15854
+Endgame,2002.0,3700,4110,8791,16061,16.0,16.0,https://pcgamebenchmarks.com/game/endgame-21949
+Days of War,2017.0,2250,2450,2780,8150,4.0,8.0,https://pcgamebenchmarks.com/game/days-of-war-24376
+Necromunda: Underhive Wars,2020.0,1690,2350,4047,8791,8.0,16.0,https://pcgamebenchmarks.com/game/necromunda-underhive-wars-24793
+Mervils: A VR Adventure,2016.0,2550,2550,5968,8150,4.0,4.0,https://pcgamebenchmarks.com/game/mervils-a-vr-adventure-25274
+Dungeon Chess,,2250,3150,1559,3302,4.0,8.0,https://pcgamebenchmarks.com/game/dungeon-chess-26315
+The Siege and the Sandfox,2025.0,2250,4420,615,7873,8.0,16.0,https://pcgamebenchmarks.com/game/the-siege-and-the-sandfox-26742
+Deisim,2016.0,2250,2250,9638,11073,4.0,8.0,https://pcgamebenchmarks.com/game/deisim-29008
+Gal*Gun VR,2017.0,1910,1910,7908,8540,4.0,8.0,https://pcgamebenchmarks.com/game/galgun-vr-50209
+Phantom Brigade,2023.0,3040,4350,8791,17008,16.0,16.0,https://pcgamebenchmarks.com/game/phantom-brigade-63984
+Total Tank Simulator,2020.0,3080,3900,6138,10055,8.0,16.0,https://pcgamebenchmarks.com/game/total-tank-simulator-69393
+Ultimate Fishing Simulator,2018.0,2700,4200,3428,16061,8.0,16.0,https://pcgamebenchmarks.com/game/ultimate-fishing-simulator-71592
+Infernium,2018.0,1450,1910,3900,9638,2.0,4.0,https://pcgamebenchmarks.com/game/infernium-79051
+Solium Infernum,2024.0,2700,4420,6359,14103,8.0,12.0,https://pcgamebenchmarks.com/game/solium-infernum-84912
+Eximius: Seize the Frontline,2021.0,2850,3900,7873,16061,8.0,16.0,https://pcgamebenchmarks.com/game/eximius-seize-the-frontline-88161
+Ancient Amuletor: Into the Ice,,1910,1910,8150,8540,4.0,4.0,https://pcgamebenchmarks.com/game/ancient-amuletor-into-the-ice-96424
+Koral,2019.0,1450,1910,3900,9638,2.0,4.0,https://pcgamebenchmarks.com/game/koral-96785
+Element Space,2019.0,2000,3080,1559,8791,8.0,8.0,https://pcgamebenchmarks.com/game/element-space-97937
+Rise Eterna,2021.0,1450,2350,261,2691,4.0,8.0,https://pcgamebenchmarks.com/game/rise-eterna-104915
+Obey Me,2020.0,2550,2700,6138,10055,4.0,8.0,https://pcgamebenchmarks.com/game/obey-me-109038
+Sky Link,2019.0,1690,2900,4482,8791,8.0,16.0,https://pcgamebenchmarks.com/game/sky-link-109173
+Alluris,2019.0,2500,3550,1759,11073,2.0,8.0,https://pcgamebenchmarks.com/game/alluris-109428
+Out There: Oceans of Time,2022.0,2500,2500,5968,9638,4.0,8.0,https://pcgamebenchmarks.com/game/out-there-oceans-of-time-112627
+Wolfstride,2021.0,2350,3950,6359,13003,8.0,16.0,https://pcgamebenchmarks.com/game/wolfstride-124464
+Fallen Legion Revenants,2021.0,2000,2700,2272,3302,4.0,8.0,https://pcgamebenchmarks.com/game/fallen-legion-revenants-124798
+Big Rumble Boxing: Creed Champions,2021.0,1910,1910,8380,9376,4.0,8.0,https://pcgamebenchmarks.com/game/big-rumble-boxing-creed-champions-126409
+Woodo,2026.0,2930,5350,3681,13415,4.0,8.0,https://pcgamebenchmarks.com/game/woodo-133533
+Swords of Legends Online,2018.0,1690,2900,4565,8791,8.0,16.0,https://pcgamebenchmarks.com/game/swords-of-legends-online-133911
+Mortal Sin,2025.0,2250,2900,5364,10055,8.0,8.0,https://pcgamebenchmarks.com/game/mortal-sin-136814
+The Serpent Rogue,2022.0,1910,2700,5527,7873,6.0,8.0,https://pcgamebenchmarks.com/game/the-serpent-rogue-152826
+Touken Ranbu Warriors,2022.0,2400,2780,4047,8540,6.0,8.0,https://pcgamebenchmarks.com/game/touken-ranbu-warriors-159397
+Ultrawings 2,2022.0,1910,1910,13507,13507,8.0,8.0,https://pcgamebenchmarks.com/game/ultrawings-2-159929
+Jentrix,2022.0,2850,3130,8380,10055,16.0,16.0,https://pcgamebenchmarks.com/game/jentrix-173335
+Ikonei Island: An Earthlock Adventure,2023.0,2100,2700,6138,10055,8.0,8.0,https://pcgamebenchmarks.com/game/ikonei-island-an-earthlock-adventure-182459
+Kamiwaza: Way of the Thief,2022.0,2780,2900,3302,9638,8.0,8.0,https://pcgamebenchmarks.com/game/kamiwaza-way-of-the-thief-182818
+MythForce,2023.0,3700,4110,3681,13415,8.0,16.0,https://pcgamebenchmarks.com/game/mythforce-182974
+Aquatico,2023.0,2350,2650,3681,9301,10.0,10.0,https://pcgamebenchmarks.com/game/aquatico-184227
+GreedFall: The Dying World,2026.0,2700,4840,9072,20283,16.0,16.0,https://pcgamebenchmarks.com/game/greedfall-the-dying-world-186886
+The Inquisitor,2024.0,3350,3400,9301,14256,16.0,16.0,https://pcgamebenchmarks.com/game/the-inquisitor-187589
+Nivalis Nights,2026.0,4200,6600,10765,24322,16.0,16.0,https://pcgamebenchmarks.com/game/nivalis-188120
+Doraemon Story of Seasons: Friends of the Great Kingdom,2022.0,2350,3050,3900,13904,8.0,16.0,https://pcgamebenchmarks.com/game/doraemon-story-of-seasons-friends-of-the-great-kingdom-191344
+Ray'z Arcade Chronology,2023.0,2850,3720,3681,8791,8.0,8.0,https://pcgamebenchmarks.com/game/rayz-arcade-chronology-192372
+Crown Wars: The Black Prince,2024.0,2700,3820,5046,12620,8.0,12.0,https://pcgamebenchmarks.com/game/crown-wars-the-black-prince-192829
+Meet Your Maker,2023.0,2350,2500,4875,8791,8.0,8.0,https://pcgamebenchmarks.com/game/meet-your-maker-196812
+Lou's Lagoon,2026.0,2350,4200,6359,12683,4.0,8.0,https://pcgamebenchmarks.com/game/lous-lagoon-198632
+Magical Drop VI,2023.0,1910,2350,113,2402,4.0,8.0,https://pcgamebenchmarks.com/game/magical-drop-vi-204498
+Steelrising: Cagliostro's Secrets,2022.0,2500,3950,14103,18146,8.0,16.0,https://pcgamebenchmarks.com/game/steelrising-cagliostros-secrets-208783
+Skydance's Behemoth,2024.0,3450,6580,17008,22635,16.0,32.0,https://pcgamebenchmarks.com/game/skydances-behemoth-211306
+Retrospace,2026.0,3350,4320,6359,7873,16.0,16.0,https://pcgamebenchmarks.com/game/retrospace-213891
+Starbites,2025.0,2350,2650,3681,8791,8.0,16.0,https://pcgamebenchmarks.com/game/starbites-217566
+UFO Robot Grendizer: The Feast of the Wolves,2023.0,4400,5180,9638,17008,8.0,16.0,https://pcgamebenchmarks.com/game/ufo-robot-grendizer-the-feast-of-the-wolves-221204
+Touhou: New World,2023.0,1600,3150,3900,10055,8.0,16.0,https://pcgamebenchmarks.com/game/touhou-new-world-223566
+Toads of the Bayou,2024.0,1740,2700,1052,6359,8.0,8.0,https://pcgamebenchmarks.com/game/toads-of-the-bayou-225465
+Yerba Buena,2026.0,3350,5350,8791,17008,8.0,16.0,https://pcgamebenchmarks.com/game/yerba-buena-230005
+The Smurfs 2: The Prisoner of the Green Stone,2023.0,3340,3340,9638,9638,8.0,8.0,https://pcgamebenchmarks.com/game/the-smurfs-2-the-prisoner-of-the-green-stone-231043
+Never Grave: The Witch and the Curse,2026.0,2100,2380,2780,5046,4.0,4.0,https://pcgamebenchmarks.com/game/never-grave-the-witch-and-the-curse-231143
+Grime II,2026.0,2350,3000,2402,5046,8.0,8.0,https://pcgamebenchmarks.com/game/grime-ii-242240
+Custom Mech Wars,2023.0,2350,4110,8791,14103,8.0,16.0,https://pcgamebenchmarks.com/game/custom-mech-wars-243459
+Popucom,2025.0,2500,4350,2691,14103,8.0,16.0,https://pcgamebenchmarks.com/game/popucom-245364
+Chasmal Fear,2025.0,2920,5550,6359,21478,16.0,16.0,https://pcgamebenchmarks.com/game/chasmal-fear-248329
+Unleaving,2024.0,1910,2500,1165,6138,6.0,8.0,https://pcgamebenchmarks.com/game/unleaving-253362
+Welcome to Paradize,2024.0,2500,3900,6284,12620,12.0,12.0,https://pcgamebenchmarks.com/game/welcome-to-paradize-255232
+Thrasher,2024.0,2850,2850,8791,14256,6.0,8.0,https://pcgamebenchmarks.com/game/thrasher-257738
+Supermoves: World of Parkour,2024.0,2920,4150,14103,18146,8.0,16.0,https://pcgamebenchmarks.com/game/supermoves-world-of-parkour-258467
+Sword Art Online: Fractured Daydream,2024.0,3500,4200,7946,13904,8.0,16.0,https://pcgamebenchmarks.com/game/sword-art-online-fractured-daydream-265055
+Threshold,2024.0,2350,3050,4482,8791,4.0,16.0,https://pcgamebenchmarks.com/game/threshold-265752
+Sancticide,2026.0,2500,3400,9301,14256,16.0,16.0,https://pcgamebenchmarks.com/game/sancticide-268133
+Metal: Hellsinger VR,2024.0,2850,3340,8791,18617,12.0,16.0,https://pcgamebenchmarks.com/game/metal-hellsinger-vr-270987
+Guayota,2024.0,3700,3700,2000,4000,8.0,8.0,https://pcgamebenchmarks.com/game/guayota-271674
+Windstorm: Start of a Great Friendship - Remastered,2024.0,2850,4350,6284,13352,16.0,16.0,https://pcgamebenchmarks.com/game/windstorm-start-of-a-great-friendship-remastered-272432
+Beyond Galaxyland,2024.0,2100,2550,3302,10055,8.0,8.0,https://pcgamebenchmarks.com/game/beyond-galaxyland-273028
+Master Detective Archives: Rain Code Plus,2024.0,2450,3000,6359,12683,8.0,16.0,https://pcgamebenchmarks.com/game/master-detective-archives-rain-code-plus-276587
+The Knightling,2025.0,2920,3880,8791,14103,8.0,16.0,https://pcgamebenchmarks.com/game/the-knightling-288134
+Silver Pines,2026.0,2350,2850,4410,5968,8.0,8.0,https://pcgamebenchmarks.com/game/silver-pines-288144
+Tron: Catalyst,2025.0,2500,2700,9638,15610,8.0,16.0,https://pcgamebenchmarks.com/game/tron-catalyst-293467
+Achilles: Survivor,2025.0,2350,3450,3681,8791,8.0,16.0,https://pcgamebenchmarks.com/game/achilles-survivor-293551
+Wall Town Wonders,2024.0,2850,4860,15610,16061,12.0,16.0,https://pcgamebenchmarks.com/game/wall-town-wonders-294278
+Moonlighter 2: The Endless Vault,2026.0,3400,4200,7873,13352,12.0,16.0,https://pcgamebenchmarks.com/game/moonlighter-2-the-endless-vault-297648
+City Tales: Medieval Era,2026.0,2450,3000,6138,8791,8.0,16.0,https://pcgamebenchmarks.com/game/city-tales-medieval-era-297661
+Void Sails,2025.0,2700,2700,8540,8540,8.0,8.0,https://pcgamebenchmarks.com/game/void-sails-298607
+Ys X: Proud Nordics,2025.0,2920,4420,5046,7873,8.0,16.0,https://pcgamebenchmarks.com/game/ys-x-proud-nordics-299385
+Under Par Golf Architect,2026.0,2500,4900,2402,12620,6.0,8.0,https://pcgamebenchmarks.com/game/under-par-golf-architect-306282
+The Mound: Omen of Cthulhu,2026.0,3000,4350,12683,20717,16.0,16.0,https://pcgamebenchmarks.com/game/the-mound-omen-of-cthulhu-306552
+Styx: Blades of Greed,2026.0,3000,5500,9301,22036,12.0,16.0,https://pcgamebenchmarks.com/game/styx-blades-of-greed-306553
+Disgaea Mayhem,2026.0,3820,3820,6359,10765,16.0,16.0,https://pcgamebenchmarks.com/game/disgaea-mayhem-307339
+Gradius Origins,2025.0,2550,3700,824,15865,8.0,8.0,https://pcgamebenchmarks.com/game/gradius-origins-308531
+Super Robot Wars Y,2025.0,2950,2950,2171,2533,8.0,8.0,https://pcgamebenchmarks.com/game/super-robot-wars-y-308542
+Rune Dice,2026.0,1690,1690,824,824,4.0,4.0,https://pcgamebenchmarks.com/game/rune-dice-316637
+Adorable Adventures,2026.0,2500,5040,8791,25038,12.0,16.0,https://pcgamebenchmarks.com/game/adorable-adventures-323267
+Storm Lancers,2025.0,3800,5180,9072,22135,16.0,32.0,https://pcgamebenchmarks.com/game/storm-lancers-331498
+Etrange Overlord,2026.0,2390,5400,3000,7873,8.0,16.0,https://pcgamebenchmarks.com/game/etrange-overlord-342827
+Rivage,2026.0,3720,4860,13003,17008,16.0,32.0,https://pcgamebenchmarks.com/game/rivage-345868
+Unsealed: The Mare,2026.0,3350,4580,8791,16114,8.0,16.0,https://pcgamebenchmarks.com/game/unsealed-the-mare-349130
+The NewZealand Story: Untold Adventure,2026.0,2550,4700,1759,3900,8.0,16.0,https://pcgamebenchmarks.com/game/the-newzealand-story-untold-adventure-349133
+Sovereign Tower,2026.0,2650,4020,2402,10055,4.0,8.0,https://pcgamebenchmarks.com/game/sovereign-tower-349167
+Kiln,2026.0,2920,5400,7873,22628,16.0,32.0,https://pcgamebenchmarks.com/game/kiln-350515
+Rainbow Gate,2026.0,2500,3340,6359,16061,8.0,16.0,https://pcgamebenchmarks.com/game/rainbow-gate-351619
+Thomas & Friends: Wonders of Sodor,2026.0,2650,4020,3900,14103,8.0,16.0,https://pcgamebenchmarks.com/game/thomas-friends-wonders-of-sodor-351684
+Crimson Moon,2026.0,3350,4840,12076,13352,16.0,32.0,https://pcgamebenchmarks.com/game/crimson-moon-352245
+Wreck Runners,2026.0,6080,6580,14103,22135,16.0,32.0,https://pcgamebenchmarks.com/game/wreck-runners-422749
+Tavrn’s Takedown,2026.0,3340,3590,10055,13507,8.0,16.0,https://pcgamebenchmarks.com/game/tavrns-takedown-423141
+Serious Sam: Shatterverse,2026.0,1150,4200,6359,16548,8.0,16.0,https://pcgamebenchmarks.com/game/serious-sam-shatterverse-423200
+Paw Patrol: Dino World,2026.0,2700,4020,4260,16061,4.0,8.0,https://pcgamebenchmarks.com/game/paw-patrol-dino-world-424604
+Hot Wheels Infinite Rush,2026.0,2350,5350,4100,17008,8.0,16.0,https://pcgamebenchmarks.com/game/hot-wheels-infinite-rush-433399
+No More Room in Hell 2,2026.0,2350,4300,7873,16061,12.0,16.0,https://pcgamebenchmarks.com/game/no-more-room-in-hell-2-137438
+Phantom Blade Zero,2026.0,4110,4580,9072,19739,16.0,16.0,https://pcgamebenchmarks.com/game/phantom-blade-0-231426
+Breathedge 2,2026.0,3350,7060,9072,19739,12.0,16.0,https://pcgamebenchmarks.com/game/breathedge-2-233401
+The Forever Winter,2024.0,4150,5400,16114,25035,16.0,32.0,https://pcgamebenchmarks.com/game/the-forever-winter-265070
+Outward 2,,2450,5350,6138,17008,8.0,16.0,https://pcgamebenchmarks.com/game/outward-2-268420
+Acts of Blood,2026.0,4200,5350,8791,16448,8.0,16.0,https://pcgamebenchmarks.com/game/acts-of-blood-280953
+Defect,,2920,3550,14103,22135,16.0,16.0,https://pcgamebenchmarks.com/game/defect-288306
+God Save Birmingham,,3000,4980,8791,23262,16.0,32.0,https://pcgamebenchmarks.com/game/god-save-birmingham-288883
+Hela: Of Mice & Magic,2026.0,3350,6580,8791,19739,16.0,16.0,https://pcgamebenchmarks.com/game/hela-288902
+Fate Trigger,,2850,4110,6359,13415,8.0,16.0,https://pcgamebenchmarks.com/game/fate-trigger-291216
+ArcheAge Chronicles,2026.0,4200,5400,15072,22628,16.0,32.0,https://pcgamebenchmarks.com/game/archeage-chronicles-291639
+Solasta II,2026.0,3450,6920,11457,11457,16.0,16.0,https://pcgamebenchmarks.com/game/solasta-ii-298566
+Fellowship,2025.0,2920,4300,7873,16448,16.0,16.0,https://pcgamebenchmarks.com/game/fellowship-302702
+Liminal Point,2026.0,3350,4300,9072,14103,8.0,8.0,https://pcgamebenchmarks.com/game/liminal-point-302875
+Edge of Memories,2026.0,3000,6080,9301,15865,12.0,16.0,https://pcgamebenchmarks.com/game/edge-of-memories-305220
+Sea of Remnants,2027.0,4150,6250,8540,23262,16.0,32.0,https://pcgamebenchmarks.com/game/sea-of-remnants-315032
+Chronicles: Medieval,,3950,4700,10055,19530,16.0,16.0,https://pcgamebenchmarks.com/game/chronicles-medieval-318165
+The Guild 1 Remake: Europa 1410,2026.0,4200,5500,14103,24322,16.0,16.0,https://pcgamebenchmarks.com/game/the-guild-europa-1410-328213
+Hell Let Loose: Vietnam,2026.0,4220,6080,16448,20283,16.0,16.0,https://pcgamebenchmarks.com/game/hell-let-loose-vietnam-331039
+Blackwood,2026.0,4200,5350,6284,12620,16.0,16.0,https://pcgamebenchmarks.com/game/blackwood-339025
+Armatus,2027.0,4020,5100,14103,25035,16.0,32.0,https://pcgamebenchmarks.com/game/armatus-344054
+Way of the Hunter 2,2026.0,4020,6730,13415,17307,16.0,16.0,https://pcgamebenchmarks.com/game/way-of-the-hunter-2-347785
+Burglin' Gnomes,2026.0,3720,4380,7873,13507,4.0,8.0,https://pcgamebenchmarks.com/game/burglin-gnomes-348344
+Genigods: Nezha,2028.0,2920,4150,8791,12620,16.0,16.0,https://pcgamebenchmarks.com/game/genigods-nezha-351151
+Rev. Noir,2027.0,3820,5450,14103,22628,16.0,32.0,https://pcgamebenchmarks.com/game/rev-noir-352253
+Uncanny Tales: The Watcher,2026.0,2350,3350,3681,8791,8.0,16.0,https://pcgamebenchmarks.com/game/uncanny-tales-the-watcher-352942
+MotoGP 26,2026.0,3450,7260,8791,17307,16.0,16.0,https://pcgamebenchmarks.com/game/motogp-26-422208
+Remothered: Red Nun's Legacy,2026.0,4220,5500,12457,26698,16.0,24.0,https://pcgamebenchmarks.com/game/remothered-red-nuns-legacy-422375
+1666: Amsterdam,2026.0,4200,6580,15072,21241,16.0,16.0,https://pcgamebenchmarks.com/game/1666-amsterdam-433390
+Cotton Rock with You: Oriental Night Dreams,2026.0,3350,4350,3000,10055,8.0,8.0,https://pcgamebenchmarks.com/game/cotton-rock-with-you-437799
+Route-16: R,2026.0,2950,2950,615,6138,4.0,8.0,https://pcgamebenchmarks.com/game/route-16-r-438798
+Train Sim World 7,2026.0,2650,4020,3900,14103,8.0,16.0,https://pcgamebenchmarks.com/game/train-sim-world-7-442077
