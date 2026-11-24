@@ -22,6 +22,9 @@ const gameArtwork = {
   fconline: 'fc_online',
   leagueoflegends: 'lol',
   lol: 'lol',
+  cyberpunk2077: 'pubg',
+  reddeadredemption2: 'pubg',
+  eldenring: 'pubg',
 };
 const fpsTiers = [
   { min: 144, label: '144+ FPS · Rất mượt' },
@@ -36,6 +39,8 @@ const optionKeys = {
   graphics_presets: ['graphics_presets', 'presets', 'graphics_preset'],
   cpu_models: ['cpu_models', 'cpus', 'cpu_model'],
   gpu_models: ['gpu_models', 'gpus', 'gpu_model'],
+  desktop_gpus: ['desktop_gpus'],
+  laptop_gpus: ['laptop_gpus'],
   ram_types: ['ram_types', 'ram_type'],
   ram_channels: ['ram_channels'],
 };
@@ -160,11 +165,62 @@ function artworkFor({ value, label }) {
   return gameArtwork[key(value)] ?? gameArtwork[key(label)] ?? '';
 }
 
+function createGameChoiceElement(choice, index) {
+  const item = document.createElement('div');
+  item.className = 'game-choice';
+  const input = document.createElement('input');
+  input.type = 'radio';
+  input.className = 'btn-check';
+  input.name = 'game';
+  input.id = `game-choice-${index}`;
+  input.value = choice.value;
+  input.required = true;
+  const label = document.createElement('label');
+  label.htmlFor = input.id;
+  label.textContent = choice.label;
+  label.className = 'game-card';
+  label.dataset.art = artworkFor(choice);
+  item.append(input, label);
+  return item;
+}
+
 function populateChoices(name, choices) {
+  if (name === 'game') {
+    // Populate datalist for all games in catalog
+    const datalist = byId('game-search-options');
+    if (datalist) {
+      datalist.replaceChildren(...choices.map(c => new Option(c.label, String(c.value))));
+    }
+
+    // Determine featured games to display as quick cards
+    const featuredTitles = [
+      'cyberpunk 2077',
+      'red dead redemption 2',
+      'pubg: battlegrounds',
+      'elden ring',
+      'grand theft auto v',
+      'the witcher 3: wild hunt',
+    ];
+    let featured = choices.filter(c => {
+      const lower = String(c.value).toLowerCase();
+      const lowerLabel = String(c.label).toLowerCase();
+      return featuredTitles.some(t => lower.includes(t) || lowerLabel.includes(t));
+    });
+
+    if (featured.length === 0 || choices.length <= 8) {
+      featured = choices.slice(0, 8);
+    } else if (featured.length > 6) {
+      featured = featured.slice(0, 6);
+    }
+
+    const entries = featured.map((choice, index) => createGameChoiceElement(choice, index));
+    radioGroups.game.replaceChildren(...entries);
+    return;
+  }
+
   const entries = choices.map((choice, index) => {
-    const game = name === 'game';
     const item = document.createElement('div');
-    item.className = game ? 'game-choice' : 'radio-choice';
+    item.className = 'radio-choice';
     const input = document.createElement('input');
     input.type = 'radio';
     input.className = 'btn-check';
@@ -175,14 +231,35 @@ function populateChoices(name, choices) {
     const label = document.createElement('label');
     label.htmlFor = input.id;
     label.textContent = choice.label;
-    if (game) {
-      label.className = 'game-card';
-      label.dataset.art = artworkFor(choice);
-    }
     item.append(input, label);
     return item;
   });
   radioGroups[name].replaceChildren(...entries);
+}
+
+function selectGame(gameValue) {
+  if (!options?.games?.length) return;
+  const found = options.games.find(g =>
+    String(g.value).toLowerCase() === String(gameValue).toLowerCase() ||
+    String(g.label).toLowerCase() === String(gameValue).toLowerCase()
+  );
+  if (!found) return;
+
+  const actualValue = String(found.value);
+  let input = radioGroups.game.querySelector(`input[value="${CSS.escape(actualValue)}"]`);
+  if (!input) {
+    const item = createGameChoiceElement(found, `dynamic-${Date.now()}`);
+    radioGroups.game.prepend(item);
+    input = item.querySelector('input');
+  }
+  input.checked = true;
+  const searchInput = byId('game-search');
+  if (searchInput && searchInput.value !== found.label) {
+    searchInput.value = found.label;
+  }
+  touched.add('game');
+  serverErrors.delete('game');
+  updateForm();
 }
 
 function inputsFor(name) {
@@ -212,17 +289,23 @@ function populateFields() {
     input.checked = false;
   }
   const firstDevice = devices.find(input => !input.disabled);
-  firstDevice.defaultChecked = true;
-  firstDevice.checked = true;
+  if (firstDevice) {
+    firstDevice.defaultChecked = true;
+    firstDevice.checked = true;
+  }
   populateChoices('game', options.games);
   const defaultResolution = options.resolutions.length === 1 ? String(options.resolutions[0].value) : '';
   populateSelect('resolution', options.resolutions, 'Chọn độ phân giải', defaultResolution);
   populateChoices('graphics_preset', options.graphics_presets);
+  selectChoice('graphics_preset', 'high');
   populateSelect('ram_type', options.ram_types, 'Không rõ');
   populateSelect('ram_channels', options.ram_channels, 'Không rõ');
-  for (const [id, key] of [['cpu-options', 'cpu_models'], ['gpu-options', 'gpu_models']]) {
-    byId(id).replaceChildren(...options[key].map(option => new Option(option.label, String(option.value))));
-  }
+
+  // Populate CPU options
+  byId('cpu-options').replaceChildren(...(options.cpu_models ?? []).map(option => new Option(option.label, String(option.value))));
+
+  // Populate initial GPU options based on device
+  updateDevice(false);
 }
 
 function isLaptop() {
@@ -234,6 +317,12 @@ function updateDevice(expand = false) {
   byId('tgp-field').hidden = !laptop;
   byId('gpu_tgp_w').disabled = !laptop;
   if (laptop && expand) advanced.open = true;
+
+  // Filter GPU options based on device type
+  const gpus = laptop
+    ? (options?.laptop_gpus?.length ? options.laptop_gpus : options?.gpu_models ?? [])
+    : (options?.desktop_gpus?.length ? options.desktop_gpus : options?.gpu_models ?? []);
+  byId('gpu-options').replaceChildren(...gpus.map(opt => new Option(opt.label, String(opt.value))));
 }
 
 function validationErrors() {
@@ -245,6 +334,25 @@ function validationErrors() {
   for (const [name, error] of Object.entries(requiredChoices)) {
     if (!formValue(name)) errors[name] = error;
   }
+
+  // Check device type GPU compatibility
+  const currentGpu = byId('gpu_model').value.trim();
+  if (currentGpu && options?.desktop_gpus?.length && options?.laptop_gpus?.length) {
+    const isDesk = options.desktop_gpus.some(g =>
+      String(g.value).toLowerCase() === currentGpu.toLowerCase() ||
+      String(g.label).toLowerCase() === currentGpu.toLowerCase()
+    );
+    const isLap = options.laptop_gpus.some(g =>
+      String(g.value).toLowerCase() === currentGpu.toLowerCase() ||
+      String(g.label).toLowerCase() === currentGpu.toLowerCase()
+    );
+    if (!isLaptop() && isLap && !isDesk) {
+      errors.gpu_model = 'GPU này thuộc dòng Laptop. Vui lòng chọn GPU Desktop hoặc chuyển thiết bị sang Laptop.';
+    } else if (isLaptop() && isDesk && !isLap) {
+      errors.gpu_model = 'GPU này thuộc dòng Desktop. Vui lòng chọn GPU Laptop hoặc chuyển thiết bị sang Desktop.';
+    }
+  }
+
   const ram = byId('ram_gb');
   if (!Number.isInteger(ram.valueAsNumber) || ram.valueAsNumber < 1) {
     errors.ram_gb = 'Nhập dung lượng RAM là số nguyên lớn hơn 0.';
@@ -285,7 +393,7 @@ function updateForm() {
 
 function fieldValue(name, optionKey) {
   const value = formValue(name);
-  return options[optionKey].find(option => String(option.value) === value)?.value ?? null;
+  return options[optionKey]?.find(option => String(option.value) === value)?.value ?? null;
 }
 
 function getPayload() {
@@ -298,14 +406,14 @@ function getPayload() {
     ram_gb: byId('ram_gb').valueAsNumber,
     ram_type: fieldValue('ram_type', 'ram_types'),
     ram_channels: fieldValue('ram_channels', 'ram_channels'),
-    game: fieldValue('game', 'games'),
-    resolution: fieldValue('resolution', 'resolutions'),
-    graphics_preset: fieldValue('graphics_preset', 'graphics_presets'),
+    game: fieldValue('game', 'games') ?? formValue('game'),
+    resolution: fieldValue('resolution', 'resolutions') ?? formValue('resolution') ?? '1920x1080',
+    graphics_preset: fieldValue('graphics_preset', 'graphics_presets') ?? formValue('graphics_preset') ?? 'high',
   };
 }
 
 function optionLabel(key, value) {
-  return options[key].find(option => option.value === value)?.label ?? String(value);
+  return options[key]?.find(option => option.value === value)?.label ?? String(value);
 }
 
 function formatFps(value) {
@@ -313,44 +421,151 @@ function formatFps(value) {
 }
 
 function isStub(response) {
-  return response.is_stub === true || response.model_version.trim().toUpperCase() === 'STUB';
+  return response?.is_stub === true ||
+    (typeof response?.model_version === 'string' && response.model_version.trim().toUpperCase() === 'STUB');
 }
 
 function clearResults() {
   chart?.destroy();
   chart = undefined;
   displayedPayload = undefined;
-  for (const id of ['tier', 'model', 'warnings', 'stub-warning', 'stale-result', 'api-error', 'retry',
-    'chart-area', 'chart-legend', 'comparison-details', 'comparison-selected']) byId(id).hidden = true;
+  for (const id of [
+    'tier', 'model', 'warnings', 'stub-warning', 'stale-result', 'api-error', 'retry',
+    'chart-area', 'chart-legend', 'comparison-details', 'comparison-selected',
+    'rule-based-section', 'ml-status-box', 'fps-matched-gpu', 'low-fps-card', 'comparison-section'
+  ]) byId(id).hidden = true;
   byId('comparison-details').open = false;
   byId('comparison-empty').hidden = false;
   byId('avg').textContent = '—';
   byId('low').textContent = '—';
   byId('result-config').textContent = 'Chưa có cấu hình được gửi';
-  byId('comparison-status').textContent = 'Gửi cấu hình để so sánh Low, Medium và High.';
+  byId('comparison-status').textContent = 'Gửi cấu hình để xem kết quả.';
+  byId('fps-note').textContent = 'Số liệu đo thực tế từ bảng tham chiếu games_fps_reference.csv.';
 }
 
 function renderResults(response, payload) {
   displayedPayload = JSON.stringify(payload);
-  byId('avg').textContent = formatFps(response.avg_fps);
-  byId('low').textContent = formatFps(response.one_percent_low_fps);
-  const tier = fpsTiers.find(item => Math.round(response.avg_fps) >= item.min);
-  byId('tier').textContent = tier.label;
-  byId('tier').dataset.tier = tier.min;
-  byId('tier').hidden = false;
+
+  // 1. Config summary
   const config = [
     optionLabel('games', payload.game),
     optionLabel('resolutions', payload.resolution),
     optionLabel('graphics_presets', payload.graphics_preset),
-    displayNames[payload.device_type.toLowerCase()],
+    displayNames[payload.device_type.toLowerCase()] ?? payload.device_type,
   ];
   byId('result-config').textContent = config.join(' · ');
-  const source = isStub(response) ? 'Kết quả thử nghiệm' : 'Ước lượng từ mô hình ML';
-  const lowInfo = response.one_percent_low_fps === null ? ' · Chưa có ước lượng 1% Low FPS' : '';
-  byId('model').textContent = `${source} · Phiên bản ${response.model_version}${lowInfo}`;
-  byId('model').hidden = false;
+
+  // 2. Rule-based evaluation section (P1)
+  if (response.rule_based) {
+    const rb = response.rule_based;
+    const verdictMap = {
+      'Dat_de_xuat': {
+        label: 'Đạt đề xuất',
+        cls: 'badge-success',
+        desc: rb.summary || 'Cấu hình phần cứng đạt mức đề xuất của trò chơi.'
+      },
+      'Dat_toi_thieu_chua_dat_de_xuat': {
+        label: 'Đạt tối thiểu',
+        cls: 'badge-warning',
+        desc: rb.summary || 'Cấu hình phần cứng đạt mức tối thiểu nhưng chưa đạt mức đề xuất.'
+      },
+      'Khong_dat_toi_thieu': {
+        label: 'Không đạt tối thiểu',
+        cls: 'badge-danger',
+        desc: rb.summary || 'Cấu hình phần cứng chưa đạt yêu cầu tối thiểu của trò chơi.'
+      },
+    };
+    const vInfo = verdictMap[rb.status] || {
+      label: rb.status_label || rb.status,
+      cls: 'badge-warning',
+      desc: rb.summary || 'Đánh giá cấu hình phần cứng so với yêu cầu game.'
+    };
+    const statusBadge = byId('rule-status-badge');
+    statusBadge.textContent = vInfo.label;
+    statusBadge.className = `rule-status-badge ${vInfo.cls}`;
+    byId('rule-verdict').textContent = vInfo.desc;
+
+    const compStatusMap = {
+      'passed_rec': { label: 'Đạt đề xuất', cls: 'badge-success' },
+      'passed_min': { label: 'Đạt tối thiểu', cls: 'badge-warning' },
+      'below_min': { label: 'Chưa đạt', cls: 'badge-danger' },
+    };
+    const comps = rb.components || {};
+
+    const renderComp = (key, badgeId, detailId, unit, scoreLabel) => {
+      const comp = comps[key];
+      const bEl = byId(badgeId);
+      const dEl = byId(detailId);
+      if (comp) {
+        const info = compStatusMap[comp.status] || { label: comp.status, cls: 'badge-warning' };
+        bEl.textContent = info.label;
+        bEl.className = `comp-badge ${info.cls}`;
+        if (scoreLabel) {
+          dEl.textContent = `${scoreLabel}: ${Math.round(comp.user_value)} (Min: ${Math.round(comp.min_value)}, Rec: ${Math.round(comp.rec_value)})`;
+        } else {
+          dEl.textContent = `${comp.user_value} ${unit} (Min: ${comp.min_value} ${unit}, Rec: ${comp.rec_value} ${unit})`;
+        }
+      } else {
+        bEl.textContent = '—';
+        bEl.className = 'comp-badge';
+        dEl.textContent = '—';
+      }
+    };
+
+    renderComp('cpu', 'cpu-badge', 'cpu-detail', '', 'Điểm CPU');
+    renderComp('gpu', 'gpu-badge', 'gpu-detail', '', 'Điểm G3D');
+    renderComp('ram', 'ram-badge', 'ram-detail', 'GB', '');
+
+    byId('rule-based-section').hidden = false;
+  } else {
+    byId('rule-based-section').hidden = true;
+  }
+
+  // 3. FPS Reference section (P1)
+  byId('avg').textContent = formatFps(response.avg_fps);
+  byId('low').textContent = formatFps(response.one_percent_low_fps);
+
+  if (response.avg_fps === null) {
+    byId('tier').hidden = true;
+    const msg = response.fps_reference?.message ||
+      'Chưa có dữ liệu benchmark FPS phù hợp cho cấu hình này (chỉ có dữ liệu tham chiếu 1080p High cho GPU Desktop).';
+    byId('fps-note').textContent = msg;
+  } else {
+    const tier = fpsTiers.find(item => Math.round(response.avg_fps) >= item.min);
+    if (tier) {
+      byId('tier').textContent = tier.label;
+      byId('tier').dataset.tier = tier.min;
+      byId('tier').hidden = false;
+    } else {
+      byId('tier').hidden = true;
+    }
+    byId('fps-note').textContent = 'Số liệu đo thực tế từ bảng tham chiếu games_fps_reference.csv (1080p High).';
+  }
+
+  const matchedGpu = response.fps_reference?.gpu_matched;
+  if (matchedGpu) {
+    byId('fps-matched-gpu').textContent = `GPU khớp: ${matchedGpu}`;
+    byId('fps-matched-gpu').hidden = false;
+  } else {
+    byId('fps-matched-gpu').hidden = true;
+  }
+
+  byId('low-fps-card').hidden = (response.one_percent_low_fps === null);
+
+  // 4. Machine Learning status box (P1)
+  byId('ml-status-box').hidden = false;
+  const ml = response.machine_learning;
+  if (ml?.model_loaded) {
+    byId('ml-badge').textContent = `Mô hình Machine Learning: Đã tích hợp (${ml.model_version || response.model_version})`;
+    byId('ml-desc').textContent = ml.message || 'Dự đoán hiệu năng từ mô hình Machine Learning.';
+  } else {
+    byId('ml-badge').textContent = 'Mô hình Machine Learning: Đang chờ tích hợp';
+    byId('ml-desc').textContent = 'Mô hình Machine Learning đang chờ được tích hợp vào ứng dụng. Chưa thực hiện dự đoán ML. Kết quả FPS ở trên là số liệu Benchmark tham chiếu.';
+  }
+
+  // Stubs & Warnings
   byId('stub-warning').hidden = !isStub(response);
-  const warnings = response.warnings.filter(item => typeof item === 'string' && item.trim());
+  const warnings = (response.warnings || []).filter(item => typeof item === 'string' && item.trim());
   byId('warning-list').replaceChildren(...warnings.map(warning => {
     const item = document.createElement('li');
     item.textContent = warning;
@@ -406,6 +621,7 @@ function renderComparison(presets, results, submittedPreset) {
   }));
   byId('comparison-empty').hidden = true;
   byId('comparison-details').hidden = false;
+  byId('comparison-section').hidden = false;
   if (!window.Chart) {
     byId('comparison-details').open = true;
     return;
@@ -468,7 +684,7 @@ function showError(error) {
       message = `API trả mã ${error.status}. Kiểm tra địa chỉ và endpoint của backend.`;
     }
   } else if (error instanceof SyntaxError || error.message === 'invalid-prediction') {
-    message = 'API trả dữ liệu FPS không đúng định dạng. Kiểm tra hợp đồng API rồi thử lại.';
+    message = 'API trả dữ liệu không đúng định dạng. Kiểm tra hợp đồng API rồi thử lại.';
   }
   byId('error-message').textContent = message;
   byId('api-error').hidden = false;
@@ -497,13 +713,18 @@ async function predict(payload) {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
     });
   }
-  const validFps = value => Number.isFinite(value) && value >= 0;
+  const validFps = value => value === null || (Number.isFinite(value) && value >= 0);
   const low = result?.one_percent_low_fps ?? null;
   if (!validFps(result?.avg_fps) || (low !== null && !validFps(low)) ||
       typeof result.model_version !== 'string' || !result.model_version.trim()) {
     throw new Error('invalid-prediction');
   }
-  return { ...result, one_percent_low_fps: low, warnings: Array.isArray(result.warnings) ? result.warnings : [] };
+  return {
+    ...result,
+    avg_fps: result?.avg_fps ?? null,
+    one_percent_low_fps: low,
+    warnings: Array.isArray(result?.warnings) ? result.warnings : [],
+  };
 }
 
 async function submit(payload) {
@@ -515,15 +736,20 @@ async function submit(payload) {
     const result = await predict(payload);
     renderResults(result, payload);
     if (window.matchMedia('(max-width: 960px)').matches) byId('result-title').focus();
-    const presets = presetOrder.map(name => options.graphics_presets.find(item =>
-      String(item.value).toLowerCase() === name));
-    if (presets.every(Boolean)) {
-      byId('comparison-status').textContent = 'Đang so sánh ba preset…';
-      const results = await Promise.allSettled(presets.map(preset => preset.value === payload.graphics_preset ?
-        Promise.resolve(result) : predict({ ...payload, graphics_preset: preset.value })));
-      renderComparison(presets, results, payload.graphics_preset);
+
+    if (demo) {
+      const presets = presetOrder.map(name => options.graphics_presets.find(item =>
+        String(item.value).toLowerCase() === name));
+      if (presets.every(Boolean)) {
+        byId('comparison-status').textContent = 'Đang so sánh ba preset…';
+        const results = await Promise.allSettled(presets.map(preset => preset.value === payload.graphics_preset ?
+          Promise.resolve(result) : predict({ ...payload, graphics_preset: preset.value })));
+        renderComparison(presets, results, payload.graphics_preset);
+      } else {
+        byId('comparison-status').textContent = 'Danh sách từ API chưa có đủ Low, Medium và High.';
+      }
     } else {
-      byId('comparison-status').textContent = 'Danh sách từ API chưa có đủ Low, Medium và High.';
+      byId('comparison-section').hidden = true;
     }
   } catch (error) {
     byId('result-config').textContent = 'Chưa nhận được kết quả';
@@ -537,12 +763,14 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   if (!byId('predict').disabled) void submit(getPayload());
 });
+
 form.addEventListener('input', event => {
   const name = event.target.name;
   if (fieldNames.includes(name)) touched.add(name);
   serverErrors.delete(name);
   if (name === 'device_type') {
     serverErrors.delete('gpu_tgp_w');
+    serverErrors.delete('gpu_model');
     updateDevice(true);
   }
   pendingPayload = undefined;
@@ -550,14 +778,43 @@ form.addEventListener('input', event => {
   byId('stale-result').hidden = !displayedPayload || displayedPayload === JSON.stringify(getPayload());
   updateForm();
 });
+
 form.addEventListener('focusout', event => {
   if (fieldNames.includes(event.target.name)) {
     touched.add(event.target.name);
     updateForm();
   }
 });
+
+// Game search listeners
+const gameSearchInput = byId('game-search');
+if (gameSearchInput) {
+  gameSearchInput.addEventListener('input', () => {
+    const val = gameSearchInput.value.trim();
+    if (val) {
+      selectGame(val);
+    }
+  });
+  gameSearchInput.addEventListener('change', () => {
+    const val = gameSearchInput.value.trim();
+    if (val) {
+      selectGame(val);
+    }
+  });
+}
+
+radioGroups.game.addEventListener('change', event => {
+  if (event.target.name === 'game') {
+    const gameObj = options?.games?.find(g => String(g.value) === event.target.value);
+    if (gameObj && byId('game-search')) {
+      byId('game-search').value = gameObj.label;
+    }
+  }
+});
+
 byId('reset-form').addEventListener('click', () => {
   form.reset();
+  if (byId('game-search')) byId('game-search').value = '';
   touched.clear();
   serverErrors.clear();
   pendingPayload = undefined;
@@ -566,18 +823,54 @@ byId('reset-form').addEventListener('click', () => {
   updateDevice(true);
   updateForm();
 });
+
 byId('retry').addEventListener('click', () => {
   if (pendingPayload && !busy) void submit(pendingPayload);
 });
+
 byId('sample').addEventListener('click', () => {
   const laptop = isLaptop();
-  if (!formValue('game')) selectChoice('game', 'valorant');
+  // Pick an actual valid game from options
+  const sampleGame = options?.games?.find(g =>
+    g.value.toLowerCase().includes('cyberpunk') ||
+    g.value.toLowerCase().includes('red dead') ||
+    g.value.toLowerCase() === 'valorant'
+  ) || options?.games?.[0];
+
+  if (sampleGame) {
+    selectGame(sampleGame.value);
+  }
   if (!formValue('graphics_preset')) selectChoice('graphics_preset', 'high');
+
+  const findOption = (key, preferredList) => {
+    const list = options?.[key] ?? [];
+    for (const pref of preferredList) {
+      const match = list.find(item =>
+        String(item.value).toLowerCase() === pref.toLowerCase() ||
+        String(item.label).toLowerCase() === pref.toLowerCase()
+      );
+      if (match) return match.value;
+    }
+    return list[0]?.value ?? preferredList[0];
+  };
+
+  const cpuSample = findOption('cpu_models', laptop
+    ? ['Core i7-12700H', 'Intel Core i7-12700H']
+    : ['Core i5-12400F', 'Intel Core i5-12400F']
+  );
+  const gpuSample = findOption(laptop ? 'laptop_gpus' : 'desktop_gpus', laptop
+    ? ['GeForce RTX 4060 Laptop GPU', 'NVIDIA RTX 4060 Laptop GPU']
+    : ['GeForce RTX 3060', 'GeForce RTX 3060 12GB', 'NVIDIA RTX 3060']
+  );
+
   for (const [id, value] of Object.entries({
-    cpu_model: laptop ? 'Intel Core i7-12700H' : 'Intel Core i5-12400F',
-    gpu_model: laptop ? 'NVIDIA RTX 4060 Laptop GPU' : 'NVIDIA RTX 3060',
-    ram_gb: '16', gpu_vram_gb: laptop ? '8' : '12', gpu_tgp_w: '',
-    ram_type: laptop ? 'DDR5' : 'DDR4', ram_channels: 'dual',
+    cpu_model: cpuSample,
+    gpu_model: gpuSample,
+    ram_gb: '16',
+    gpu_vram_gb: laptop ? '8' : '12',
+    gpu_tgp_w: laptop ? '100' : '',
+    ram_type: laptop ? 'DDR5' : 'DDR4',
+    ram_channels: 'dual',
   })) byId(id).value = value;
   touched.clear();
   serverErrors.clear();
@@ -594,9 +887,9 @@ async function initialize() {
   } else {
     try {
       options = normalizeOptions(await fetchJson(apiUrl('/options')));
-      setConnection('online', 'Đã tải danh sách cấu hình từ API');
+      setConnection('online', 'Đã kết nối API backend · Đã tải danh mục cấu hình');
     } catch {
-      setConnection('offline', 'Không tải được danh sách từ API. Đang dùng danh sách nhập mẫu.');
+      setConnection('offline', 'Không kết nối được backend. Đang dùng danh sách mẫu.');
     }
   }
   if (!options) {
@@ -611,7 +904,7 @@ async function initialize() {
   populateFields();
   fields.disabled = false;
   gameFieldset.disabled = false;
-  byId('sample').hidden = !demo;
+  byId('sample').hidden = false;
   updateDevice(true);
   updateForm();
 }

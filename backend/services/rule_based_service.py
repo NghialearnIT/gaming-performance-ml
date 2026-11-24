@@ -1,6 +1,6 @@
 """Rule-based evaluation service based on real game_requirements.csv."""
 import csv
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set
 
 from backend.config import GAME_REQUIREMENTS_PATH
 from backend.schemas import ComponentCheck, GameRequirementDetail, RuleBasedResult
@@ -8,6 +8,11 @@ from backend.schemas import ComponentCheck, GameRequirementDetail, RuleBasedResu
 
 class GameNotFoundError(Exception):
     """Raised when game is not found in game_requirements.csv."""
+    pass
+
+
+class DataIntegrityError(Exception):
+    """Raised when data integrity violation is detected in game_requirements.csv."""
     pass
 
 
@@ -28,12 +33,21 @@ class RuleBasedService:
         if not self.requirements_path.exists():
             raise FileNotFoundError(f"Không tìm thấy file: {self.requirements_path}")
 
+        seen_urls = set()
         with open(self.requirements_path, mode="r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 name = row["name"].strip()
                 if not name:
                     continue
+
+                # Chuẩn hóa page_url: chỉ strip khoảng trắng đầu/cuối, giữ nguyên cấu trúc
+                page_url = (row.get("page_url") or "").strip()
+                if not page_url:
+                    raise DataIntegrityError(f"Phát hiện bản ghi game '{name}' thiếu page_url trong game_requirements.csv.")
+                if page_url in seen_urls:
+                    raise DataIntegrityError(f"Phát hiện trùng lặp page_url trong game_requirements.csv: '{page_url}'.")
+                seen_urls.add(page_url)
 
                 rel_year = float(row["release_year"]) if row.get("release_year") else None
                 min_cpu = float(row.get("min_cpu_score") or 0)
@@ -52,8 +66,13 @@ class RuleBasedService:
                     rec_gpu_g3d=rec_gpu,
                     min_ram_gb=min_ram,
                     rec_ram_gb=rec_ram,
+                    page_url=page_url,
                 )
                 self._games[self._normalize(name)] = detail
+
+    def get_all_page_urls(self) -> Set[str]:
+        """Trả về tập hợp toàn bộ page_url duy nhất trong game_requirements.csv."""
+        return {detail.page_url for detail in self._games.values() if detail.page_url}
 
     def get_game_requirement(self, game_name: str) -> GameRequirementDetail:
         """Lấy thông số cấu hình yêu cầu của game.

@@ -1,4 +1,6 @@
 """FastAPI Main Application for Gaming Performance Advisor."""
+from contextlib import asynccontextmanager
+import logging
 from typing import List
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,10 +24,30 @@ from backend.services.hardware_service import (
 from backend.services.ml_service import ml_service
 from backend.services.rule_based_service import GameNotFoundError, rule_based_service
 
+logger = logging.getLogger("backend.main")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """FastAPI lifespan context manager: kiểm tra toàn vẹn dữ liệu quan hệ chéo lúc khởi động."""
+    req_urls = rule_based_service.get_all_page_urls()
+    matched_count, extra_count = fps_reference_service.verify_cross_dataset_integrity(req_urls)
+    total_fps = matched_count + extra_count
+    logger.info(
+        "Backend khởi động thành công: Khớp 100%% (%d) Requirements URL sang FPS Reference; "
+        "tổng số %d FPS benchmark URLs (%d benchmark mở rộng).",
+        matched_count,
+        total_fps,
+        extra_count,
+    )
+    yield
+
+
 app = FastAPI(
     title="Gaming Performance Advisor API",
     description="Hệ thống tư vấn hiệu năng chơi game kết hợp Rule-based và Machine Learning.",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # CORS Middleware
@@ -119,11 +141,12 @@ async def predict_performance(payload: PredictRequest):
             detail=str(exc),
         )
 
-    # 4. Tra cứu FPS tham chiếu thực tế từ games_fps_reference.csv
+    # 4. Tra cứu FPS tham chiếu thực tế từ games_fps_reference.csv (kết hợp page_url nội bộ)
     fps_ref_result = fps_reference_service.get_fps_reference(
         game_name=payload.game,
         gpu_model=canonical_gpu,
         device_type=payload.device_type,
+        page_url=rule_result.game_requirements.page_url,
     )
     if not fps_ref_result.has_reference and fps_ref_result.message:
         warnings.append(fps_ref_result.message)

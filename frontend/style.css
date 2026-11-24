@@ -229,6 +229,45 @@ button:disabled { cursor: not-allowed; }
 #comparison-table .active-preset { --bs-table-bg: #30271d; --bs-table-color: var(--accent); }
 .footnote { margin: 11px 0 0; padding-top: 9px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 
+/* Game Search & Selector */
+.game-select-bar { margin-bottom: 12px; }
+.game-search-wrapper { max-width: 480px; margin-bottom: 8px; }
+.game-search-wrapper input { border-color: var(--line); background: var(--control); color: var(--text); }
+.game-search-wrapper input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.game-search-hint { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+
+/* Rule-based Evaluation (P1) */
+.rule-based-section { margin-bottom: 16px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: #131924; }
+.rule-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.rule-status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+.rule-status-badge.badge-success { background: #16382a; color: var(--good); border: 1px solid #235d46; }
+.rule-status-badge.badge-warning { background: #3d2f14; color: var(--warning); border: 1px solid #6b5220; }
+.rule-status-badge.badge-danger { background: #3e1b21; color: var(--error); border: 1px solid #6b2d38; }
+.rule-verdict { margin: 0; font-size: 13px; line-height: 1.5; color: var(--text); }
+.component-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.component-card { padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--control); }
+.comp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; }
+.comp-head strong { color: var(--text); }
+.comp-badge { font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.comp-badge.badge-success { background: #183d2e; color: var(--good); }
+.comp-badge.badge-warning { background: #403217; color: var(--warning); }
+.comp-badge.badge-danger { background: #421d23; color: var(--error); }
+.comp-body { font-size: 11px; color: var(--muted); line-height: 1.4; word-break: break-word; }
+
+/* FPS Reference (P1) */
+.fps-section { margin-bottom: 16px; }
+.metric-fps-card { padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--control); }
+.fps-card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.fps-card-header h3 { margin: 0; font-size: 13px; font-weight: 600; color: var(--muted); }
+.fps-matched-gpu { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: #202b3d; color: var(--accent); border: 1px solid #364867; }
+.fps-note { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+
+/* Machine Learning Status (P1) */
+.ml-status-box { margin-bottom: 16px; padding: 12px 14px; border: 1px solid #2a374d; border-radius: 10px; background: #121824; }
+.ml-badge-wrapper { margin-bottom: 6px; }
+.ml-badge { display: inline-block; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; background: #1d2636; color: #8aa0c4; border: 1px solid #2d3b54; }
+.ml-desc { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+
 @media (max-width: 960px) {
   .shell { width: min(760px, calc(100% - 44px)); }
   .workspace { grid-template-columns: minmax(0, 1fr); }
@@ -253,5 +292,6 @@ button:disabled { cursor: not-allowed; }
   .form-control, .form-select { font-size: 16px; }
   .wide-mobile { grid-column: 1 / -1; }
   .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  .component-grid { grid-template-columns: 1fr; }
   .metric { padding: 9px; }
 }

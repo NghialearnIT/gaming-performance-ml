@@ -66,6 +66,7 @@ class GameRequirementDetail(BaseModel):
     rec_gpu_g3d: float
     min_ram_gb: float
     rec_ram_gb: float
+    page_url: Optional[str] = None
 
 
 class RuleBasedResult(BaseModel):
@@ -85,6 +86,7 @@ class FpsReferenceResult(BaseModel):
     graphics_preset: str = "high"
     gpu_matched: Optional[str] = None
     message: Optional[str] = None
+    page_url: Optional[str] = None
 
 
 class MachineLearningResult(BaseModel):
