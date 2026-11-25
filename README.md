@@ -70,7 +70,7 @@ Ví dụ request:
 - `fps_source: "reference"` là FPS lấy từ bảng cho đúng game và GPU.
 - `fps_source: "ml_estimate"` là kết quả mô hình cho GPU chưa có cột FPS riêng.
 - `avg_fps: null` đi cùng `fps_message` giải thích trường hợp thiếu dữ liệu, preset chưa hỗ trợ hoặc cấu hình dưới tối thiểu.
-- `rule_based: null` áp dụng cho Valorant, CS2 và LoL khi bảng hiện có FPS nhưng thiếu ngưỡng cấu hình đầy đủ.
+- Với Valorant, CS2 và LoL, hệ thống so sánh GPU và RAM với ngưỡng tối thiểu và hiển thị CPU yêu cầu để đối chiếu. Giao diện trực tuyến chọn preset có dữ liệu FPS.
 - `one_percent_low_fps: null` vì dữ liệu hiện chưa có chỉ số này.
 - `is_stub: true` xuất hiện ở demo UI để nhận diện số minh họa.
 

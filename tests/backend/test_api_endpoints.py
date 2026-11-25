@@ -220,8 +220,10 @@ def test_reference_only_games_are_in_options_and_can_return_fps(client, desktop_
     assert response.status_code == 200
     data = response.json()
     assert data["avg_fps"] == fps
-    assert data["rule_based"] is None
-    assert data["warnings"]
+    assert data["rule_based"]["status"] == "Partial_minimum"
+    assert data["rule_based"]["components"]["gpu"]["passed_min"]
+    assert data["rule_based"]["game_requirements"]["min_cpu_description"]
+    assert client.post("/predict", json=desktop_payload | {"game": game, "ram_gb": 1}).json()["avg_fps"] is None
 
 
 @pytest.mark.parametrize("origin", ["http://127.0.0.1:5501", "http://localhost:5501"])

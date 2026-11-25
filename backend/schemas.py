@@ -68,9 +68,9 @@ class ComponentCheck(BaseModel):
     component: str
     user_value: float
     min_value: float
-    rec_value: float
+    rec_value: Optional[float] = None
     passed_min: bool
-    passed_rec: bool
+    passed_rec: Optional[bool] = None
     status: str  # 'passed_rec', 'passed_min', 'below_min'
 
 
@@ -78,12 +78,13 @@ class GameRequirementDetail(BaseModel):
     """Game requirements detail from game_requirements.csv."""
     game_name: str
     release_year: Optional[float] = None
-    min_cpu_score: float
-    rec_cpu_score: float
+    min_cpu_description: Optional[str] = None
+    min_cpu_score: Optional[float] = None
+    rec_cpu_score: Optional[float] = None
     min_gpu_g3d: float
-    rec_gpu_g3d: float
+    rec_gpu_g3d: Optional[float] = None
     min_ram_gb: float
-    rec_ram_gb: float
+    rec_ram_gb: Optional[float] = None
     page_url: Optional[str] = None
 
 

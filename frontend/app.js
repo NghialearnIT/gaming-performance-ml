@@ -291,8 +291,13 @@ function populateFields() {
   populateChoices('game', options.games);
   const defaultResolution = options.resolutions.length === 1 ? String(options.resolutions[0].value) : '';
   populateSelect('resolution', options.resolutions, 'Chọn độ phân giải', defaultResolution);
-  populateChoices('graphics_preset', options.graphics_presets);
-  if (options.graphics_presets.length > 1) selectChoice('graphics_preset', 'high');
+  const supported = options.fps_presets.map(preset => preset.value);
+  const presets = supported.length ? options.graphics_presets.filter(preset => supported.includes(preset.value)) : options.graphics_presets;
+  populateChoices('graphics_preset', presets);
+  if (supported.length || presets.length > 1) {
+    selectChoice('graphics_preset', 'high');
+    if (presets.length === 1) inputsFor('graphics_preset')[0].defaultChecked = true;
+  }
   byId('preset-note').hidden = demo || !options.fps_presets.length;
   populateSelect('ram_type', options.ram_types, 'Không rõ');
   populateSelect('ram_channels', options.ram_channels, 'Không rõ');
@@ -500,11 +505,13 @@ function renderResults(response, payload) {
         const info = compStatusMap[comp.status] || { label: comp.status, cls: 'badge-warning' };
         bEl.textContent = info.label;
         bEl.className = `comp-badge ${info.cls}`;
-        if (scoreLabel) {
-          dEl.textContent = `${scoreLabel}: ${Math.round(comp.user_value)} (Min: ${Math.round(comp.min_value)}, Rec: ${Math.round(comp.rec_value)})`;
-        } else {
-          dEl.textContent = `${comp.user_value} ${unit} (Min: ${comp.min_value} ${unit}, Rec: ${comp.rec_value} ${unit})`;
-        }
+        const value = scoreLabel ? `${scoreLabel}: ${Math.round(comp.user_value)}` : `${comp.user_value} ${unit}`;
+        const rec = comp.rec_value == null ? '' : `, đề xuất ${Math.round(comp.rec_value)}`;
+        dEl.textContent = `${value} (tối thiểu ${Math.round(comp.min_value)}${rec})`;
+      } else if (key === 'cpu' && rb.game_requirements?.min_cpu_description) {
+        bEl.textContent = 'Đối chiếu CPU';
+        bEl.className = 'comp-badge';
+        dEl.textContent = `Máy bạn: ${response.user_hardware.cpu_model}. Yêu cầu: ${rb.game_requirements.min_cpu_description}.`;
       } else {
         bEl.textContent = '—';
         bEl.className = 'comp-badge';
@@ -570,6 +577,7 @@ function renderResults(response, payload) {
       ? `Mô hình FPS · ${ml.model_version}`
       : 'Mô hình FPS chưa sẵn sàng';
     byId('ml-desc').textContent = ml.message;
+    byId('ml-desc').hidden = ml.message === response.fps_message;
   }
 
   // Stubs & Warnings

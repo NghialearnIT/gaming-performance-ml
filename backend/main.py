@@ -3,13 +3,17 @@
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.config import CORS_ORIGINS, FPS_PRESET, FRONTEND_DIR
 from backend.schemas import (
     CatalogOptionsResponse,
+    ComponentCheck,
+    GameRequirementDetail,
+    RuleBasedResult,
     FpsReferenceResult,
     HardwareScoreInfo,
     PredictRequest,
@@ -54,7 +58,9 @@ app.add_middleware(
 
 
 @app.get("/", tags=["System"])
-def root():
+def root(request: Request):
+    if "text/html" in request.headers.get("accept", ""):
+        return RedirectResponse("/app/")
     return {
         "service": "Gaming Performance ML API",
         "status": "online",
@@ -89,8 +95,29 @@ def predict_performance(payload: PredictRequest):
         )
         if page_url is None or fps_reference_service.get_row(page_url) is None:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
-        rule_result = None
-        warnings.append("Game này có dữ liệu FPS tham chiếu, nhưng thiếu dữ liệu để chấm cấu hình tối thiểu và đề xuất.")
+        row = fps_reference_service.get_row(page_url)
+        requirement = GameRequirementDetail(
+            game_name=row["name"], page_url=page_url, min_cpu_description=row["min_cpu"],
+            min_gpu_g3d=float(row["min_gpu_g3d"]), min_ram_gb=float(row["min_ram_gb"]),
+        )
+        components = {}
+        for key, actual, minimum in (
+            ("gpu", gpu_score, requirement.min_gpu_g3d),
+            ("ram", payload.ram_gb, requirement.min_ram_gb),
+        ):
+            passed = actual >= minimum
+            components[key] = ComponentCheck(
+                component=key.upper(), user_value=actual, min_value=minimum,
+                passed_min=passed, status="passed_min" if passed else "below_min",
+            )
+        failed = [key.upper() for key, check in components.items() if not check.passed_min]
+        rule_result = RuleBasedResult(
+            status="Khong_dat_toi_thieu" if failed else "Partial_minimum",
+            status_label="Dưới mức tối thiểu" if failed else "GPU và RAM đạt tối thiểu",
+            summary=("Dưới ngưỡng tối thiểu: " + ", ".join(failed)) if failed else
+                    "GPU và RAM đạt ngưỡng tối thiểu. CPU cần đối chiếu với yêu cầu bên dưới.",
+            components=components, game_requirements=requirement,
+        )
 
     if payload.device_type == "laptop" and payload.gpu_tgp_w is None:
         warnings.append("Chưa nhập TGP. Hiệu năng GPU laptop có thể thay đổi theo giới hạn công suất và tản nhiệt.")
