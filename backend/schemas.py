@@ -125,7 +125,7 @@ class PredictResponse(BaseModel):
     machine_learning: MachineLearningResult
     avg_fps: Optional[float] = None
     one_percent_low_fps: Optional[float] = None
-    fps_source: Optional[Literal["reference", "ml_estimate"]] = None
+    fps_source: Optional[Literal["reference", "ml_estimate", "external_estimate", "preset_scenario"]] = None
     fps_message: Optional[str] = None
     model_version: str = "unavailable"
     is_stub: bool = False

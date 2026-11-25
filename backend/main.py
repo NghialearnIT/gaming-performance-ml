@@ -124,34 +124,50 @@ def predict_performance(payload: PredictRequest):
 
     avg_fps = None
     fps_source = None
-    if payload.graphics_preset != FPS_PRESET:
-        fps_message = "Chưa có dữ liệu FPS cho mức đồ họa này. Chọn 1080p High để xem kết quả."
-        reference = FpsReferenceResult(has_reference=False, message=fps_message)
-        ml_result = ml_service.status("unsupported_preset", fps_message)
+    reference = fps_reference_service.get_fps_reference(
+        game_name, gpu_name, payload.device_type, page_url=page_url,
+    )
+    if rule_result and rule_result.status == "Khong_dat_toi_thieu":
+        fps_message = "Cấu hình dưới mức tối thiểu. Hệ thống chỉ hiển thị FPS tham chiếu của game và GPU nếu có."
+        ml_result = ml_service.status("below_minimum_requirements", fps_message)
+    elif reference.has_reference:
+        avg_fps = reference.reference_fps
+        fps_source = "reference"
+        fps_message = "FPS tham chiếu cho game và GPU ở 1080p High. CPU và RAM không quyết định số tham chiếu này."
+        ml_result = ml_service.status("reference_available", "Đã có FPS tham chiếu cho game và GPU.")
     else:
-        reference = fps_reference_service.get_fps_reference(
-            game_name, gpu_name, payload.device_type, page_url=page_url,
-        )
-        if rule_result and rule_result.status == "Khong_dat_toi_thieu":
-            fps_message = "Cấu hình dưới mức tối thiểu. Hệ thống chỉ hiển thị FPS tham chiếu của game và GPU nếu có."
-            ml_result = ml_service.status("below_minimum_requirements", fps_message)
-        elif reference.has_reference:
-            avg_fps = reference.reference_fps
-            fps_source = "reference"
-            fps_message = "FPS tham chiếu cho game và GPU ở 1080p High. CPU và RAM không quyết định số tham chiếu này."
-            ml_result = ml_service.status("reference_available", "Đã có FPS tham chiếu cho game và GPU.")
+        game_row = fps_reference_service.get_row(page_url) or {}
+        ml_result = ml_service.predict(game_row, gpu_score)
+        if ml_result.prediction:
+            avg_fps = ml_result.prediction["avg_fps"]
+            fps_source = "ml_estimate"
+            fps_message = (
+                "Ước tính ở 1080p High dựa trên điểm GPU và dữ liệu tham chiếu của game. "
+                "CPU, RAM và TGP chưa được dùng làm đầu vào của mô hình FPS."
+            )
         else:
-            game_row = fps_reference_service.get_row(page_url) or {}
-            ml_result = ml_service.predict(game_row, gpu_score)
-            if ml_result.prediction:
-                avg_fps = ml_result.prediction["avg_fps"]
-                fps_source = "ml_estimate"
-                fps_message = (
-                    "Ước tính ở 1080p High dựa trên điểm GPU và dữ liệu tham chiếu của game. "
-                    "CPU, RAM và TGP chưa được dùng làm đầu vào của mô hình FPS."
-                )
-            else:
-                fps_message = ml_result.message
+            fps_message = ml_result.message
+
+
+    if avg_fps is not None and payload.graphics_preset != FPS_PRESET:
+        preset = payload.graphics_preset
+        high_fps = avg_fps
+        if (game_name.casefold() == "pubg: battlegrounds" and payload.device_type == "desktop"
+                and gpu_name in {"GeForce RTX 3060", "GeForce RTX 3060 12GB"}):
+            # Published modeled values, not measurements of the user's machine.
+            avg_fps = {"low": 122, "medium": 103}[preset]
+            fps_source = "external_estimate"
+            fps_message = f"GameFixPro ước tính cho PUBG trên RTX 3060 Desktop ở 1080p {preset.title()}. Nguồn dùng mô hình theo GPU."
+        else:
+            # Illustrative GPU-limited scenario; gains have not been measured per game.
+            multiplier = {"low": 1.4, "medium": 1.2}[preset]
+            cap = (fps_reference_service.get_row(page_url) or {}).get("engine_fps_cap")
+            avg_fps = round(min(high_fps * multiplier, float(cap) if cap else float("inf")), 1)
+            fps_source = "preset_scenario"
+            fps_message = (
+                f"Mô phỏng từ {high_fps:g} FPS ở High với giả định {preset.title()} tăng "
+                f"{(multiplier - 1) * 100:.0f}%. Mức tăng thực tế của game chưa được kiểm chứng."
+            )
 
     return PredictResponse(
         user_hardware=HardwareScoreInfo(

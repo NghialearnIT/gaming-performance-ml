@@ -174,10 +174,12 @@ def test_predict_only_returns_fps_for_supported_presets(client, desktop_payload,
     response = client.post("/predict", json=desktop_payload | {"graphics_preset": preset})
     assert response.status_code == 200
     data = response.json()
-    assert data["avg_fps"] is None
-    assert data["fps_source"] is None
-    assert data["fps_reference"]["has_reference"] is False
-    assert "1080p High" in data["fps_message"]
+    assert data["avg_fps"] >= data["fps_reference"]["reference_fps"]
+    assert data["fps_source"] == "preset_scenario"
+    assert "giả định" in data["fps_message"]
+    pubg = client.post("/predict", json=desktop_payload | {"game": "PUBG: Battlegrounds", "graphics_preset": preset}).json()
+    assert pubg["avg_fps"] == {"low": 122, "medium": 103}[preset]
+    assert pubg["fps_source"] == "external_estimate"
 
 
 def test_predict_under_minimum_has_separate_reference(client, desktop_payload):
@@ -215,7 +217,7 @@ def test_predict_estimates_fps_for_gpus_missing_from_reference(client, desktop_p
 def test_reference_only_games_are_in_options_and_can_return_fps(client, desktop_payload, game, name, fps):
     options = client.get("/options").json()
     assert name in [item["value"] for item in options["games"]]
-    assert options["fps_presets"] == ["high"]
+    assert options["fps_presets"] == ["low", "medium", "high"]
     response = client.post("/analyze", json=desktop_payload | {"game": game})
     assert response.status_code == 200
     data = response.json()

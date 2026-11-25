@@ -532,7 +532,7 @@ function renderResults(response, payload) {
   byId('avg').textContent = formatFps(response.avg_fps);
   byId('low').textContent = formatFps(response.one_percent_low_fps);
 
-  const titles = { reference: 'FPS tham chiếu', ml_estimate: 'FPS ước tính bằng máy học' };
+  const titles = { reference: 'FPS tham chiếu', ml_estimate: 'FPS ước tính bằng máy học', external_estimate: 'FPS ước tính theo nguồn', preset_scenario: 'FPS mô phỏng theo preset' };
   byId('fps-heading').textContent = isStub(response) ? 'FPS minh họa' :
     titles[response.fps_source] ?? 'Average FPS';
   byId('fps-note').textContent = response.fps_message ?? (isStub(response)
@@ -562,6 +562,12 @@ function renderResults(response, payload) {
     sourceLink.href = reference.page_url;
     sourceLink.textContent = response.fps_source === 'ml_estimate' ?
       'Xem dữ liệu tham chiếu của game' : 'Xem nguồn FPS tham chiếu';
+    sourceLink.hidden = false;
+  }
+
+  if (response.fps_source === 'external_estimate') {
+    sourceLink.href = 'https://gamefixpro.com/evergreen/pubg-battlegrounds-intel-rtx-3060-fps-fix';
+    sourceLink.textContent = 'Xem bảng ước tính theo preset';
     sourceLink.hidden = false;
   }
 
@@ -617,6 +623,11 @@ function renderComparison(presets, results, submittedPreset) {
       'Các preset đã thử đều có Average FPS dưới 60.';
   } else {
     status.textContent = 'So sánh chưa đủ cả ba preset.';
+  }
+  if (rows.some(row => row.response?.fps_source === 'preset_scenario')) {
+    status.textContent = 'Low và Medium là kịch bản mô phỏng từ FPS High.';
+  } else if (rows.some(row => row.response?.fps_source === 'external_estimate')) {
+    status.textContent = 'Low và Medium dùng ước tính GameFixPro. High dùng dữ liệu tham chiếu của dự án.';
   }
   if (failures.length) status.append(` Chưa tải được: ${failures.join(', ')}.`);
 

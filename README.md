@@ -43,7 +43,7 @@ Dữ liệu kiểm thử tách theo nhóm tên game. Kịch bản thứ hai gi�
 | Game ngoài tập train | 26.640 | 4,42 FPS | 8,72 FPS | 100,50 FPS |
 | Game và hai GPU ngoài tập train | 6.660 | 24,46 FPS | 31,87 FPS | 90,58 FPS |
 
-Bảng trên chưa kiểm định sai số trên máy thật. Mô hình dùng điểm GPU tổng hợp, cùng một điểm có thể cho FPS khác nhau trên các laptop có TGP, CPU hoặc tản nhiệt khác nhau. Để kiểm định trên máy thật hoặc thêm kết quả cho Low, Medium, 1440p và 1% Low, cần benchmark đúng thiết lập với cấu hình và quy trình đo được ghi lại.
+Bảng trên chưa kiểm định sai số trên máy thật. Mô hình dùng điểm GPU tổng hợp, cùng một điểm có thể cho FPS khác nhau trên các laptop có TGP, CPU hoặc tản nhiệt khác nhau. Để kiểm định trên máy thật hoặc thêm benchmark cho Low, Medium, 1440p và 1% Low, cần benchmark đúng thiết lập với cấu hình và quy trình đo được ghi lại.
 
 ## API và cách đọc kết quả
 
@@ -67,6 +67,8 @@ Ví dụ request:
 }
 ```
 
+- `external_estimate` là số ước tính theo preset, hiện có cho PUBG + RTX 3060 Desktop ở Low và Medium. [Nguồn GameFixPro](https://gamefixpro.com/evergreen/pubg-battlegrounds-intel-rtx-3060-fps-fix)
+- `preset_scenario` mô phỏng Low và Medium khi có FPS High, giả định tăng 40% và 20%, có áp giới hạn FPS của game. Các hệ số này chưa được kiểm định theo từng game.
 - `fps_source: "reference"` là FPS lấy từ bảng cho đúng game và GPU.
 - `fps_source: "ml_estimate"` là kết quả mô hình cho GPU chưa có cột FPS riêng.
 - `avg_fps: null` đi cùng `fps_message` giải thích trường hợp thiếu dữ liệu, preset chưa hỗ trợ hoặc cấu hình dưới tối thiểu.

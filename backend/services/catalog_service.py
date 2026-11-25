@@ -74,7 +74,7 @@ class CatalogService:
             games=games,
             resolutions=resolutions,
             graphics_presets=graphics_presets,
-            fps_presets=[FPS_PRESET],
+            fps_presets=[item.value for item in graphics_presets],
             cpu_models=cpu_models,
             gpu_models=gpu_models,
             desktop_gpus=desktop_gpus,
