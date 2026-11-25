@@ -1,13 +1,22 @@
-"""FPS reference service to query actual measured FPS from games_fps_reference.csv."""
+"""FPS reference service to query FPS reference values from games_fps_reference.csv."""
 import csv
 import logging
+import math
 from collections import defaultdict
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, Iterator, List, Optional, Set, Tuple
 
 from backend.config import GAMES_FPS_REFERENCE_PATH
 from backend.schemas import FpsReferenceResult
 
 logger = logging.getLogger("backend.fps_reference_service")
+
+# These games are present in the FPS table but lack a complete requirements row.
+REFERENCE_ONLY_GAMES = {
+    "Valorant": "https://pcgamebenchmarks.com/game/valorant-116721",
+    "Counter-Strike 2": "https://pcgamebenchmarks.com/game/counter-strike-2-223898",
+    "League of Legends": "https://pcgamebenchmarks.com/game/league-of-legends-115",
+}
+GAME_ALIASES = {"cs2": "Counter-Strike 2", "lol": "League of Legends", "pubg": "PUBG: Battlegrounds"}
 
 
 class DataIntegrityError(Exception):
@@ -16,7 +25,7 @@ class DataIntegrityError(Exception):
 
 
 class FpsReferenceService:
-    """Service to look up actual measured FPS from games_fps_reference.csv.
+    """Service to look up FPS reference values from games_fps_reference.csv.
 
     Strict rules:
     - Only map GPUs that have an exact corresponding column in games_fps_reference.csv.
@@ -75,6 +84,15 @@ class FpsReferenceService:
 
     def _normalize(self, text: str) -> str:
         return text.strip().lower()
+
+    def iter_rows(self) -> Iterator[Dict[str, str]]:
+        return iter(self._fps_by_url.values())
+
+    def get_row(self, page_url: Optional[str]) -> Optional[Dict[str, str]]:
+        return self._fps_by_url.get(page_url) if page_url else None
+
+    def get_gpu_column(self, gpu_model: str, device_type: str) -> Optional[Tuple[str, str]]:
+        return self.SUPPORTED_GPU_COLUMNS.get((self._normalize(device_type), self._normalize(gpu_model)))
 
     def _load_data(self) -> None:
         """Load benchmark rows from games_fps_reference.csv."""
@@ -135,7 +153,7 @@ class FpsReferenceService:
         self, row: Dict[str, str], col_name: str, display_gpu: str, page_url: Optional[str] = None
     ) -> FpsReferenceResult:
         """Trích xuất và xác thực giá trị FPS từ một dòng dữ liệu duy nhất."""
-        fps_str = row.get(col_name, "").strip()
+        fps_str = (row.get(col_name) or "").strip()
         if not fps_str:
             return FpsReferenceResult(
                 has_reference=False,
@@ -149,7 +167,7 @@ class FpsReferenceService:
 
         try:
             fps_val = float(fps_str)
-            if fps_val <= 0:
+            if not math.isfinite(fps_val) or fps_val <= 0:
                 return FpsReferenceResult(
                     has_reference=False,
                     reference_fps=None,
@@ -197,7 +215,7 @@ class FpsReferenceService:
         g_norm = self._normalize(gpu_model)
 
         # 1. Xác thực cột GPU
-        gpu_col_info = self.SUPPORTED_GPU_COLUMNS.get((d_norm, g_norm))
+        gpu_col_info = self.get_gpu_column(gpu_model, device_type)
         if not gpu_col_info:
             if d_norm == "laptop" and "laptop" in g_norm:
                 msg = f"GPU Laptop '{gpu_model}' không có cột đo FPS riêng trong bảng tham chiếu (hệ thống không dùng FPS Desktop thay thế)."
@@ -258,7 +276,7 @@ class FpsReferenceService:
         # Kiểm tra thắt chặt: Có nhiều bản ghi trùng tên
         # 1. Kiểm tra nếu có BẤT KỲ bản ghi nào thiếu hoặc không hợp lệ -> từ chối ngay
         for r in candidate_rows:
-            raw_fps = r.get(col_name, "").strip()
+            raw_fps = (r.get(col_name) or "").strip()
             if not raw_fps:
                 return FpsReferenceResult(
                     has_reference=False,
@@ -271,7 +289,7 @@ class FpsReferenceService:
                 )
             try:
                 f_val = float(raw_fps)
-                if f_val <= 0:
+                if not math.isfinite(f_val) or f_val <= 0:
                     return FpsReferenceResult(
                         has_reference=False,
                         reference_fps=None,

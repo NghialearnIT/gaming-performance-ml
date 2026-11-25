@@ -32,7 +32,7 @@
         <div class="game-select-bar">
           <div class="game-search-wrapper">
             <label for="game-search" class="visually-hidden">Tìm kiếm game</label>
-            <input class="form-control" id="game-search" list="game-search-options" placeholder="🔍 Tìm kiếm game trong danh mục (ví dụ: Cyberpunk 2077, Red Dead Redemption 2, ...)" autocomplete="off">
+            <input class="form-control" id="game-search" list="game-search-options" placeholder="Tìm game, ví dụ Valorant hoặc Red Dead Redemption 2" autocomplete="off">
             <datalist id="game-search-options"></datalist>
           </div>
           <p class="game-search-hint" id="game-search-hint">Hoặc chọn nhanh trò chơi nổi bật bên dưới:</p>
@@ -117,6 +117,7 @@
                   <span class="field-label" id="preset-label">Mức đồ họa *</span>
                   <div class="preset-choices" id="preset-options" role="group" aria-labelledby="preset-label"></div>
                   <p class="field-error" id="graphics_preset-error" hidden></p>
+                  <p class="fps-note" id="preset-note" hidden>Dữ liệu FPS hiện hỗ trợ 1080p High.</p>
                 </div>
               </div>
             </div>
@@ -165,11 +166,13 @@
           <div class="fps-section" id="fps-section">
             <div class="metric-fps-card">
               <div class="fps-card-header">
-                <h3>FPS tham chiếu Benchmark (1080p High)</h3>
+                <h3 id="fps-heading">Average FPS</h3>
                 <span class="fps-matched-gpu" id="fps-matched-gpu" hidden></span>
               </div>
               <div class="metric-value"><output id="avg">—</output><span>FPS</span></div>
-              <p class="fps-note" id="fps-note">Số liệu đo thực tế từ bảng tham chiếu games_fps_reference.csv.</p>
+              <p class="fps-note" id="fps-note">Chọn cấu hình để xem FPS ở 1080p High.</p>
+              <p class="fps-note" id="fps-reference-detail" hidden></p>
+              <a id="fps-source-link" target="_blank" rel="noopener noreferrer" hidden>Xem nguồn FPS tham chiếu</a>
             </div>
             <div class="metric low" id="low-fps-card" hidden>
               <h3>1% Low FPS</h3>
@@ -181,9 +184,9 @@
           <!-- KHỐI 3: TRẠNG THÁI MACHINE LEARNING (P1) -->
           <div class="ml-status-box" id="ml-status-box" hidden>
             <div class="ml-badge-wrapper">
-              <span class="ml-badge" id="ml-badge">Mô hình Machine Learning: Đang chờ tích hợp</span>
+              <span class="ml-badge" id="ml-badge">Mô hình FPS</span>
             </div>
-            <p class="ml-desc" id="ml-desc">Mô hình Machine Learning đang chờ được tích hợp vào ứng dụng. Chưa thực hiện dự đoán ML.</p>
+            <p class="ml-desc" id="ml-desc">Trạng thái mô hình sẽ hiện sau khi gửi cấu hình.</p>
           </div>
 
           <p id="model" class="model-info" hidden></p>
@@ -202,7 +205,7 @@
               <h3>So sánh mức đồ họa</h3>
               <p id="comparison-selected" class="selected-preset" hidden></p>
             </div>
-            <p id="comparison-status" role="status">Dữ liệu FPS benchmark chỉ có sẵn ở mức 1080p High. Các mức Low và Medium chưa có số liệu đo lường.</p>
+            <p id="comparison-status" role="status">Gửi cấu hình để xem kết quả.</p>
             <div id="comparison-empty" class="comparison-empty" aria-hidden="true">
               <div class="empty-bars"><i></i><i></i><i></i></div>
               <span>Chưa có dữ liệu so sánh</span>

@@ -11,8 +11,10 @@ export function examplePrediction(payload) {
   const index = ['low', 'medium', 'high'].indexOf(payload.graphics_preset);
   const [avg, low] = fpsByGame[payload.game][index];
   const warnings = [];
-  if (payload.device_type === 'laptop' && payload.gpu_tgp_w === null) {
-    warnings.push('Chưa có TGP của GPU Laptop. Kết quả có thể kém tin cậy hơn.');
+  if (payload.device_type === 'laptop') {
+    warnings.push(payload.gpu_tgp_w === null
+      ? 'Chưa nhập TGP của GPU Laptop.'
+      : 'TGP trong cấu hình mẫu dùng để minh họa biểu mẫu.');
   }
   return new Promise(resolve => {
     setTimeout(() => resolve({

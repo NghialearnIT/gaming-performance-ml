@@ -1,6 +1,8 @@
 """Pydantic schemas for request and response models."""
-from typing import Any, Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, Field, field_validator
+
+from backend.config import FPS_PRESET, FPS_RESOLUTION
 
 
 class PredictRequest(BaseModel):
@@ -9,13 +11,13 @@ class PredictRequest(BaseModel):
     cpu_model: str = Field(..., description="Tên CPU")
     gpu_model: str = Field(..., description="Tên GPU")
     ram_gb: int = Field(..., ge=1, description="Dung lượng RAM (GB), tối thiểu 1GB")
-    gpu_vram_gb: Optional[float] = Field(None, ge=0, description="Dung lượng VRAM (GB)")
-    gpu_tgp_w: Optional[float] = Field(None, ge=0, description="Công suất GPU laptop (W)")
+    gpu_vram_gb: Optional[float] = Field(None, gt=0, allow_inf_nan=False, description="Dung lượng VRAM (GB)")
+    gpu_tgp_w: Optional[float] = Field(None, gt=0, allow_inf_nan=False, description="Công suất GPU laptop (W)")
     ram_type: Optional[str] = Field(None, description="Thế hệ RAM: DDR4, DDR5, ...")
     ram_channels: Optional[str] = Field(None, description="Kênh RAM: single, dual, quad")
     game: str = Field(..., description="Tên game được lựa chọn")
-    resolution: str = Field("1920x1080", description="Độ phân giải")
-    graphics_preset: str = Field("high", description="Thiết lập đồ họa: low, medium, high")
+    resolution: str = Field(FPS_RESOLUTION, description="Độ phân giải")
+    graphics_preset: str = Field(FPS_PRESET, description="Thiết lập đồ họa: low, medium, high")
 
     @field_validator("device_type")
     @classmethod
@@ -24,6 +26,22 @@ class PredictRequest(BaseModel):
         if clean not in ("desktop", "laptop"):
             raise ValueError("device_type phải là 'desktop' hoặc 'laptop'")
         return clean
+
+    @field_validator("resolution")
+    @classmethod
+    def validate_resolution(cls, value: str) -> str:
+        normalized = "".join(value.lower().replace("×", "x").split())
+        if normalized != FPS_RESOLUTION:
+            raise ValueError("Độ phân giải hiện hỗ trợ là 1920x1080.")
+        return normalized
+
+    @field_validator("graphics_preset")
+    @classmethod
+    def validate_graphics_preset(cls, value: str) -> str:
+        normalized = value.strip().lower()
+        if normalized not in ("low", "medium", "high"):
+            raise ValueError("Mức đồ họa phải là low, medium hoặc high.")
+        return normalized
 
     @field_validator("cpu_model", "gpu_model", "game")
     @classmethod
@@ -82,33 +100,35 @@ class FpsReferenceResult(BaseModel):
     """Result of FPS benchmark reference lookup."""
     has_reference: bool
     reference_fps: Optional[float] = None
-    resolution: str = "1920x1080"
-    graphics_preset: str = "high"
+    resolution: str = FPS_RESOLUTION
+    graphics_preset: str = FPS_PRESET
     gpu_matched: Optional[str] = None
     message: Optional[str] = None
     page_url: Optional[str] = None
 
 
 class MachineLearningResult(BaseModel):
-    """Machine Learning prediction result (interface waiting for user model)."""
+    """Prediction and status of the FPS regression model."""
     model_loaded: bool = False
     model_version: Optional[str] = None
-    status: str = "waiting_for_user_model"
-    message: str = "Chưa tích hợp mô hình ML (chờ mô hình thật từ bạn)"
-    prediction: Optional[Dict[str, Any]] = None
+    status: str = "unavailable"
+    message: str = "Chưa có mô hình FPS."
+    prediction: Optional[Dict[str, float]] = None
 
 
 class PredictResponse(BaseModel):
     """Comprehensive API response containing separate, transparent result sections."""
     user_hardware: HardwareScoreInfo
-    rule_based: RuleBasedResult
+    rule_based: Optional[RuleBasedResult] = None
     fps_reference: FpsReferenceResult
     machine_learning: MachineLearningResult
     avg_fps: Optional[float] = None
     one_percent_low_fps: Optional[float] = None
-    model_version: str = "waiting_for_user_model"
+    fps_source: Optional[Literal["reference", "ml_estimate"]] = None
+    fps_message: Optional[str] = None
+    model_version: str = "unavailable"
     is_stub: bool = False
-    warnings: List[str] = []
+    warnings: List[str] = Field(default_factory=list)
 
 
 class CatalogItem(BaseModel):
@@ -123,6 +143,7 @@ class CatalogOptionsResponse(BaseModel):
     games: List[CatalogItem]
     resolutions: List[CatalogItem]
     graphics_presets: List[CatalogItem]
+    fps_presets: List[str]
     cpu_models: List[CatalogItem]
     gpu_models: List[CatalogItem]
     desktop_gpus: List[CatalogItem]

@@ -1,7 +1,9 @@
 """Catalog service to provide options for dropdowns, autocomplete and validation."""
 from typing import List
 
+from backend.config import FPS_PRESET, FPS_RESOLUTION
 from backend.schemas import CatalogItem, CatalogOptionsResponse
+from backend.services.fps_reference_service import REFERENCE_ONLY_GAMES, fps_reference_service
 from backend.services.hardware_service import hardware_service
 from backend.services.rule_based_service import rule_based_service
 
@@ -10,12 +12,12 @@ class CatalogService:
     """Service to supply the catalog for GET /options."""
 
     def __init__(self):
-        self._cached_options: CatalogOptionsResponse = None
+        self._cached_options: CatalogOptionsResponse | None = None
 
     def get_options(self) -> CatalogOptionsResponse:
         """Lấy toàn bộ danh mục cho Frontend:
 
-        - Games: Lấy toàn bộ từ game_requirements.csv (585 games).
+        - Games: Danh mục cấu hình yêu cầu và các game có FPS tham chiếu.
         - CPUs: Lấy từ dữ liệu thật trong gaming_train_dataset.csv.
         - GPUs: Lấy từ dữ liệu thật, phân biệt rõ Desktop và Laptop.
         """
@@ -29,17 +31,20 @@ class CatalogService:
         ]
 
         # 2. Toàn bộ games từ game_requirements.csv
-        all_games = rule_based_service.list_games()
-        games = [CatalogItem(value=name, label=name) for name in all_games]
+        all_games = set(rule_based_service.list_games())
+        all_games.update(
+            name for name, url in REFERENCE_ONLY_GAMES.items() if fps_reference_service.get_row(url)
+        )
+        games = [CatalogItem(value=name, label=name) for name in sorted(all_games, key=str.casefold)]
 
         # 3. Resolutions & Presets
         resolutions = [
-            CatalogItem(value="1920x1080", label="1920 × 1080"),
+            CatalogItem(value=FPS_RESOLUTION, label="1920 × 1080"),
         ]
         graphics_presets = [
             CatalogItem(value="low", label="Low"),
             CatalogItem(value="medium", label="Medium"),
-            CatalogItem(value="high", label="High"),
+            CatalogItem(value=FPS_PRESET, label="High"),
         ]
 
         # 4. CPUs từ dataset thực tế
@@ -69,6 +74,7 @@ class CatalogService:
             games=games,
             resolutions=resolutions,
             graphics_presets=graphics_presets,
+            fps_presets=[FPS_PRESET],
             cpu_models=cpu_models,
             gpu_models=gpu_models,
             desktop_gpus=desktop_gpus,

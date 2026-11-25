@@ -111,6 +111,9 @@ class HardwareService:
             HardwareNotFoundError nếu không tìm thấy CPU.
         """
         c_norm = self._normalize(cpu_model)
+        for brand in ("intel ", "amd "):
+            if c_norm not in self._cpu_data:
+                c_norm = c_norm.removeprefix(brand)
         if c_norm not in self._cpu_data:
             raise HardwareNotFoundError(
                 f"Không tìm thấy CPU '{cpu_model}' trong cơ sở dữ liệu benchmark thực tế."
@@ -137,6 +140,10 @@ class HardwareService:
             raise ValueError(f"device_type không hợp lệ: '{device_type}'. Phải là 'desktop' hoặc 'laptop'.")
 
         g_norm = self._normalize(gpu_model)
+        if g_norm not in self._gpu_device_types:
+            g_norm = g_norm.removeprefix("nvidia ").removeprefix("amd ")
+        if g_norm.startswith(("gtx ", "rtx ")) and g_norm not in self._gpu_device_types:
+            g_norm = f"geforce {g_norm}"
         gpu_key = (d_norm, g_norm)
 
         if gpu_key in self._gpu_data:

@@ -1,198 +1,150 @@
-"""FastAPI Main Application for Gaming Performance Advisor."""
-from contextlib import asynccontextmanager
+"""FastAPI endpoints for hardware compatibility and gaming FPS."""
+
 import logging
-from typing import List
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
-from backend.config import CORS_ORIGINS
+from backend.config import CORS_ORIGINS, FPS_PRESET, FRONTEND_DIR
 from backend.schemas import (
     CatalogOptionsResponse,
+    FpsReferenceResult,
     HardwareScoreInfo,
     PredictRequest,
     PredictResponse,
 )
 from backend.services.catalog_service import catalog_service
-from backend.services.fps_reference_service import fps_reference_service
-from backend.services.hardware_service import (
-    DeviceTypeMismatchError,
-    HardwareError,
-    HardwareNotFoundError,
-    hardware_service,
+from backend.services.fps_reference_service import (
+    GAME_ALIASES,
+    REFERENCE_ONLY_GAMES,
+    fps_reference_service,
 )
+from backend.services.hardware_service import HardwareError, hardware_service
 from backend.services.ml_service import ml_service
 from backend.services.rule_based_service import GameNotFoundError, rule_based_service
 
-logger = logging.getLogger("backend.main")
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """FastAPI lifespan context manager: kiểm tra toàn vẹn dữ liệu quan hệ chéo lúc khởi động."""
-    req_urls = rule_based_service.get_all_page_urls()
-    matched_count, extra_count = fps_reference_service.verify_cross_dataset_integrity(req_urls)
-    total_fps = matched_count + extra_count
-    logger.info(
-        "Backend khởi động thành công: Khớp 100%% (%d) Requirements URL sang FPS Reference; "
-        "tổng số %d FPS benchmark URLs (%d benchmark mở rộng).",
-        matched_count,
-        total_fps,
-        extra_count,
+    matched, extra = fps_reference_service.verify_cross_dataset_integrity(
+        rule_based_service.get_all_page_urls()
     )
+    logger.info("Loaded %d game requirements and %d additional FPS reference rows.", matched, extra)
+    ml_service.load()
     yield
 
 
 app = FastAPI(
-    title="Gaming Performance Advisor API",
-    description="Hệ thống tư vấn hiệu năng chơi game kết hợp Rule-based và Machine Learning.",
-    version="1.0.0",
+    title="Gaming Performance ML API",
+    description="Đánh giá cấu hình và ước tính FPS chơi game ở 1080p High.",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
-# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
-    allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type"],
 )
 
 
 @app.get("/", tags=["System"])
-async def root():
-    """Health check endpoint."""
+def root():
     return {
-        "service": "Gaming Performance Advisor API",
+        "service": "Gaming Performance ML API",
         "status": "online",
-        "version": "1.0.0",
-        "endpoints": {
-            "catalog": "/options",
-            "predict": "/predict",
-        },
+        "version": app.version,
+        "endpoints": {"catalog": "/options", "predict": "/predict", "frontend": "/app/"},
     }
 
 
 @app.get("/options", response_model=CatalogOptionsResponse, tags=["Catalog"])
-async def get_options():
-    """Lấy danh mục tùy chọn phần cứng và game cho giao diện Frontend."""
-    try:
-        return catalog_service.get_options()
-    except Exception as exc:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Lỗi khi tải danh mục catalog: {str(exc)}",
-        )
+def get_options():
+    return catalog_service.get_options()
 
 
 @app.post("/predict", response_model=PredictResponse, tags=["Prediction"])
 @app.post("/analyze", response_model=PredictResponse, tags=["Prediction"])
-async def predict_performance(payload: PredictRequest):
-    """Phân tích cấu hình máy tính và trả về:
-
-    1. Thông tin điểm phần cứng thực tế (CPU Score, GPU Score).
-    2. Đánh giá Rule-based (so sánh với min/rec requirements của game).
-    3. FPS Tham chiếu thực tế từ benchmark (chỉ trả khi đúng game & GPU).
-    4. Trạng thái Machine Learning (Adapter chờ model thật từ bạn).
-    """
-    warnings: List[str] = []
-
-    # 1. Tra cứu điểm CPU từ dữ liệu thật
+def predict_performance(payload: PredictRequest):
+    warnings: list[str] = []
     try:
-        canonical_cpu, cpu_score = hardware_service.get_cpu_score(payload.cpu_model)
-    except HardwareNotFoundError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(exc),
-        )
+        cpu_name, cpu_score = hardware_service.get_cpu_score(payload.cpu_model)
+        gpu_name, gpu_type, gpu_score = hardware_service.get_gpu_info(payload.gpu_model, payload.device_type)
+    except HardwareError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
-    # 2. Tra cứu điểm GPU từ dữ liệu thật (kiểm tra device_type)
+    game_name = GAME_ALIASES.get(payload.game.casefold(), payload.game)
     try:
-        canonical_gpu, gpu_type, gpu_g3d_mark = hardware_service.get_gpu_info(
-            payload.gpu_model, payload.device_type
-        )
-    except (DeviceTypeMismatchError, HardwareNotFoundError) as exc:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(exc),
-        )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=str(exc),
-        )
-
-    # Cảnh báo TGP cho laptop nếu chưa nhập
-    if payload.device_type == "laptop" and payload.gpu_tgp_w is None:
-        warnings.append("Thiếu thông tin TGP của GPU Laptop. Hiệu năng thực tế có thể dao động tùy mức công suất hãng sản xuất thiết lập.")
-
-    # 3. Phân tích Rule-based so với game_requirements.csv
-    try:
-        rule_result = rule_based_service.evaluate(
-            game_name=payload.game,
-            user_cpu_score=cpu_score,
-            user_gpu_g3d=gpu_g3d_mark,
-            user_ram_gb=payload.ram_gb,
-        )
+        rule_result = rule_based_service.evaluate(game_name, cpu_score, gpu_score, payload.ram_gb)
+        page_url = rule_result.game_requirements.page_url
     except GameNotFoundError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(exc),
+        page_url = next(
+            (url for name, url in REFERENCE_ONLY_GAMES.items() if name.casefold() == game_name.casefold()),
+            None,
         )
+        if page_url is None or fps_reference_service.get_row(page_url) is None:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+        rule_result = None
+        warnings.append("Game này có dữ liệu FPS tham chiếu, nhưng thiếu dữ liệu để chấm cấu hình tối thiểu và đề xuất.")
 
-    # 4. Tra cứu FPS tham chiếu thực tế từ games_fps_reference.csv (kết hợp page_url nội bộ)
-    fps_ref_result = fps_reference_service.get_fps_reference(
-        game_name=payload.game,
-        gpu_model=canonical_gpu,
-        device_type=payload.device_type,
-        page_url=rule_result.game_requirements.page_url,
-    )
-    if not fps_ref_result.has_reference and fps_ref_result.message:
-        warnings.append(fps_ref_result.message)
+    if payload.device_type == "laptop" and payload.gpu_tgp_w is None:
+        warnings.append("Chưa nhập TGP. Hiệu năng GPU laptop có thể thay đổi theo giới hạn công suất và tản nhiệt.")
 
-    # 5. Gọi Machine Learning Adapter (chế độ chờ model thật)
-    ml_features = {
-        "device_type": payload.device_type,
-        "cpu_name": canonical_cpu,
-        "cpu_gaming_score": cpu_score,
-        "gpu_name": canonical_gpu,
-        "gpu_g3d_mark": gpu_g3d_mark,
-        "ram_gb": payload.ram_gb,
-        "game_name": rule_result.game_requirements.game_name,
-        "min_cpu_score": rule_result.game_requirements.min_cpu_score,
-        "rec_cpu_score": rule_result.game_requirements.rec_cpu_score,
-        "min_gpu_g3d": rule_result.game_requirements.min_gpu_g3d,
-        "rec_gpu_g3d": rule_result.game_requirements.rec_gpu_g3d,
-        "min_ram_gb": rule_result.game_requirements.min_ram_gb,
-        "rec_ram_gb": rule_result.game_requirements.rec_ram_gb,
-    }
-    ml_result = ml_service.predict(ml_features)
-
-    # Cấu trúc phần cứng người dùng
-    user_hardware = HardwareScoreInfo(
-        device_type=payload.device_type,
-        cpu_model=canonical_cpu,
-        cpu_score=cpu_score,
-        gpu_model=canonical_gpu,
-        gpu_score=gpu_g3d_mark,
-        gpu_type=gpu_type,
-        ram_gb=payload.ram_gb,
-    )
-
-    # Gán FPS tham chiếu nếu có và là thiết lập 1080p High
     avg_fps = None
-    if fps_ref_result.has_reference and payload.graphics_preset.lower() == "high":
-        avg_fps = fps_ref_result.reference_fps
+    fps_source = None
+    if payload.graphics_preset != FPS_PRESET:
+        fps_message = "Chưa có dữ liệu FPS cho mức đồ họa này. Chọn 1080p High để xem kết quả."
+        reference = FpsReferenceResult(has_reference=False, message=fps_message)
+        ml_result = ml_service.status("unsupported_preset", fps_message)
+    else:
+        reference = fps_reference_service.get_fps_reference(
+            game_name, gpu_name, payload.device_type, page_url=page_url,
+        )
+        if rule_result and rule_result.status == "Khong_dat_toi_thieu":
+            fps_message = "Cấu hình dưới mức tối thiểu. Hệ thống chỉ hiển thị FPS tham chiếu của game và GPU nếu có."
+            ml_result = ml_service.status("below_minimum_requirements", fps_message)
+        elif reference.has_reference:
+            avg_fps = reference.reference_fps
+            fps_source = "reference"
+            fps_message = "FPS tham chiếu cho game và GPU ở 1080p High. CPU và RAM không quyết định số tham chiếu này."
+            ml_result = ml_service.status("reference_available", "Đã có FPS tham chiếu cho game và GPU.")
+        else:
+            game_row = fps_reference_service.get_row(page_url) or {}
+            ml_result = ml_service.predict(game_row, gpu_score)
+            if ml_result.prediction:
+                avg_fps = ml_result.prediction["avg_fps"]
+                fps_source = "ml_estimate"
+                fps_message = (
+                    "Ước tính ở 1080p High dựa trên điểm GPU và dữ liệu tham chiếu của game. "
+                    "CPU, RAM và TGP chưa được dùng làm đầu vào của mô hình FPS."
+                )
+            else:
+                fps_message = ml_result.message
 
     return PredictResponse(
-        user_hardware=user_hardware,
+        user_hardware=HardwareScoreInfo(
+            device_type=payload.device_type,
+            cpu_model=cpu_name,
+            cpu_score=cpu_score,
+            gpu_model=gpu_name,
+            gpu_score=gpu_score,
+            gpu_type=gpu_type,
+            ram_gb=payload.ram_gb,
+        ),
         rule_based=rule_result,
-        fps_reference=fps_ref_result,
+        fps_reference=reference,
         machine_learning=ml_result,
+        fps_source=fps_source,
+        fps_message=fps_message,
         avg_fps=avg_fps,
-        one_percent_low_fps=None,
-        model_version="waiting_for_user_model",
-        is_stub=False,
+        model_version=ml_result.model_version or "unavailable",
         warnings=warnings,
     )
+
+
+app.mount("/app", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")

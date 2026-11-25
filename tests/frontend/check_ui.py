@@ -3,7 +3,6 @@ import argparse
 import csv
 import json
 import os
-import shutil
 import threading
 import time
 from functools import partial
@@ -584,7 +583,7 @@ def main():
          ThreadingHTTPServer(("127.0.0.1", 8000), FixtureApi) as api, sync_playwright() as playwright:
         for server in (ui, api):
             threading.Thread(target=server.serve_forever, daemon=True).start()
-        browser_path = os.environ.get("BROWSER_PATH") or shutil.which("chromium")
+        browser_path = os.environ.get("BROWSER_PATH")
         launch = {"channel": args.channel} if args.channel else (
             {"executable_path": browser_path} if browser_path else {}
         )
